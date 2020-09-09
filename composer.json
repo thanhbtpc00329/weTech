@@ -13,6 +13,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3",
         "jenssegers/mongodb": "4.0.0-alpha.1",
+        "jrm2k6/cloudder": "0.4.*",
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "mongodb/mongodb": "^1.7"
