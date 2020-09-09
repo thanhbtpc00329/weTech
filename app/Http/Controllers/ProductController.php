@@ -72,7 +72,7 @@ class ProductController extends Controller
 
     //Category
     public function showCate(){
-		return Cate::all();
+		return Category::all();
 	}
     public function addCate(Request $request){
 		$data=$request->all();
@@ -126,7 +126,7 @@ class ProductController extends Controller
     {
     	return Product::all();
     }
-    public function showComment
+    public function showComment()
     {
         return Comment::all();
     }
