@@ -5,25 +5,40 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Cloudder;
 use App\Banner;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class AdminController extends Controller
 {
     // Banner
     public function showBanner(){
-        return view('upload');
+        $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+        echo Image::make($request->get('image'))->save(public_path('images/').$name);
     }
 	public function addBanner(Request $request){
 		$data=$request->all();
-        echo $data['hinh'];
-        // if ($request->hasFile('avatar')) {
-        //     //get name image
-            $filename = $data['hinh'];
-            $name = $filename->getClientOriginalName();
-            //upload image
-            Cloudder::upload($name, 'products/' . $name);
-         // }
-         //get url image on Cloudinary
-         // return Cloudder::show('uploads/'. $name);
+       //  if($request->get('image'))
+       // {
+       //    $image = $request->get('image');
+       //    $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+       //    \Image::make($request->get('image'))->save(public_path('images/').$name);
+       //  }
+        return $request->get('image');
+
+       // $image= new FileUpload();
+       // $image->image_name = $name;
+       // $image->save();
+
+       // return response()->json(['success' => 'You have successfully uploaded an image'], 200);
+        // echo $data['hinh'];
+        // // if ($request->hasFile('avatar')) {
+        // //     //get name image
+        //     $filename = $data['hinh'];
+        //     $name = $filename->getClientOriginalName();
+        //     //upload image
+        //     Cloudder::upload($name, 'products/' . $name);
+        //  // }
+        //  //get url image on Cloudinary
+        //  // return Cloudder::show('uploads/'. $name);
 	}
 
 	public function updateBanner(Request $request)
