@@ -6,6 +6,14 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Brand;
 use App\Category;
+use App\Bill;
+use App\Comment;
+use App\Contact;
+use App\Order;
+use App\Shipper;
+use App\Shop;
+use App\User;
+use App\Wishlist;
 class ProductController extends Controller
 {
 	// Brand
@@ -13,19 +21,19 @@ class ProductController extends Controller
 		return Brand::all();
 	}
 	public function addBrand(Request $request){
-		$data=$request->all();
-        $brand = new Brand;
-        $brand->brand_name=$data['ten'];
-        $brand->brand_description=$data['mota'];
-        $brand->status=$data['op'];
-        // $brand->created_at = now()->timezone('Asia/Ho_Chi_Minh');
-        $brand->save();
-        if ($brand) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
+		// $data=$request->all();
+  //       $brand = new Brand;
+  //       $brand->brand_name=$data['ten'];
+  //       $brand->brand_description=$data['mota'];
+  //       $brand->status=$data['op'];
+  //       // $brand->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+  //       $brand->save();
+  //       if ($brand) {
+  //           echo 'Thành công';
+  //       }
+  //       else{
+  //           echo 'Lỗi';
+  //       }
 	}
 
 	public function updateBrand(Request $request)
@@ -118,8 +126,37 @@ class ProductController extends Controller
     {
     	return Product::all();
     }
+    public function showComment
+    {
+        return Comment::all();
+    }
+    public function showContact()
+    {
+        return Contact::all();
+    }
+    public function showOrder()
+    {
+        return Order::all();
+    }
+    public function showShipper()
+    {
+        return Shipper::all();
+    }
+    public function showShop()
+    {
+        return Shop::all();
+    }
+    public function showUser()
+    {
+        return User::all();
+    }
+    public function showWishlist()
+    {
+        return Wishlist::all();
+    }
     public function get(Request $req)
     {
     	return $req->all();
     }
 }
+

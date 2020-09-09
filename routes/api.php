@@ -22,9 +22,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register','UserController@register');
 Route::post('/login','UserController@login');
 
-Route::get('/product','ProductController@showProduct');
-
-
+Route::post('/product','ProductController@showProduct');
+Route::post('/comment','ProductController@showComment');
+Route::post('/bill','ProductController@showProduct');
+Route::post('/user','ProductController@showProduct');
+Route::post('/shop','ProductController@showProduct');
+Route::post('/contact','ProductController@showContact');
+Route::post('/order','ProductController@showOrder');
+Route::post('/shipper','ProductController@showShipper');
+Route::post('/wishlist','ProductController@showWishlist');
 
 // Brand
 Route::get('/brand','ProductController@showBrand');
