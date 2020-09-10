@@ -21,28 +21,28 @@ class ProductController extends Controller
 		return Brand::all();
 	}
 	public function addBrand(Request $request){
-		// $data=$request->all();
-  //       $brand = new Brand;
-  //       $brand->brand_name=$data['ten'];
-  //       $brand->brand_description=$data['mota'];
-  //       $brand->status=$data['op'];
-  //       // $brand->created_at = now()->timezone('Asia/Ho_Chi_Minh');
-  //       $brand->save();
-  //       if ($brand) {
-  //           echo 'Thành công';
-  //       }
-  //       else{
-  //           echo 'Lỗi';
-  //       }
+		$data=$request->all();
+        $brand = new Brand;
+        $brand->brand_name=$data['brand_name'];
+        $brand->brand_description=$data['brand_description'];
+        $brand->status=$data['status'];
+        // $brand->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $brand->save();
+        if ($brand) {
+            echo 'Thành công';
+        }
+        else{
+            echo 'Lỗi';
+        }
 	}
 
 	public function updateBrand(Request $request)
     {
         $data=$request->all();
-        $brand = Brand::find($data['num']);
-        $brand->brand_name=$data['ten'];
-        $brand->brand_description=$data['mota'];
-        $brand->status=$data['op'];
+        $brand = Brand::find($data['id']);
+        $brand->brand_name=$data['brand_name'];
+        $brand->brand_description=$data['brand_description'];
+        $brand->status=$data['status'];
         // $brand->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
         $brand->save();
         if ($brand) {
@@ -56,7 +56,7 @@ class ProductController extends Controller
 	public function deleteBrand(Request $request)
     {
     	$data=$request->all();
-        $brand = Brand::find($data['num']);
+        $brand = Brand::find($data['id']);
         if ($brand) {
             echo 'Thành công';
         }
@@ -72,14 +72,14 @@ class ProductController extends Controller
 
     //Category
     public function showCate(){
-		return Cate::all();
+		return Category::all();
 	}
     public function addCate(Request $request){
 		$data=$request->all();
         $cate = new Category;
-        $cate->cate_name=$data['ten'];
-        $cate->cate_description=$data['mota'];
-        $cate->status=$data['op'];
+        $cate->cate_name=$data['cate_name'];
+        $cate->cate_description=$data['cate_description'];
+        $cate->status=$data['status'];
         // $cate->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $cate->save();
         if ($cate) {
@@ -93,10 +93,10 @@ class ProductController extends Controller
 	public function updateCate(Request $request)
     {
         $data=$request->all();
-        $cate = Category::find($data['num']);
-        $cate->cate_name=$data['ten'];
-        $cate->cate_description=$data['mota'];
-        $cate->status=$data['op'];
+        $cate = Category::find($data['id']);
+        $cate->cate_name=$data['cate_name'];
+        $cate->cate_description=$data['cate_description'];
+        $cate->status=$data['status'];
         // $cate->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
         $cate->save();
         if ($cate) {
@@ -110,7 +110,7 @@ class ProductController extends Controller
 	public function deleteCate(Request $request)
     {
     	$data=$request->all();
-        $cate = Category::find($data['num']);
+        $cate = Category::find($data['id']);
         if ($cate) {
             echo 'Thành công';
         }
@@ -126,7 +126,7 @@ class ProductController extends Controller
     {
     	return Product::all();
     }
-    public function showComment
+    public function showComment()
     {
         return Comment::all();
     }
@@ -153,10 +153,6 @@ class ProductController extends Controller
     public function showWishlist()
     {
         return Wishlist::all();
-    }
-    public function get(Request $req)
-    {
-    	return $req->all();
     }
 }
 

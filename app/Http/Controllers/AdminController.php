@@ -11,24 +11,11 @@ class AdminController extends Controller
 {
     // Banner
     public function showBanner(){
-        $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-        echo Image::make($request->get('image'))->save(public_path('images/').$name);
+        return Banner::all();
     }
 	public function addBanner(Request $request){
 		$data=$request->all();
-       //  if($request->get('image'))
-       // {
-       //    $image = $request->get('image');
-       //    $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-       //    \Image::make($request->get('image'))->save(public_path('images/').$name);
-       //  }
-        return $request->get('image');
-
-       // $image= new FileUpload();
-       // $image->image_name = $name;
-       // $image->save();
-
-       // return response()->json(['success' => 'You have successfully uploaded an image'], 200);
+        return $request->all();
         // echo $data['hinh'];
         // // if ($request->hasFile('avatar')) {
         // //     //get name image
