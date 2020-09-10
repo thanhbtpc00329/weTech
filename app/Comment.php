@@ -9,5 +9,5 @@ class Comment extends Model
     protected $primaryKey="id";
     protected $table="comments";
     protected $fillable=['name','username','email','content','product_id','rating','status'];
-    public $timestamps=true;
+    public $timestamps=false;
 }

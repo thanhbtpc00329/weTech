@@ -9,5 +9,5 @@ class Order extends Model
     protected $primaryKey="id";
     protected $table="orders";
     protected $fillable=['username','address','shipping','total','status','order_detail'];
-    public $timestamps=true;
+    public $timestamps=false;
 }

@@ -9,5 +9,5 @@ class Wishlist extends Model
     protected $primaryKey="id";
     protected $table="wishlists";
     protected $fillable=['username','product_name','product_image','product_id'];
-    public $timestamps=true;
+    public $timestamps=false;
 }

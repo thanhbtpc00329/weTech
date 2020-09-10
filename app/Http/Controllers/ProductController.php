@@ -21,12 +21,14 @@ class ProductController extends Controller
 		return Brand::all();
 	}
 	public function addBrand(Request $request){
-		$data=$request->all();
+		$brand_name = $request->brand_name;
+        $brand_description = $request->brand_description;
+        $status = $request->status;
         $brand = new Brand;
-        $brand->brand_name=$data['brand_name'];
-        $brand->brand_description=$data['brand_description'];
-        $brand->status=$data['status'];
-        // $brand->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $brand->brand_name=$brand_name;
+        $brand->brand_description=$brand_description;
+        $brand->status=$status;
+        $brand->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $brand->save();
         if ($brand) {
             echo 'Thành công';
@@ -38,12 +40,15 @@ class ProductController extends Controller
 
 	public function updateBrand(Request $request)
     {
-        $data=$request->all();
-        $brand = Brand::find($data['id']);
-        $brand->brand_name=$data['brand_name'];
-        $brand->brand_description=$data['brand_description'];
-        $brand->status=$data['status'];
-        // $brand->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $id = $request->id;
+        $brand_name = $request->brand_name;
+        $brand_description = $request->brand_description;
+        $status = $request->status;
+        $brand = Brand::find($id);
+        $brand->brand_name=$brand_name;
+        $brand->brand_description=$brand_description;
+        $brand->status=$status;
+        $brand->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
         $brand->save();
         if ($brand) {
             echo 'Thành công';
@@ -55,8 +60,8 @@ class ProductController extends Controller
 
 	public function deleteBrand(Request $request)
     {
-    	$data=$request->all();
-        $brand = Brand::find($data['id']);
+    	$id = $request->id;
+        $brand = Brand::find($id);
         if ($brand) {
             echo 'Thành công';
         }
@@ -75,12 +80,14 @@ class ProductController extends Controller
 		return Category::all();
 	}
     public function addCate(Request $request){
-		$data=$request->all();
+        $cate_name = $request->cate_name;
+        $cate_description = $request->cate_description;
+        $status = $request->status;
         $cate = new Category;
-        $cate->cate_name=$data['cate_name'];
-        $cate->cate_description=$data['cate_description'];
-        $cate->status=$data['status'];
-        // $cate->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $cate->cate_name=$cate_name;
+        $cate->cate_description=$cate_description;
+        $cate->status=$status;
+        $cate->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $cate->save();
         if ($cate) {
             echo 'Thành công';
@@ -92,12 +99,15 @@ class ProductController extends Controller
 
 	public function updateCate(Request $request)
     {
-        $data=$request->all();
-        $cate = Category::find($data['id']);
-        $cate->cate_name=$data['cate_name'];
-        $cate->cate_description=$data['cate_description'];
-        $cate->status=$data['status'];
-        // $cate->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $id = $request->id;
+        $cate_name = $request->cate_name;
+        $cate_description = $request->cate_description;
+        $status = $request->status;
+        $cate = Category::find($id);
+        $cate->cate_name=$cate_name;
+        $cate->cate_description=$cate_description;
+        $cate->status=$status;
+        $cate->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
         $cate->save();
         if ($cate) {
             echo 'Thành công';
@@ -109,8 +119,8 @@ class ProductController extends Controller
 
 	public function deleteCate(Request $request)
     {
-    	$data=$request->all();
-        $cate = Category::find($data['id']);
+    	$id = $request->id;
+        $cate = Category::find($id);
         if ($cate) {
             echo 'Thành công';
         }

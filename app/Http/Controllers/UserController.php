@@ -11,20 +11,27 @@ class UserController extends Controller
 {
     public function register(Request $request)
     {
-    	$data=$request->all();
+        $name = $request->name;
+        $username = $request->username;
+        $email = $request->email;
+        $password = $request->password;
+        $gender = $request->gender;
+        $address = $request->address;
+        $birth_day = $request->birth_day;
+        $phone_number = $request->phone_number;
+
         $account = new User;
-        $account->name=$data['name'];
-        $account->username=$data['username'];
-        $account->email=$data['email'];
-        $account->password=Hash::make($data['password']);
-        $account->gender=$data['gender'];
-        $account->address=$data['address'];
-        $account->birth_day=$data['birth_day'];
-        $account->phone_number=$data['phone_number'];
-        $account->avatar='dsdfsd';
+        $account->name=$name;
+        $account->username=$username;
+        $account->email=$email;
+        $account->password=Hash::make($password);
+        $account->gender=$gender;
+        $account->address=$address;
+        $account->birth_day=$birth_day;
+        $account->phone_number=$phone_number;
         $account->status=1;
-        $account->role='user';
-        // $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
+        $account->role='User';
+        $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
         $account->save();
         if ($account) {
             echo 'Thành công';

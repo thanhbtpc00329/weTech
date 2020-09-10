@@ -9,5 +9,5 @@ class Contact extends Model
     protected $primaryKey="id";
     protected $table="contacts";
     protected $fillable=['name','email','title','content','status'];
-    public $timestamps=true;
+    public $timestamps=false;
 }

@@ -15,8 +15,9 @@ class AdminController extends Controller
         return Banner::all();
     }
 	public function addBanner(Request $request){
-		$data=$request->all();
-        if ($request->file('image')) {
+		$image = $request->file('image');
+        $status = $request->status;
+        if ($image) {
             //get name image
             $filename =$request->file('image');
             $name = $filename->getClientOriginalName();
@@ -28,7 +29,8 @@ class AdminController extends Controller
 
          $banner = new Banner;
          $banner->image = Cloudder::show('banners/'. $cut);
-         $banner->status = $data['status'];
+         $banner->status = $status;
+         $banner->created_at = now()->timezone('Asia/Ho_Chi_Minh');
          $banner->save();
          if ($banner) {
             echo 'Thành công';
@@ -41,12 +43,25 @@ class AdminController extends Controller
 
 	public function updateBanner(Request $request)
     {
-        $data=$request->all();
-        $banner = Banner::find($data['num']);
-        $banner->banner_name=$data['ten'];
-        $banner->banner_description=$data['mota'];
-        $banner->status=$data['op'];
-        // $banner->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $id = $request->id;
+        $image = $request->file('image');
+        $status = $request->status;
+
+        if ($image) {
+            //get name image
+            $filename =$request->file('image');
+            $name = $filename->getClientOriginalName();
+            $extension = $filename->getClientOriginalExtension();
+            $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
+            //upload image
+            Cloudder::upload($filename, 'banners/' . $cut);            
+        }
+
+        $banner = Banner::find($id);
+        $banner->image = Cloudder::show('banners/'. $cut);
+        $banner->status = $status;
+        $banner->save();
+        $banner->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
         $banner->save();
         if ($banner) {
             echo 'Thành công';
@@ -58,8 +73,8 @@ class AdminController extends Controller
 
 	public function deleteBanner(Request $request)
     {
-    	$data=$request->all();
-        $banner = Banner::find($data['num']);
+    	$id = $request->id;
+        $banner = Banner::find($id);
         if ($banner) {
             echo 'Thành công';
         }

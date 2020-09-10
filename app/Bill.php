@@ -9,5 +9,5 @@ class Bill extends Model
     protected $primaryKey="id";
     protected $table="bills";
     protected $fillable=['name','username','email','total'];
-    public $timestamps=true;
+    public $timestamps=false;
 }
