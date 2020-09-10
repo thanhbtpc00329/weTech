@@ -16,11 +16,11 @@ class UserController extends Controller
         $account->name=$data['name'];
         $account->username=$data['username'];
         $account->email=$data['email'];
-        $account->password=Hash::make($data['pass']);
+        $account->password=Hash::make($data['password']);
         $account->gender=$data['gender'];
-        $account->address=$data['dc'];
-        $account->birth_day=$data['date'];
-        $account->phone_number=$data['phone'];
+        $account->address=$data['address'];
+        $account->birth_day=$data['birth_day'];
+        $account->phone_number=$data['phone_number'];
         $account->avatar='dsdfsd';
         $account->status=1;
         $account->role='user';
@@ -35,13 +35,15 @@ class UserController extends Controller
     }
     public function login(Request $request){
     	$data=$request->all();
-        $user = DB::table('users')->where('username',$data['username'])->orWhere('email',$data['username'])->get();
-        $pass = DB::table('users')->where('password',$data['pass'])->get();
-        if(count($user)>0 && count($pass)>0){
-        	echo 'Đăng nhập thành công';
+        // $user = DB::table('users')->where('username',$data['username'])->orWhere('email',$data['username'])->get();
+        // $pass = DB::table('users')->where('password',$data['password'])->get();
+        $user = User::where('password',$data['password'])->where('username',$data['username'])->orWhere('email',$data['username'])->where('password',$data['password'])->get();
+
+        if(count($user)>0){
+        	return 'Đăng nhập thành công';
         }
         else{
-        	echo 'Đăng nhập thất bại';
+        	return 'Đăng nhập thất bại';
         }
 
         

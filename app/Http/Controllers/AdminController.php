@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator,Redirect,Response,File;
 use Cloudder;
 use App\Banner;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -15,7 +16,10 @@ class AdminController extends Controller
     }
 	public function addBanner(Request $request){
 		$data=$request->all();
-        return $request->all();
+        if($request->file('image')){
+            $request->file('image')->store('public');
+            return 'true';
+        }else return 'sai';
         // echo $data['hinh'];
         // // if ($request->hasFile('avatar')) {
         // //     //get name image
