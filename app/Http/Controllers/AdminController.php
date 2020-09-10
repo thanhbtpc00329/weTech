@@ -16,20 +16,23 @@ class AdminController extends Controller
     }
 	public function addBanner(Request $request){
 		$data=$request->all();
-        if($request->file('image')){
-            $request->file('image')->store('public');
-            return 'true';
-        }else return 'sai';
-        // echo $data['hinh'];
-        // // if ($request->hasFile('avatar')) {
-        // //     //get name image
-        //     $filename = $data['hinh'];
-        //     $name = $filename->getClientOriginalName();
-        //     //upload image
-        //     Cloudder::upload($name, 'products/' . $name);
-        //  // }
-        //  //get url image on Cloudinary
-        //  // return Cloudder::show('uploads/'. $name);
+            // return $request->file('image');
+        if ($request->file('image')) {
+            //get name image
+            $filename =$request->file('image');
+         //    $name = $filename->getClientOriginalName();
+         //    //upload image
+         //    Cloudder::upload($name, 'products/' . $name);
+         // }
+         // // get url image on Cloudinary
+         // return Cloudder::show('products/'. $name);
+         $name = $filename->getClientOriginalExtension();
+            //upload image
+            Cloudder::upload($filename, 'products/' . $name);
+         }
+         // get url image on Cloudinary
+         return $name;
+        }
 	}
 
 	public function updateBanner(Request $request)
