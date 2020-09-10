@@ -34,19 +34,11 @@ class UserController extends Controller
         }
     }
     public function login(Request $request){
-    	$data=$request->all();
-        // $user = DB::table('users')->where('username',$data['username'])->orWhere('email',$data['username'])->get();
-        // $pass = DB::table('users')->where('password',$data['password'])->get();
-        $user = User::where('password',$data['password'])->where('username',$data['username'])->orWhere('email',$data['username'])->where('password',$data['password'])->get();
-
-        if(count($user)>0){
-        	return 'Đăng nhập thành công';
-        }
-        else{
-        	return 'Đăng nhập thất bại';
-        }
-
-        
-        
+        $name = $request->username;
+        $pass = $request->password;
+        // $user = DB::table('users')->where('username',$name)->orWhere('email',$name])->get();
+        // $pass = DB::table('users')->where('password',$pass)->get();
+        $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
+        return response()->json(['error' => 'Lỗi',$user]);  
     }
 }

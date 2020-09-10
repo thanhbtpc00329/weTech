@@ -16,23 +16,27 @@ class AdminController extends Controller
     }
 	public function addBanner(Request $request){
 		$data=$request->all();
-            // return $request->file('image');
         if ($request->file('image')) {
             //get name image
             $filename =$request->file('image');
-         //    $name = $filename->getClientOriginalName();
-         //    //upload image
-         //    Cloudder::upload($name, 'products/' . $name);
-         // }
-         // // get url image on Cloudinary
-         // return Cloudder::show('products/'. $name);
-         $name = $filename->getClientOriginalExtension();
+            $name = $filename->getClientOriginalName();
+            $extension = $filename->getClientOriginalExtension();
+            $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
             //upload image
-            Cloudder::upload($filename, 'products/' . $name);
-         }
-         // get url image on Cloudinary
-         return $name;
+            Cloudder::upload($filename, 'banners/' . $cut);            
         }
+
+         $banner = new Banner;
+         $banner->image = Cloudder::show('banners/'. $cut);
+         $banner->status = $data['status'];
+         $banner->save();
+         if ($banner) {
+            echo 'Thành công';
+        }
+        else{
+            echo 'Lỗi';
+        }
+
 	}
 
 	public function updateBanner(Request $request)
