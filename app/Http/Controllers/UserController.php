@@ -46,6 +46,10 @@ class UserController extends Controller
         // $user = DB::table('users')->where('username',$name)->orWhere('email',$name])->get();
         // $pass = DB::table('users')->where('password',$pass)->get();
         $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
-        return response()->json(['error' => 'Lỗi',$user]);  
+        if(count($user) <= 0){
+            return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);  
+        }else{
+            return response()->json($user);
+        }
     }
 }

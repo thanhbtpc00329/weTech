@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Product;
 use App\Brand;
 use App\Category;
@@ -134,7 +135,8 @@ class ProductController extends Controller
 
     public function showProduct()
     {
-    	return Product::all();
+    	$req = rand(1,10000000);
+        return $req.'-'.Hash::make($req);
     }
     public function showComment()
     {
