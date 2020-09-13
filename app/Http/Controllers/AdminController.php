@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Validator,Redirect,Response,File;
 use Cloudder;
 use App\Banner;
+use App\Shipper;
+use App\Shop;
+use App\Bill;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class AdminController extends Controller
@@ -75,12 +78,58 @@ class AdminController extends Controller
     {
     	$id = $request->id;
         $banner = Banner::find($id);
+        $banner->delete();
         if ($banner) {
             echo 'Thành công';
         }
         else{
             echo 'Lỗi';
         }
-        $banner->delete();
     }
+
+
+    // Bill
+    public function showBill(){
+        return Bill::all();
+    }
+
+    public function addBill(Request $request){
+        $name = $request->name;
+        $username = $request->username;
+        $email = $request->email;
+        $total = $request->total;
+
+        $bill = new Bill;
+
+        $bill->name = $name;
+        $bill->username = $username;
+        $bill->email = $email;
+        $bill->total = $total;
+        $bill->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $bill->save();
+        if ($bill) {
+            echo 'Thành công';
+        }
+        else{
+            echo 'Lỗi';
+        }
+
+    }
+
+
+
+
+    public function showShipper()
+    {
+        return Shipper::all();
+    }
+
+    
+    public function showShop()
+    {
+        return Shop::all();
+    }
+
+
 }

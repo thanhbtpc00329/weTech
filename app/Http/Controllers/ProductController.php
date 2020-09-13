@@ -8,13 +8,8 @@ use App\Product;
 use App\Brand;
 use App\Category;
 use App\Bill;
-use App\Comment;
-use App\Contact;
-use App\Order;
-use App\Shipper;
-use App\Shop;
-use App\User;
-use App\Wishlist;
+
+
 class ProductController extends Controller
 {
 	// Brand
@@ -138,33 +133,6 @@ class ProductController extends Controller
     	$req = rand(1,10000000);
         return $req.'-'.Hash::make($req);
     }
-    public function showComment()
-    {
-        return Comment::all();
-    }
-    public function showContact()
-    {
-        return Contact::all();
-    }
-    public function showOrder()
-    {
-        return Order::all();
-    }
-    public function showShipper()
-    {
-        return Shipper::all();
-    }
-    public function showShop()
-    {
-        return Shop::all();
-    }
-    public function showUser()
-    {
-        return User::all();
-    }
-    public function showWishlist()
-    {
-        return Wishlist::all();
-    }
+    
 }
 

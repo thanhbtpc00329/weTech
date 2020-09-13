@@ -23,14 +23,9 @@ Route::post('/register','UserController@register');
 Route::post('/login','UserController@login');
 
 Route::post('/product','ProductController@showProduct');
-Route::post('/comment','ProductController@showComment');
-Route::post('/bill','ProductController@showProduct');
 Route::post('/user','ProductController@showProduct');
-Route::post('/shop','ProductController@showProduct');
-Route::post('/contact','ProductController@showContact');
-Route::post('/order','ProductController@showOrder');
-Route::post('/shipper','ProductController@showShipper');
-Route::post('/wishlist','ProductController@showWishlist');
+
+
 
 // Brand
 Route::get('/brand','ProductController@showBrand');
@@ -51,3 +46,50 @@ Route::get('/banner','AdminController@showBanner');
 Route::post('/add-banner', 'AdminController@addBanner');
 Route::post('/update-banner', 'AdminController@updateBanner');
 Route::post('/delete-banner', 'AdminController@deleteBanner');
+
+
+// Comment
+Route::get('/comment','UserController@showComment');
+Route::post('/add-comment','UserController@addComment');
+Route::post('/update-comment','UserController@updateComment');
+Route::post('/delete-comment','UserController@deleteComment');
+
+
+// Contact
+Route::get('/contact','UserController@showContact');
+Route::post('/add-contact','UserController@addContact');
+Route::post('/update-contact','UserController@updateContact');
+Route::post('/delete-contact','UserController@deleteContact');
+
+
+// Order
+Route::get('/order','UserController@showOrder');
+Route::post('/add-order','UserController@addOrder');
+Route::post('/update-order','UserController@updateOrder');
+Route::post('/delete-order','UserController@deleteOrder');
+
+
+// Wishlist
+Route::get('/wishlist','UserController@showWishlist');
+Route::post('/add-wishlist','UserController@addWishlist');
+
+Route::post('/delete-wishlist','UserController@deleteWishlist');
+
+
+// Shipper->chưa làm
+Route::get('/shipper','AdminController@showShipper');
+Route::post('/add-shipper','AdminController@addShipper');
+Route::post('/update-shipper','AdminController@updateShipper');
+Route::post('/delete-shipper','AdminController@deleteShipper');
+
+
+// Shop->chưa làm
+Route::get('/shop','AdminController@showShop');
+Route::post('/add-shop','AdminController@addShop');
+Route::post('/update-shop','AdminController@updateShop');
+Route::post('/delete-shop','AdminController@deleteShop');
+
+
+// Bill
+Route::get('/bill','AdminController@showBill');
+Route::post('/add-bill','AdminController@addBill');

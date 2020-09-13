@@ -18,10 +18,11 @@ class CreateProductDetailTable extends Migration
             $table->integer('product_id')->length(10)->unsigned();
             $table->integer('price')->unsigned();
             $table->string('color');
-            $table->integer('amount')->length(50)->unsigned();
+            $table->integer('quantity')->length(50)->unsigned();
             $table->integer('size')->length(50)->unsigned();
             $table->boolean('status');
             $table->integer('discount_price')->unsigned();
+            $table->text('product_image');
             $table->timestamps();
 
             $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');

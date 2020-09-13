@@ -18,7 +18,7 @@ class CreateShippersTable extends Migration
             $table->string('name',50);
             $table->string('username',32);
             $table->string('delivery_address');
-            $table->integer('user_id')->length(10)->unsigned();
+            $table->string('user_id');
             $table->boolean('status');
             $table->timestamps();
 
