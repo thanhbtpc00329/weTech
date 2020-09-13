@@ -14,14 +14,14 @@ class CreateProductDetailTable extends Migration
     public function up()
     {
         Schema::create('product_detail', function (Blueprint $table) {
-            $table->increments('prodetail_id');
+            $table->increments('id');
             $table->integer('product_id')->length(10)->unsigned();
             $table->integer('price')->unsigned();
             $table->string('color');
             $table->integer('quantity')->length(50)->unsigned();
-            $table->integer('size')->length(50)->unsigned();
+            $table->integer('size')->length(50)->unsigned()->nullable();
             $table->boolean('status');
-            $table->integer('discount_price')->unsigned();
+            $table->integer('discount_price')->unsigned()->nullable();
             $table->text('product_image');
             $table->timestamps();
 

@@ -18,7 +18,7 @@ class CreateShopsTable extends Migration
             $table->string('name',50);
             $table->string('address');
             $table->text('location');
-            $table->integer('phone_number')->length(10);
+            $table->string('phone_number',20);
             $table->timestamps();
         });
     }
