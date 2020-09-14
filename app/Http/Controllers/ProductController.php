@@ -134,11 +134,10 @@ class ProductController extends Controller
     // Product
     public function showProduct()
     {
-        // Sản phẩm và chi tiết
-        $product = DB::select('select * from products,product_detail');
-        // Các bảng có liên quan 
-        // $product = DB::select('select * from products,product_detail,categories,brands,shops'); 
-        return response()->json($product);
+        $product1 = Product::all();
+        $product2 = Product_detail::all()->groupBy('product_id')->union($product1);
+        // $product = DB::select('SELECT * FROM products UNION SELECT * FROM product_detail GROUP BY product_id');
+        return response()->json($product2);
     }
     
 }
