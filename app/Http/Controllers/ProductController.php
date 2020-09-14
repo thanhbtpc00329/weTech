@@ -134,9 +134,8 @@ class ProductController extends Controller
     // Product
     public function showProduct()
     {
-        $product1 = Product::all();
-        $product2 = Product_detail::all()->groupBy('product_id')->union($product1);
-        return response()->json($product2);
+        $product = DB::table('products')->leftJoin('product_detail','products.product_id','=','product_detail.product_id')->groupBy('product_detail.product_id')->get();
+        return response()->json($product);
     }
 
     public function test(){
