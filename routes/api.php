@@ -22,9 +22,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register','UserController@register');
 Route::post('/login','UserController@login');
 
-Route::post('/product','ProductController@showProduct');
+
 Route::post('/user','ProductController@showProduct');
 
+
+// Product
+Route::get('/product','ProductController@showProduct');
 
 
 // Brand
@@ -83,7 +86,7 @@ Route::post('/update-shipper','AdminController@updateShipper');
 Route::post('/delete-shipper','AdminController@deleteShipper');
 
 
-// Shop->chưa làm
+// Shop
 Route::get('/shop','AdminController@showShop');
 Route::post('/add-shop','AdminController@addShop');
 Route::post('/update-shop','AdminController@updateShop');

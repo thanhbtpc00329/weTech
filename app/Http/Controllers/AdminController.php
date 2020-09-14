@@ -119,6 +119,70 @@ class AdminController extends Controller
 
 
 
+    // Shop
+    public function showShop()
+    {
+        return Shop::all();
+    }
+
+    public function addShop(Request $request){
+        $name = $request->name;
+        $address = $request->address;
+        $location = $request->location;
+        $phone_number = $request->phone_number;
+
+        $shop = new Shop;
+        $shop->name = $name;
+        $shop->address = $address;
+        $shop->location = $location;
+        $shop->phone_number = $phone_number;
+        $shop->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $shop->save();
+        if ($shop) {
+            echo 'Thành công';
+        }
+        else{
+            echo 'Lỗi';
+        }
+    }
+
+    public function updateShop(Request $request){
+        $id = $request->shop_id;
+        $name = $request->name;
+        $address = $request->address;
+        $location = $request->location;
+        $phone_number = $request->phone_number;
+
+        $shop = Shop::where('shop_id',$id)->update([
+            'name'=>$name,
+            'address'=>$address,
+            'location'=>$location,
+            'phone_number'=>$phone_number,
+            'updated_at'=>now()->timezone('Asia/Ho_Chi_Minh')
+        ]);
+
+        if ($shop) {
+            echo 'Thành công';
+        }
+        else{
+            echo 'Lỗi';
+        }
+    }
+
+    public function deleteShop(Request $request){
+        $id = $request->shop_id;
+
+        $shop = Shop::where('shop_id',$id)->delete();
+        if ($shop) {
+            echo 'Thành công';
+        }
+        else{
+            echo 'Lỗi';
+        }
+    }
+
+
 
     public function showShipper()
     {
@@ -126,10 +190,7 @@ class AdminController extends Controller
     }
 
     
-    public function showShop()
-    {
-        return Shop::all();
-    }
+    
 
 
 }

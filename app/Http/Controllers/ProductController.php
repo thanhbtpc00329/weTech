@@ -8,6 +8,9 @@ use App\Product;
 use App\Brand;
 use App\Category;
 use App\Bill;
+use App\Product_detail;
+use App\Shop;
+use DB;
 
 
 class ProductController extends Controller
@@ -128,10 +131,14 @@ class ProductController extends Controller
 
 
 
+    // Product
     public function showProduct()
     {
-    	$req = rand(1,10000000);
-        return $req.'-'.Hash::make($req);
+        // Sản phẩm và chi tiết
+        $product = DB::select('select * from products,product_detail');
+        // Các bảng có liên quan 
+        // $product = DB::select('select * from products,product_detail,categories,brands,shops'); 
+        return response()->json($product);
     }
     
 }
