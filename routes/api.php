@@ -25,6 +25,7 @@ Route::post('/login','UserController@login');
 
 Route::post('/user','ProductController@showProduct');
 
+Route::get('/test','ProductController@test');
 
 // Product
 Route::get('/product','ProductController@showProduct');

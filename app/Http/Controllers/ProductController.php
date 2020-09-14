@@ -136,8 +136,11 @@ class ProductController extends Controller
     {
         $product1 = Product::all();
         $product2 = Product_detail::all()->groupBy('product_id')->union($product1);
-        // $product = DB::select('SELECT * FROM products UNION SELECT * FROM product_detail GROUP BY product_id');
         return response()->json($product2);
+    }
+
+    public function test(){
+        return view('upload');
     }
     
 }
