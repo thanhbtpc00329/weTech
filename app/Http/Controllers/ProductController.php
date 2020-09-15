@@ -140,6 +140,19 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    public function showDetail(){
+        $id = 329;
+
+        $detail = DB::table('products')
+            ->join('brands','brands.brand_id','=','products.brand_id')
+            ->join('categories','categories.cate_id','=','products.cate_id')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->where('products.product_id','=',329)->get();
+
+        return response()->json($detail);
+    }
+
     public function test(){
         return view('upload');
     }
