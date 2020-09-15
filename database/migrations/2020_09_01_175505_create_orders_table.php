@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->integer('shipping')->length(10)->unsigned();
             $table->integer('total')->length(10)->unsigned();
+            $table->string('shop');
             $table->boolean('status');
             $table->text('order_detail');
             $table->timestamps();

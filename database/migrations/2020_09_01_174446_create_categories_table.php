@@ -17,6 +17,8 @@ class CreateCategoriesTable extends Migration
             $table->increments('cate_id');
             $table->string('cate_name',50);
             $table->text('cate_description')->nulable();
+            $table->string('image');
+            $table->string('category');
             $table->boolean('status');
             $table->timestamps();
         });
