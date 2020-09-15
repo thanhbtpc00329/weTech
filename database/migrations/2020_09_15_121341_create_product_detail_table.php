@@ -14,7 +14,7 @@ class CreateProductDetailTable extends Migration
     public function up()
     {
         Schema::create('product_detail', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('prodetail_id'); 
             $table->integer('product_id')->length(10)->unsigned();
             $table->integer('price')->unsigned();
             $table->string('color');
@@ -22,7 +22,6 @@ class CreateProductDetailTable extends Migration
             $table->integer('size')->length(50)->unsigned()->nullable();
             $table->boolean('status');
             $table->integer('discount_price')->unsigned()->nullable();
-            $table->text('product_image');
             $table->timestamps();
 
             $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');

@@ -15,6 +15,7 @@ class CreateShopsTable extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->increments('shop_id');
+            $table->string('user_id');
             $table->string('shop_name',50);
             $table->string('address');
             $table->text('location');
@@ -22,6 +23,9 @@ class CreateShopsTable extends Migration
             $table->string('identity_card');
             $table->string('background');
             $table->timestamps();
+
+
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 

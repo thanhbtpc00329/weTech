@@ -10,6 +10,7 @@ use App\Category;
 use App\Bill;
 use App\Product_detail;
 use App\Shop;
+use App\Product_image;
 use DB;
 
 
@@ -134,7 +135,8 @@ class ProductController extends Controller
     // Product
     public function showProduct()
     {
-        $product = DB::table('products')->leftJoin('product_detail','products.product_id','=','product_detail.product_id')->groupBy('product_detail.product_id')->get();
+        // $product = DB::table('products')->leftJoin('product_detail','products.product_id','=','product_detail.product_id')->groupBy('product_detail.product_id')->get();
+        $product = DB::table('products')->join('product_detail','product_detail.product_id','=','products.product_id')->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')->groupBy('product_detail.product_id')->get();
         return response()->json($product);
     }
 
