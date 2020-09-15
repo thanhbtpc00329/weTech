@@ -29,7 +29,7 @@ Route::get('/test','ProductController@test');
 
 // Product
 Route::get('/product','ProductController@showProduct');
-Route::get('/detail','ProductController@showDetail');
+Route::post('/detail','ProductController@showDetail');
 
 // Brand
 Route::get('/brand','ProductController@showBrand');
