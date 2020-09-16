@@ -136,7 +136,13 @@ class ProductController extends Controller
     public function showProduct()
     {
         // $product = DB::table('products')->leftJoin('product_detail','products.product_id','=','product_detail.product_id')->groupBy('product_detail.product_id')->get();
-        $product = DB::table('products')->join('product_detail','product_detail.product_id','=','products.product_id')->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')->groupBy('product_detail.product_id')->get();
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->groupBy('product_detail.product_id')
+            ->select('products.product_id','products.product_name','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
+            ->get();
         return response()->json($product);
     }
 
@@ -148,7 +154,10 @@ class ProductController extends Controller
             ->join('categories','categories.cate_id','=','products.cate_id')
             ->join('product_detail','product_detail.product_id','=','products.product_id')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
-            ->where('products.product_id','=',$id)->get();
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.product_id','=',$id)
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','address','shops.phone_number')
+            ->get();
 
         return response()->json($detail);
     }
