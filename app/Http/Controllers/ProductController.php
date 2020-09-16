@@ -141,7 +141,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->groupBy('product_detail.product_id')
-            ->select('products.product_id','products.product_name','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
             ->get();
         return response()->json($product);
     }

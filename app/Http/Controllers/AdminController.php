@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator,Redirect,Response,File;
 use Cloudder;
 use App\Banner;
 use App\Shipper;
