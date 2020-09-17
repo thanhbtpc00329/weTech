@@ -17,7 +17,7 @@ class CreateProductDetailTable extends Migration
             $table->increments('prodetail_id'); 
             $table->integer('product_id')->length(10)->unsigned();
             $table->integer('price')->unsigned();
-            $table->string('color');
+            $table->string('color')->nullable();
             $table->integer('quantity')->length(50)->unsigned();
             $table->integer('size')->length(50)->unsigned()->nullable();
             $table->boolean('status');

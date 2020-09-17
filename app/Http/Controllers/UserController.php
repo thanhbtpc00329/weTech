@@ -15,7 +15,14 @@ class UserController extends Controller
 {
     public function register(Request $request)
     {
-        $id = Hash::make(rand(1,100000000));
+        $ch1 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $ch1len = strlen($ch1);
+        $rd = '';
+        for ($i = 0; $i < 4; $i++) {
+            $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
+        }
+        $rd = $ran;
+        $id = Hash::make($ran);
         $name = $request->name;
         $username = $request->username;
         $email = $request->email;

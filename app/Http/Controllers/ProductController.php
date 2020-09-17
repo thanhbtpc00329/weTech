@@ -176,7 +176,14 @@ class ProductController extends Controller
     }
 
     public function test(){
-        return view('upload');
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 4; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)].rand(0,9).rand(0,9);
+        }
+        $x = $randomString;
+        return $x;
     }
     
 }
