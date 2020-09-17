@@ -22,6 +22,16 @@ class CreateProductDetailTable extends Migration
             $table->integer('size')->length(50)->unsigned()->nullable();
             $table->boolean('status');
             $table->integer('discount_price')->unsigned()->nullable();
+            $table->string('origin')->nullable();
+            $table->string('accessorry')->nullable();
+            $table->string('dimention')->nullable();
+            $table->string('weight')->nullable();
+            $table->string('system')->nullable();
+            $table->string('material')->nullable();
+            $table->string('screen_size')->nullable();
+            $table->string('wattage')->nullable();
+            $table->string('resolution')->nullable();
+            $table->string('memory')->nullable();
             $table->timestamps();
 
             $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
