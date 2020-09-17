@@ -169,10 +169,10 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('product_info','product_info.product_id','=','products.product_id')
             ->where('products.product_id','=',$id)
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','address','shops.phone_number')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','address','shops.phone_number','product_info.origin','product_info.accessorry','product_info.dimention','product_info.weight','product_info.system','product_info.material','product_info.screen_size','product_info.wattage','product_info.resolution','product_info.memory')
             ->get();
 
-        return $detail;
+        return response()->json($detail);
     }
 
     public function test(){
