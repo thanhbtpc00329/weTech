@@ -146,6 +146,18 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    public function showAll(){
+        $show = DB::table('products')
+            ->join('brands','brands.brand_id','=','products.brand_id')
+            ->join('categories','categories.cate_id','=','products.cate_id')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','address','shops.phone_number')
+            ->get();
+            return response()->json($show);
+    }
+
     public function showDetail(Request $request){
         $id = $request->id;
 
@@ -155,11 +167,12 @@ class ProductController extends Controller
             ->join('product_detail','product_detail.product_id','=','products.product_id')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
+            ->join('product_info','product_info.product_id','=','products.product_id')
             ->where('products.product_id','=',$id)
             ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','address','shops.phone_number')
             ->get();
 
-        return response()->json($detail);
+        return $detail;
     }
 
     public function test(){

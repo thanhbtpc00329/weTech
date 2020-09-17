@@ -29,6 +29,7 @@ Route::get('/test','ProductController@test');
 
 // Product
 Route::get('/product','ProductController@showProduct');
+Route::get('/show','ProductController@showAll');
 Route::post('/detail','ProductController@showDetail');
 
 // Brand
