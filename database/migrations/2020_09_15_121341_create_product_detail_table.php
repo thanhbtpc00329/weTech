@@ -23,8 +23,8 @@ class CreateProductDetailTable extends Migration
             $table->boolean('status');
             $table->integer('discount_price')->unsigned()->nullable();
             $table->string('origin')->nullable();
-            $table->string('accessorry')->nullable();
-            $table->string('dimention')->nullable();
+            $table->string('accessory')->nullable();
+            $table->string('dimension')->nullable();
             $table->string('weight')->nullable();
             $table->string('system')->nullable();
             $table->string('material')->nullable();
