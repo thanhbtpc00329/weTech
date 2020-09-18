@@ -76,6 +76,10 @@ class ProductController extends Controller
 
 
     //Category
+    public function category(){
+        $cate = DB::table('categories')->groupBy('category')->get();
+        return response()->json($cate);
+    }
     public function showCate(){
 		return Category::all();
 	}
@@ -159,8 +163,8 @@ class ProductController extends Controller
             ->where('products.product_id','=',$id)
             ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
             ->get();
-
-        return response()->json($detail);
+            $da = json_decode($detail);
+        return var_dump($da);
     }
 
 
@@ -189,9 +193,15 @@ class ProductController extends Controller
 
     public function test(Request $request){
         $data = $request->txtContent;
-        $data2 = html_entity_decode($data); 
-        return $data2; 
-            
+        $test = DB::table('test')->insert(
+            ['nd' => $data]
+        );  
+        if ($test) {
+                return 'true';
+        }
+        else{
+            return 'false';
+        }    
     }
     
 }
