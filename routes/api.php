@@ -25,12 +25,18 @@ Route::post('/login','UserController@login');
 
 Route::post('/user','ProductController@showProduct');
 
-Route::get('/test','ProductController@test');
+Route::get('/test',function()
+{
+	return view('upload');
+});
+Route::post('/post','ProductController@test');
 
 // Product
 Route::get('/product','ProductController@showProduct');
-// Route::get('/show','ProductController@showAll');
+Route::post('/add-product', 'ProductController@addProduct');
+
 Route::post('/detail','ProductController@showDetail');
+
 
 // Brand
 Route::get('/brand','ProductController@showBrand');

@@ -132,10 +132,10 @@ class ProductController extends Controller
 
 
 
+
     // Product
     public function showProduct()
     {
-        // $product = DB::table('products')->leftJoin('product_detail','products.product_id','=','product_detail.product_id')->groupBy('product_detail.product_id')->get();
         $product = DB::table('products')
             ->join('product_detail','product_detail.product_id','=','products.product_id')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
@@ -144,18 +144,6 @@ class ProductController extends Controller
             ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
             ->get();
         return response()->json($product);
-    }
-
-    public function showAll(){
-        // $show = DB::table('products')
-        //     ->join('brands','brands.brand_id','=','products.brand_id')
-        //     ->join('categories','categories.cate_id','=','products.cate_id')
-        //     ->join('product_detail','product_detail.product_id','=','products.product_id')
-        //     ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
-        //     ->join('shops','shops.shop_id','=','products.shop_id')
-        //     ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','address','shops.phone_number')
-        //     ->get();
-        //     return response()->json($show);
     }
 
     public function showDetail(Request $request){
@@ -167,22 +155,43 @@ class ProductController extends Controller
             ->join('product_detail','product_detail.product_id','=','products.product_id')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
+            ->join('users','users.user_id','=','shops.user_id')
             ->where('products.product_id','=',$id)
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
             ->get();
 
         return response()->json($detail);
     }
 
-    public function test(){
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < 4; $i++) {
-            $randomString .= $characters[rand(0, $charactersLength - 1)].rand(0,9).rand(0,9);
-        }
-        $x = $randomString;
-        return $x;
+
+    public function addProduct(Request $request){
+        $product_name = $request->product_name;
+        $brand_id = $request->brand_id;
+        $cate_id = $request->cate_id;
+        $introduction = $request->introduction;
+        $description = $request->description;
+        $tag = $request->tag;
+        $shop_id = $request->shop_id;
+
+        $prod = new Product;
+        $prod->product_name = $product_name;
+        $prod->brand_id = $brand_id;
+        $prod->cate_id = $cate_id;
+        $prod->introduction = $introduction;
+        $prod->description = $description;
+        $prod->tag = $tag;
+        $prod->shop_id = $shop_id;
+
+        $prod->save();
+
+
+    }
+
+    public function test(Request $request){
+        $data = $request->txtContent;
+        $data2 = html_entity_decode($data); 
+        return $data2; 
+            
     }
     
 }
