@@ -203,18 +203,24 @@ class ProductController extends Controller
     public function detailInfo(Request $request){
         $id = $request->id;
 
-        $detail = Product_detail::where('product_id',$id)->get();
+        $detail = DB::table('product_detail')
+            ->where('product_id',$id)
+            
+            ->get();
             $da = json_decode($detail);
             
             $arr = Schema::getColumnListing('product_detail');
             $da4 = [];
             for ($j=0; $j < count($da) ; $j++) { 
                 $da2 = $da[$j];
-                for ($i=0; $i <= 19 ; $i++) {
+                for ($i=2; $i <= 19 ; $i++) {
                     $x = $arr[$i];
-                    if($da2->$x === null){
-                        unset($da2->$x);
+                    if ($arr[$i] != $arr[6]) { 
+                        if($da2->$x == null){
+                            unset($da2->$x);
+                        }
                     }
+                    else{unset($da2->status);}
                 }
                 array_push($da4,$da2);
             }
@@ -224,7 +230,14 @@ class ProductController extends Controller
     }
 
 
-    public function addProduct(Request $request){
+    public function addProductDetail(Request $request){
+        $ch1 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $ch1len = strlen($ch1);
+        $rd = '';
+        for ($i = 0; $i < 4; $i++) {
+            $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
+        }
+        $id = 57667;
         $product_name = $request->product_name;
         $brand_id = $request->brand_id;
         $cate_id = $request->cate_id;
@@ -232,6 +245,24 @@ class ProductController extends Controller
         $description = $request->description;
         $tag = $request->tag;
         $shop_id = $request->shop_id;
+
+        $product_id = $id;
+        $price = $request->price;
+        $color = $request->color;
+        $quantity = $request->quantity;
+        $size = $request->size;
+        $status = $request->status;
+        $discount_price = $request->discount_price;
+        $origin = $request->origin;
+        $accessory = $request->accessory;
+        $dimension = $request->dimension;
+        $weight = $request->weight;
+        $system = $request->system;
+        $material = $request->material;
+        $screen_size = $request->screen_size;
+        $wattage = $request->wattage;
+        $resolution = $request->resolution;
+        $memory = $request->memory;
 
         $prod = new Product;
         $prod->product_name = $product_name;
@@ -241,11 +272,40 @@ class ProductController extends Controller
         $prod->description = $description;
         $prod->tag = $tag;
         $prod->shop_id = $shop_id;
+        $prod->created_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $prod->save();
 
+                
 
         $pro = new Product_detail;
+        $pro->product_id = $product_id;
+        $pro->price = $price;
+        $pro->color = $color;
+        $pro->quantity = $quantity;
+        $pro->size = $size;
+        $pro->status = $status;
+        $pro->discount_price = $discount_price;
+        $pro->origin = $origin;
+        $pro->accessory = $accessory;
+        $pro->dimension = $dimension;
+        $pro->weight = $weight;
+        $pro->system = $system;
+        $pro->material = $material;
+        $pro->screen_size = $screen_size;
+        $pro->wattage = $wattage;
+        $pro->resolution = $resolution;
+        $pro->memory = $memory;
+        $pro->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $pro->save();
+
+        if($prod && $pro){
+            return 'Thành công';
+        }
+        else{
+            return 'Thất bại';
+        }
 
 
     }

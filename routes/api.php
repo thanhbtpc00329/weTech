@@ -36,7 +36,9 @@ Route::post('/post','ProductController@test');
 Route::get('/product','ProductController@showProduct');
 Route::post('/product-type','ProductController@productType');
 Route::post('/product-shop','ProductController@productShop');
-Route::post('/add-product', 'ProductController@addProduct');
+Route::post('/add-detail', 'ProductController@addProductDetail');
+Route::post('/add-image', 'ProductController@addProductImage');
+
 
 Route::post('/detail-info','ProductController@detailInfo');
 Route::post('/detail','ProductController@showDetail');
