@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 use App\Product;
 use App\Brand;
 use App\Category;
@@ -164,7 +165,22 @@ class ProductController extends Controller
             ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
             ->get();
             $da = json_decode($detail);
-        return var_dump($da);
+            
+            $arr = Schema::getColumnListing('product_detail');
+            $da4 = [];
+            for ($j=0; $j < count($da) ; $j++) { 
+                $da2 = $da[$j];
+                for ($i=0; $i <= 17 ; $i++) {
+                    $x = $arr[$i];
+                    if($da2->$x == null){
+                        unset($da2->$x);
+                    }
+                }
+                array_push($da4,$da2);
+            }
+            $da3 = json_encode($da4);
+            
+            return response()->json($da3);
     }
 
 
@@ -192,16 +208,43 @@ class ProductController extends Controller
     }
 
     public function test(Request $request){
-        $data = $request->txtContent;
-        $test = DB::table('test')->insert(
-            ['nd' => $data]
-        );  
-        if ($test) {
-                return 'true';
-        }
-        else{
-            return 'false';
-        }    
+        $detail = DB::table('products')
+            ->join('brands','brands.brand_id','=','products.brand_id')
+            ->join('categories','categories.cate_id','=','products.cate_id')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->join('users','users.user_id','=','shops.user_id')
+            ->where('products.product_id','=',329)
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
+            ->get();
+            $da = json_decode($detail);
+            
+            $arr = Schema::getColumnListing('product_detail');
+            $da4 = [];
+            for ($j=0; $j < count($da) ; $j++) { 
+                $da2 = $da[$j];
+                for ($i=0; $i <= 17 ; $i++) {
+                    $x = $arr[$i];
+                    if($da2->$x == null){
+                        unset($da2->$x);
+                    }
+                }
+                array_push($da4,$da2);
+            }
+            $da3 = json_encode($da4);
+            
+            return $da3;
+        // $data = $request->txtContent;
+        // $test = DB::table('test')->insert(
+        //     ['nd' => $data]
+        // );  
+        // if ($test) {
+        //         return 'true';
+        // }
+        // else{
+        //     return 'false';
+        // }    
     }
     
 }

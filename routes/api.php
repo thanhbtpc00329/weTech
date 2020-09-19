@@ -25,10 +25,11 @@ Route::post('/login','UserController@login');
 
 Route::post('/user','ProductController@showProduct');
 
-Route::get('/test',function()
-{
-	return view('upload');
-});
+// Route::get('/test',function()
+// {
+// 	return view('upload');
+// });
+Route::get('/test','ProductController@test');
 Route::post('/post','ProductController@test');
 
 // Product
