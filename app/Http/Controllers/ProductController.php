@@ -151,6 +151,37 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+
+    public function productType(Request $request){
+        $cate_id = $request->cate_id;
+
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.cate_id',$cate_id)
+            ->groupBy('product_detail.product_id')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
+            ->get();
+        return response()->json($product);
+    }
+
+
+    public function productShop(Request $request){
+        $shop_id = $request->shop_id;
+
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.shop_id',$shop_id)
+            ->groupBy('product_detail.product_id')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
+            ->get();
+        return response()->json($product);
+    }
+
+
     public function showDetail(Request $request){
         $id = $request->id;
 
@@ -164,21 +195,30 @@ class ProductController extends Controller
             ->where('products.product_id','=',$id)
             ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
             ->get();
+            
+            return response()->json($detail);
+    }
+
+
+    public function detailInfo(Request $request){
+        $id = $request->id;
+
+        $detail = Product_detail::where('product_id',$id)->get();
             $da = json_decode($detail);
             
             $arr = Schema::getColumnListing('product_detail');
             $da4 = [];
             for ($j=0; $j < count($da) ; $j++) { 
                 $da2 = $da[$j];
-                for ($i=0; $i <= 17 ; $i++) {
+                for ($i=0; $i <= 19 ; $i++) {
                     $x = $arr[$i];
-                    if($da2->$x == null){
+                    if($da2->$x === null){
                         unset($da2->$x);
                     }
                 }
                 array_push($da4,$da2);
             }
-            $da3 = json_encode($da4);
+            $da3 = $da4;
             
             return response()->json($da3);
     }
@@ -205,36 +245,13 @@ class ProductController extends Controller
         $prod->save();
 
 
+        $pro = new Product_detail;
+
+
     }
 
     public function test(Request $request){
-        $detail = DB::table('products')
-            ->join('brands','brands.brand_id','=','products.brand_id')
-            ->join('categories','categories.cate_id','=','products.cate_id')
-            ->join('product_detail','product_detail.product_id','=','products.product_id')
-            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
-            ->join('shops','shops.shop_id','=','products.shop_id')
-            ->join('users','users.user_id','=','shops.user_id')
-            ->where('products.product_id','=',329)
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
-            ->get();
-            $da = json_decode($detail);
-            
-            $arr = Schema::getColumnListing('product_detail');
-            $da4 = [];
-            for ($j=0; $j < count($da) ; $j++) { 
-                $da2 = $da[$j];
-                for ($i=0; $i <= 17 ; $i++) {
-                    $x = $arr[$i];
-                    if($da2->$x == null){
-                        unset($da2->$x);
-                    }
-                }
-                array_push($da4,$da2);
-            }
-            $da3 = json_encode($da4);
-            
-            return $da3;
+        
         // $data = $request->txtContent;
         // $test = DB::table('test')->insert(
         //     ['nd' => $data]
