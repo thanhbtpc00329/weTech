@@ -12,6 +12,7 @@ use App\Wishlist;
 
 class UserController extends Controller
 {
+    // Login & Register
     public function register(Request $request)
     {
         $ch1 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -66,6 +67,8 @@ class UserController extends Controller
         }
     }
 
+
+    // User
 
 
 

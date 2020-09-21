@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             $table->string('username',32);
             $table->string('email',50);
             $table->text('content');
-            $table->integer('product_id')->length(10)->unsigned();
+            $table->string('product_id');
             $table->integer('rating')->length(10);
             $table->boolean('status'); 
             $table->timestamps();

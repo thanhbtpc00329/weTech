@@ -147,7 +147,7 @@ class ProductController extends Controller
             }
         $id = $rd;
         $product_name = $request->product_name;
-        $brand_id = $request->brand_id;
+        $brand = $request->brand;
         $cate_id = $request->cate_id;
         $introduction = $request->introduction;
         $description = $request->description;
@@ -157,7 +157,7 @@ class ProductController extends Controller
         $prod = new Product;
         $prod->product_id = $id;
         $prod->product_name = $product_name;
-        $prod->brand_id = $brand_id;
+        $prod->brand = $brand;
         $prod->cate_id = $cate_id;
         $prod->introduction = $introduction;
         $prod->description = $description;
