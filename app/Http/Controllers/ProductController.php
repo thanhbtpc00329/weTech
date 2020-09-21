@@ -112,10 +112,11 @@ class ProductController extends Controller
     }
 
     public function detailImage(Request $request){
-        $prodetail_id = $request->prodetail_id;
+        $prodetail_id = $request->id;
 
         $prod = DB::table('product_detail')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('products','products.product_id','=','product_detail.product_id')
             ->where('product_detail.prodetail_id','=',$prodetail_id)
             ->first();
         return response()->json($prod);
