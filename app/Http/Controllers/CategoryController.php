@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use Response,File;
 use Cloudder;
+use DB;
 
 class CategoryController extends Controller
 {
