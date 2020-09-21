@@ -14,6 +14,7 @@ use App\Shop;
 use App\Product_image;
 use DB;
 use Cloudder;
+use Response,File;
 
 
 class ProductController extends Controller
@@ -130,10 +131,24 @@ class ProductController extends Controller
         $id = $request->id;
         $cate_name = $request->cate_name;
         $cate_description = $request->cate_description;
+        $image = $request->file('image');
+        if ($image) {
+            //get name image
+            $filename = $request->file('image');
+            $name = $filename->getClientOriginalName();
+            $extension = $filename->getClientOriginalExtension();
+            $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
+            //upload image
+            Cloudder::upload($filename, 'categories/' . $cut);            
+        }
+        $category = $request->category;
         $status = $request->status;
+
         $cate = Category::find($id);
         $cate->cate_name=$cate_name;
         $cate->cate_description=$cate_description;
+        $cate->image = Cloudder::show('categories/'. $cut);
+        $cate->category = $category;
         $cate->status=$status;
         $cate->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
         $cate->save();
@@ -253,6 +268,31 @@ class ProductController extends Controller
             return response()->json($da3);
     }
 
+    public function detailImage(Request $request){
+        $prodetail_id = $request->prodetail_id;
+
+        $prod = DB::table('product_detail')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->where('product_detail.prodetail_id','=',$prodetail_id)
+            ->first();
+        return response()->json($prod);
+    }
+
+    public function uploadProductImage(Request $request){
+        $image = $request->file('image');
+        if ($image) {
+            //get name image
+            $filename =$request->file('image');
+            $name = $filename->getClientOriginalName();
+            $extension = $filename->getClientOriginalExtension();
+            $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
+            //upload image
+            Cloudder::upload($filename, 'products/' . $cut);        
+        }
+
+        return Cloudder::show('products/'. $cut);
+    }
+
     
     public function addProductDetail(Request $request){
         $ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -333,6 +373,12 @@ class ProductController extends Controller
             return 'Thất bại';
         }
 
+    }
+
+
+    public function addProductImage(Request $request){
+        $prodetail_id = $request->prodetail_id;
+        
     }
     
 

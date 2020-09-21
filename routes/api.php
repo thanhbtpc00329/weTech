@@ -37,35 +37,37 @@ Route::post('/post','ProductController@test');
 Route::get('/product','ProductController@showProduct');
 Route::post('/product-type','ProductController@productType');
 Route::post('/product-shop','ProductController@productShop');
-Route::post('/add-detail', 'ProductController@addSp');
-Route::post('/add-image', 'ProductController@addProductImage');
 
+
+Route::post('/add-product', 'ProductController@addProductDetail');
+Route::post('/add-image', 'ProductController@uploadProductImage');
+Route::post('/add-detail', 'ProductController@addProductImage');
 
 Route::post('/detail-info','ProductController@detailInfo');
 Route::post('/detail','ProductController@showDetail');
-
+Route::post('/detail-image','ProductController@detailImage');
 
 // Brand
-Route::get('/brand','ProductController@showBrand');
-Route::post('/add-brand', 'ProductController@addBrand');
-Route::post('/update-brand', 'ProductController@updateBrand');
-Route::post('/delete-brand', 'ProductController@deleteBrand');
+Route::get('/brand','BrandController@showBrand');
+Route::post('/add-brand', 'BrandController@addBrand');
+Route::post('/update-brand', 'BrandController@updateBrand');
+Route::post('/delete-brand', 'BrandController@deleteBrand');
 
 
 // Category
-Route::get('/cate','ProductController@showCate');
-Route::get('/category','ProductController@category');
-Route::post('/cate-product','ProductController@cateProduct');
-Route::post('/add-cate', 'ProductController@addCate');
-Route::post('/update-cate', 'ProductController@updateCate');
-Route::post('/delete-cate', 'ProductController@deleteCate');
+Route::get('/cate','CategoryController@showCate');
+Route::get('/category','CategoryController@category');
+Route::post('/cate-product','CategoryController@cateProduct');
+Route::post('/add-cate', 'CategoryController@addCate');
+Route::post('/update-cate', 'CategoryController@updateCate');
+Route::post('/delete-cate', 'CategoryController@deleteCate');
 
 
 // Banner
-Route::get('/banner','AdminController@showBanner');
-Route::post('/add-banner', 'AdminController@addBanner');
-Route::post('/update-banner', 'AdminController@updateBanner');
-Route::post('/delete-banner', 'AdminController@deleteBanner');
+Route::get('/banner','BannerController@showBanner');
+Route::post('/add-banner', 'BannerController@addBanner');
+Route::post('/update-banner', 'BannerController@updateBanner');
+Route::post('/delete-banner', 'BannerController@deleteBanner');
 
 
 // Comment
