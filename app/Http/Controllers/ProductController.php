@@ -81,6 +81,13 @@ class ProductController extends Controller
         $cate = DB::table('categories')->groupBy('category')->get();
         return response()->json($cate);
     }
+    public function cateProduct(Request $request){
+        $category = $request->category;
+
+        $cate = Category::where('category',$category)->get();
+
+
+    }
     public function showCate(){
 		return Category::all();
 	}
@@ -215,6 +222,7 @@ class ProductController extends Controller
                 $da2 = $da[$j];
                 for ($i= 2; $i <= 19 ; $i++) {
                     $x = $arr[$i];
+                    unset($da2->product_id);
                     unset($da2->prodetail_id);
                     if ($arr[$i] != $arr[6]) { 
                         if($da2->$x == null){
