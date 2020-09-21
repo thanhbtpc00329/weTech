@@ -85,7 +85,8 @@ class ProductController extends Controller
         $category = $request->category;
 
         $cate = Category::where('category',$category)->get();
-
+        
+        return response()->json($cate);
 
     }
     public function showCate(){

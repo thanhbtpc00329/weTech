@@ -55,6 +55,7 @@ Route::post('/delete-brand', 'ProductController@deleteBrand');
 // Category
 Route::get('/cate','ProductController@showCate');
 Route::get('/category','ProductController@category');
+Route::post('/cate-product','ProductController@cateProduct');
 Route::post('/add-cate', 'ProductController@addCate');
 Route::post('/update-cate', 'ProductController@updateCate');
 Route::post('/delete-cate', 'ProductController@deleteCate');
