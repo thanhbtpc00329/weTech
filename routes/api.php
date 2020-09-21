@@ -33,10 +33,11 @@ Route::get('/test','ProductController@test');
 Route::post('/post','ProductController@test');
 
 // Product
+
 Route::get('/product','ProductController@showProduct');
 Route::post('/product-type','ProductController@productType');
 Route::post('/product-shop','ProductController@productShop');
-Route::post('/add-detail', 'ProductController@addProductDetail');
+Route::post('/add-detail', 'ProductController@addSp');
 Route::post('/add-image', 'ProductController@addProductImage');
 
 

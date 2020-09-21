@@ -215,7 +215,6 @@ class ProductController extends Controller
                 $da2 = $da[$j];
                 for ($i= 2; $i <= 19 ; $i++) {
                     $x = $arr[$i];
-                    unset($da2->product_id);
                     unset($da2->prodetail_id);
                     if ($arr[$i] != $arr[6]) { 
                         if($da2->$x == null){
@@ -231,15 +230,15 @@ class ProductController extends Controller
             return response()->json($da3);
     }
 
-
+    
     public function addProductDetail(Request $request){
-        $ch1 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $ch1len = strlen($ch1);
-        $rd = '';
-        for ($i = 0; $i < 4; $i++) {
-            $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
-        }
-        $id = 57667;
+        $ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $ch1len = strlen($ch1);
+            $rd = '';
+            for ($i = 0; $i < 4; $i++) {
+                $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
+            }
+        $id = $rd;
         $product_name = $request->product_name;
         $brand_id = $request->brand_id;
         $cate_id = $request->cate_id;
@@ -248,6 +247,20 @@ class ProductController extends Controller
         $tag = $request->tag;
         $shop_id = $request->shop_id;
 
+        $prod = new Product;
+        $prod->product_id = $id;
+        $prod->product_name = $product_name;
+        $prod->brand_id = $brand_id;
+        $prod->cate_id = $cate_id;
+        $prod->introduction = $introduction;
+        $prod->description = $description;
+        $prod->tag = $tag;
+        $prod->shop_id = $shop_id;
+        $prod->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $prod->save();
+        
+        
         $product_id = $id;
         $price = $request->price;
         $color = $request->color;
@@ -265,18 +278,6 @@ class ProductController extends Controller
         $wattage = $request->wattage;
         $resolution = $request->resolution;
         $memory = $request->memory;
-
-        $prod = new Product;
-        $prod->product_name = $product_name;
-        $prod->brand_id = $brand_id;
-        $prod->cate_id = $cate_id;
-        $prod->introduction = $introduction;
-        $prod->description = $description;
-        $prod->tag = $tag;
-        $prod->shop_id = $shop_id;
-        $prod->created_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $prod->save();
 
                 
 
@@ -302,15 +303,15 @@ class ProductController extends Controller
 
         $pro->save();
 
-        if($prod && $pro){
+        if($pro){
             return 'Thành công';
         }
         else{
             return 'Thất bại';
         }
 
-
     }
+    
 
     public function test(Request $request){
         
