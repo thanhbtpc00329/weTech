@@ -18,12 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// User
+// Login & register
 Route::post('/register','UserController@register');
 Route::post('/login','UserController@login');
 
 
-Route::post('/user','ProductController@showProduct');
+// User
+Route::get('/user','UserController@showUser');
+Route::post('/add-user','UserController@addUser');
 
 // Route::get('/test',function()
 // {
