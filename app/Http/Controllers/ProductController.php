@@ -13,6 +13,7 @@ use App\Product_detail;
 use App\Shop;
 use App\Product_image;
 use DB;
+use Cloudder;
 
 
 class ProductController extends Controller
@@ -85,7 +86,7 @@ class ProductController extends Controller
         $category = $request->category;
 
         $cate = Category::where('category',$category)->get();
-        
+
         return response()->json($cate);
 
     }
@@ -95,10 +96,24 @@ class ProductController extends Controller
     public function addCate(Request $request){
         $cate_name = $request->cate_name;
         $cate_description = $request->cate_description;
+        $image = $request->file('image');
+        if ($image) {
+            //get name image
+            $filename = $request->file('image');
+            $name = $filename->getClientOriginalName();
+            $extension = $filename->getClientOriginalExtension();
+            $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
+            //upload image
+            Cloudder::upload($filename, 'categories/' . $cut);            
+        }
+        $category = $request->category;
         $status = $request->status;
+
         $cate = new Category;
         $cate->cate_name=$cate_name;
         $cate->cate_description=$cate_description;
+        $cate->image = Cloudder::show('categories/'. $cut);
+        $cate->category = $category;
         $cate->status=$status;
         $cate->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $cate->save();
@@ -224,7 +239,6 @@ class ProductController extends Controller
                 for ($i= 2; $i <= 19 ; $i++) {
                     $x = $arr[$i];
                     unset($da2->product_id);
-                    unset($da2->prodetail_id);
                     if ($arr[$i] != $arr[6]) { 
                         if($da2->$x == null){
                             unset($da2->$x);

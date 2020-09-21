@@ -8,7 +8,8 @@ use App\Banner;
 use App\Shipper;
 use App\Shop;
 use App\Bill;
-use Intervention\Image\ImageManagerStatic as Image;
+use File;
+
 
 class AdminController extends Controller
 {
@@ -19,28 +20,7 @@ class AdminController extends Controller
 	public function addBanner(Request $request){
 		$image = $request->file('image');
         $status = $request->status;
-        if ($image) {
-            //get name image
-            $filename =$request->file('image');
-            $name = $filename->getClientOriginalName();
-            $extension = $filename->getClientOriginalExtension();
-            $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
-            //upload image
-            Cloudder::upload($filename, 'banners/' . $cut);            
-        }
-
-         $banner = new Banner;
-         $banner->image = Cloudder::show('banners/'. $cut);
-         $banner->status = $status;
-         $banner->created_at = now()->timezone('Asia/Ho_Chi_Minh');
-         $banner->save();
-         if ($banner) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
-
+        return $request->file('image');
 	}
 
 	public function updateBanner(Request $request)
