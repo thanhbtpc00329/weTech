@@ -19,17 +19,15 @@ class AdminController extends Controller
     }
 
     public function addBill(Request $request){
-        $name = $request->name;
-        $username = $request->username;
-        $email = $request->email;
-        $total = $request->total;
+        $product_id = $request->product_id;
+        $sale_amount = $request->sale_amount;
+        $status = $request->status;
 
         $bill = new Bill;
 
-        $bill->name = $name;
-        $bill->username = $username;
-        $bill->email = $email;
-        $bill->total = $total;
+        $bill->product_id = $product_id;
+        $bill->sale_amount = $sale_amount;
+        $bill->status = $status;
         $bill->created_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $bill->save();
