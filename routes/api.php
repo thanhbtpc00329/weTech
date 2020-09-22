@@ -103,6 +103,7 @@ Route::post('/delete-shipper','AdminController@deleteShipper');
 
 // Shop
 Route::get('/shop','AdminController@showShop');
+Route::post('/detail-shop','AdminController@detailShop');
 Route::post('/add-shop','AdminController@addShop');
 Route::post('/update-shop','AdminController@updateShop');
 Route::post('/delete-shop','AdminController@deleteShop');

@@ -50,6 +50,12 @@ class AdminController extends Controller
         return Shop::all();
     }
 
+    public function detailShop(Request $request){
+        $shop_id = $request->id;
+
+        return Shop::find($shop_id);
+    }
+
     public function addShop(Request $request){
         $name = $request->name;
         $address = $request->address;
