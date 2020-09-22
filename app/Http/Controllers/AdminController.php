@@ -8,6 +8,7 @@ use App\Shipper;
 use App\Shop;
 use App\Bill;
 use Response,File;
+use DB;
 
 
 class AdminController extends Controller
@@ -51,7 +52,12 @@ class AdminController extends Controller
     public function detailShop(Request $request){
         $shop_id = $request->id;
 
-        return Shop::find($shop_id);
+        $shop = DB::table('shops')
+                ->join('users','users.user_id','=','shops.user_id')
+                ->select('shops.shop_id','shops.shop_name','shops.address','shops.phone_number','shops.background','users.avatar')
+                ->where('shop_id','=',$shop_id)
+                ->get();
+        return response()->json($shop);
     }
 
     public function addShop(Request $request){
