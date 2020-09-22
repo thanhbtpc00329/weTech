@@ -45,6 +45,20 @@ class ProductController extends Controller
         return response()->json($product);
     }
 
+    public function showProductShop(Request $request){
+        $shop_id = $request->shop_id;
+
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.shop_id','=',$shop_id)
+            ->groupby('product_detail.product_id')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name','products.brand','product_detail.prodetail_id','product_detail.color','product_detail.size','product_detail.status','shops.shop_id','shops.shop_name','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory')
+            ->get();
+        return response()->json($product);
+    }
+
 
     public function productShop(Request $request){
         $shop_id = $request->shop_id;

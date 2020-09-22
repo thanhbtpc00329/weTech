@@ -40,6 +40,7 @@ Route::post('/post','ProductController@test');
 Route::get('/product','ProductController@showProduct');
 Route::post('/product-type','ProductController@productType');
 Route::post('/product-shop','ProductController@productShop');
+Route::post('/show-product-shop','ProductController@showProductShop');
 
 
 Route::post('/add-product', 'ProductController@addProductDetail');
