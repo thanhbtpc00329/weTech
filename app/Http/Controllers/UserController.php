@@ -193,7 +193,16 @@ class UserController extends Controller
 
 
     public function deleteUser(Request $request){
+        $id = $request->id;
 
+        $user = DB::table('users')->where('user_id','=',$id)->get();
+
+        $user->delete();
+        if ($user) {
+            return 'Thành công';
+        }else{
+            return 'Thất bại';
+        }
     }
 
 
