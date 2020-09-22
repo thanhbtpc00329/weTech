@@ -136,6 +136,65 @@ class UserController extends Controller
     }
 
 
+    public function updateUser(Request $request){
+        $user_id = $request->user_id;
+        $name = $request->name;
+        $password = $request->password;
+        $gender = $request->gender;
+        $address = $request->address;
+        $birth_day = $request->birth_day;
+        $phone_number = $request->phone_number;
+        $avatar = $request->avatar;
+        $role = $request->role;
+        $background = $request->background;
+        $status = $request->status;
+        if ($avatar) {
+            //get name image
+            $filename = $request->file('avatar');
+            $name = $filename->getClientOriginalName();
+            $extension = $filename->getClientOriginalExtension();
+            $cut1 = substr($name, 0,strlen($name)-(strlen($extension)+1));
+            //upload image
+            Cloudder::upload($filename, 'users/' . $cut1);        
+        }
+
+        if ($background) {
+            //get name image
+            $filename = $request->file('background');
+            $name = $filename->getClientOriginalName();
+            $extension = $filename->getClientOriginalExtension();
+            $cut2 = substr($name, 0,strlen($name)-(strlen($extension)+1));
+            //upload image
+            Cloudder::upload($filename, 'users/' . $cut2);        
+        }
+
+        $account = new User;
+        $account->user_id = $id;
+        $account->name=$name;
+        $account->password=Hash::make($password);
+        $account->gender=$gender;
+        $account->address=$address;
+        $account->birth_day=$birth_day;
+        $account->phone_number=$phone_number;
+        $account->avatar = Cloudder::show('users/'. $cut1);
+        $account->background = Cloudder::show('users/'. $cut2);
+        $account->status = $status;
+        $account->role = $role;
+        $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
+        $account->save();
+        if ($account) {
+            echo 'Thành công';
+        }
+        else{
+            echo 'Lỗi';
+        }
+
+    }
+
+
+    public function deleteUser(Request $request){
+
+    }
 
 
 

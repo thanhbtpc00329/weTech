@@ -26,7 +26,8 @@ Route::post('/login','UserController@login');
 // User
 Route::get('/user','UserController@showUser');
 Route::post('/add-user','UserController@addUser');
-
+Route::post('/update-user','UserController@updateUser');
+Route::post('/delete-user','UserController@deleteUser');
 
 //Test
 Route::get('/test','ProductController@test');
