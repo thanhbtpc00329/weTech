@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Hash;
 use DB;
 use Response,File;
 use Cloudder;
-use App\Comment;
-use App\Contact;
-use App\Wishlist;
 
 class UserController extends Controller
 {
@@ -59,8 +56,6 @@ class UserController extends Controller
     public function login(Request $request){
         $name = $request->username;
         $pass = $request->password;
-        // $user = DB::table('users')->where('username',$name)->orWhere('email',$name])->get();
-        // $pass = DB::table('users')->where('password',$pass)->get();
         $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
         if(count($user) <= 0){
             return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);  
@@ -141,177 +136,8 @@ class UserController extends Controller
     }
 
 
-    // Comment
-    public function showComment()
-    {
-        return Comment::all();
-    }
-
-    public function addComment(Request $request)
-    {
-        $name = $request->name;
-        $username = $request->username;
-        $email = $request->email;
-        $content = $request->content;
-        $product_id = $request->product_id;
-        $rating = $request->rating;
-        $status = $request->status;
-
-        $comment = new Comment;
-        $comment->name = $name;
-        $comment->username = $username;
-        $comment->email = $email;
-        $comment->content = $content;
-        $comment->product_id = $product_id;
-        $comment->rating = $rating;
-        $comment->status = $status;
-        $comment->created_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $comment->save();
-        if ($comment) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
-    }
-
-    public function updateComment(Request $request){
-        $id = $request->id;  
-
-        $comment = Comment::find($id);
-        $comment->status = 1;
-        $comment->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $comment->save();
-        if ($comment) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
-
-    }
-
-    public function deleteComment(Request $request){
-        $id = $request->id;  
-
-        $comment = Comment::find($id);
-
-        $comment->delete();
-        if ($comment) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
-
-    }
-
-    // Contact
-    public function showContact()
-    {
-        return Contact::all();
-    }
-
-    public function addContact(Request $request)
-    {
-        $name = $request->name;
-        $email = $request->email;
-        $title = $request->title;
-        $content = $request->content;
-        $status = $request->status;
-
-        $contact = new Contact;
-        $contact->name = $name;
-        $contact->email = $email;
-        $contact->title = $title;
-        $contact->content = $content;
-        $contact->status = $status;
-        $contact->created_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $contact->save();
-        if ($contact) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
-    }
-
-    public function updateContact(Request $request){
-        $id = $request->id;  
-
-        $contact = Contact::find($id);
-        $contact->status = 1;
-        $contact->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $contact->save();
-        if ($contact) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
-
-    }
-
-    public function deleteContact(Request $request){
-        $id = $request->id;  
-
-        $contact = Contact::find($id);
-
-        $contact->delete();
-        if ($contact) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
-
-    }
-    
 
 
-    public function showWishlist()
-    {
-        return Wishlist::all();
-    }
-
-    public function addWishlist(Request $request){
-        $username = $request->username;
-        $product_name = $request->product_name;
-        $product_image = $request->product_image;
-        $product_id = $request->product_id;
-
-        $wishlist = new Wishlist;
-        $wishlist->username = $username;
-        $wishlist->product_name = $product_name;
-        $wishlist->product_image = $product_image;
-        $wishlist->product_id = $product_id;
-        $wishlist->created_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $wishlist->save();
-        if ($wishlist) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
-    }
-
-    public function deleteWishlist(Request $request){
-        $id = $request->id;
-
-        $wishlist = Wishlist::find($id);
-        $wishlist->delete();
-        if ($wishlist) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
-    }
 
 
 }

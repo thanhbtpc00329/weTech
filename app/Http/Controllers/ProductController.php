@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use App\Product;
-use App\Brand;
 use App\Category;
 use App\Bill;
 use App\Product_detail;
@@ -67,14 +66,13 @@ class ProductController extends Controller
         $id = $request->id;
 
         $detail = DB::table('products')
-            ->join('brands','brands.brand_id','=','products.brand_id')
             ->join('categories','categories.cate_id','=','products.cate_id')
             ->join('product_detail','product_detail.product_id','=','products.product_id')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('users','users.user_id','=','shops.user_id')
             ->where('products.product_id','=',$id)
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','brands.brand_name','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','products.brand','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
             ->get();
             
             return response()->json($detail);

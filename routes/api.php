@@ -27,12 +27,12 @@ Route::post('/login','UserController@login');
 Route::get('/user','UserController@showUser');
 Route::post('/add-user','UserController@addUser');
 
-// Route::get('/test',function()
-// {
-// 	return view('upload');
-// });
+
+//Test
 Route::get('/test','ProductController@test');
 Route::post('/post','ProductController@test');
+
+
 
 // Product
 
@@ -48,12 +48,6 @@ Route::post('/add-detail', 'ProductController@addProductImage');
 Route::post('/detail-info','ProductController@detailInfo');
 Route::post('/detail','ProductController@showDetail');
 Route::post('/detail-image','ProductController@detailImage');
-
-// Brand
-Route::get('/brand','BrandController@showBrand');
-Route::post('/add-brand', 'BrandController@addBrand');
-Route::post('/update-brand', 'BrandController@updateBrand');
-Route::post('/delete-brand', 'BrandController@deleteBrand');
 
 
 // Category
@@ -73,31 +67,31 @@ Route::post('/delete-banner', 'BannerController@deleteBanner');
 
 
 // Comment
-Route::get('/comment','UserController@showComment');
-Route::post('/add-comment','UserController@addComment');
-Route::post('/update-comment','UserController@updateComment');
-Route::post('/delete-comment','UserController@deleteComment');
+Route::get('/comment','CommentController@showComment');
+Route::post('/add-comment','CommentController@addComment');
+Route::post('/update-comment','CommentController@updateComment');
+Route::post('/delete-comment','CommentController@deleteComment');
 
 
 // Contact
-Route::get('/contact','UserController@showContact');
-Route::post('/add-contact','UserController@addContact');
-Route::post('/update-contact','UserController@updateContact');
-Route::post('/delete-contact','UserController@deleteContact');
+Route::get('/contact','ContactController@showContact');
+Route::post('/add-contact','ContactController@addContact');
+Route::post('/update-contact','ContactController@updateContact');
+Route::post('/delete-contact','ContactController@deleteContact');
 
 
 // Order
-Route::get('/order','UserController@showOrder');
-Route::post('/add-order','UserController@addOrder');
-Route::post('/update-order','UserController@updateOrder');
-Route::post('/delete-order','UserController@deleteOrder');
+Route::get('/order','OrderController@showOrder');
+Route::post('/add-order','OrderController@addOrder');
+Route::post('/update-order','OrderController@updateOrder');
+Route::post('/delete-order','OrderController@deleteOrder');
 
 
 // Wishlist
-Route::get('/wishlist','UserController@showWishlist');
-Route::post('/add-wishlist','UserController@addWishlist');
+Route::get('/wishlist','WishlistController@showWishlist');
+Route::post('/add-wishlist','WishlistController@addWishlist');
 
-Route::post('/delete-wishlist','UserController@deleteWishlist');
+Route::post('/delete-wishlist','WishlistController@deleteWishlist');
 
 
 // Shipper->chưa làm
