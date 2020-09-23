@@ -238,17 +238,32 @@ class ProductController extends Controller
     
 
     public function test(Request $request){
+        // $name = $request->username;
+
+        // $test = DB::table('orders')
+        //     ->select('username','created_at',DB::raw('COUNT(1) as x'))
+        //     ->where('username','=','nva')
+        //     ->groupby('username','created_at')
+        //     ->get();
+
+        // $ds = DB::table('orders')
+        //     ->where('username','=',$test[0]->username)
+        //     ->where('created_at','=',$test[0]->created_at)
+        //     ->get();
         
-        // $data = $request->txtContent;
-        // $test = DB::table('test')->insert(
-        //     ['nd' => $data]
-        // );  
-        // if ($test) {
-        //         return 'true';
-        // }
-        // else{
-        //     return 'false';
-        // }    
+        // return response()->json($ds);
+
+        $arr = $request->cart;
+        $arr1 = json_decode($arr);    
+
+        foreach ($arr1 as $key) {
+            $group[$key->shop_id][]= $key;
+
+        }
+        return response()->json($group);
+        
+
+         
     }
     
 }
