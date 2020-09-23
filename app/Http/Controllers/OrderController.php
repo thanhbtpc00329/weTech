@@ -19,24 +19,37 @@ class OrderController extends Controller
         $shipping = $request->shipping;
         $total = $request->total;
         $status = $request->status;
-        $order_detail = $request->order_detail;
+        $cart = $request->order_detail;
+        $arr = json_decode($cart);
 
-        $order = new Order;
-        $order->username = $username;
-        $order->address = $address;
-        $order->shipping = $shipping;
-        $order->total = $total;
-        $order->status = $status;
-        $order->order_detail = $order_detail;
-        $order->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $time = now()->timezone('Asia/Ho_Chi_Minh');
+        $group = array();
+        foreach ($arr as $value) {
+            $group[$value->shop_id][] = $value;   
+                
+        }
+        // for ($i=0; $i < count($group); $i++) { 
+        //     $order_detail = $group[$i];
+        // }
+        
+        return $group;
 
-        $order->save();
-        if ($order) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
+        // $order = new Order;
+        // $order->username = $username;
+        // $order->address = $address;
+        // $order->shipping = $shipping;
+        // $order->total = $total;
+        // $order->status = $status;
+        // $order->order_detail = $order_detail;
+        // $order->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        // $order->save();
+        // if ($order) {
+        //     echo 'Thành công';
+        // }
+        // else{
+        //     echo 'Lỗi';
+        // }
 
     }
 

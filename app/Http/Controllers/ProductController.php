@@ -11,6 +11,7 @@ use App\Bill;
 use App\Product_detail;
 use App\Shop;
 use App\Product_image;
+use App\Banner;
 use DB;
 use Cloudder;
 use Response,File;
@@ -128,6 +129,7 @@ class ProductController extends Controller
         $prod = DB::table('product_detail')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('products','products.product_id','=','product_detail.product_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('product_detail.prodetail_id','=',$prodetail_id)
             ->first();
         return response()->json($prod);
@@ -253,15 +255,31 @@ class ProductController extends Controller
         
         // return response()->json($ds);
 
-        $arr = $request->cart;
-        $arr1 = json_decode($arr);    
+        // $arr = $request->cart;
+        // $arr1 = json_decode($arr);    
 
-        foreach ($arr1 as $key) {
-            $group[$key->shop_id][]= $key;
+        // foreach ($arr1 as $key) {
+        //     $group[$key->shop_id][]= $key;
 
+        // }
+        // return response()->json($group);
+        $time = now()->timezone('Asia/Ho_Chi_Minh');
+        $arr = [3,4,5,6,7,8,3,4,6,7,8,9,9];
+        for ($i=0; $i < count($arr); $i++) { 
+            
+            $image = $arr[$i];
+            $ban = new Banner;
+            $ban->image = $image;
+            $ban->status = 1;
+            $ban->created_at = $day;
+
+            $ban->save();
         }
-        return response()->json($group);
         
+        
+
+
+
 
          
     }

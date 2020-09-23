@@ -30,7 +30,7 @@ Route::post('/update-user','UserController@updateUser');
 Route::post('/delete-user','UserController@deleteUser');
 
 //Test
-// Route::get('/test','ProductController@test');
+//Route::get('/test','ProductController@test');
 Route::post('/post','ProductController@test');
 
 
