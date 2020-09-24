@@ -82,6 +82,13 @@ Route::post('/update-contact','ContactController@updateContact');
 Route::post('/delete-contact','ContactController@deleteContact');
 
 
+
+//Cart
+Route::post('/get-cart','CartController@getCart');
+Route::post('/add-cart','CartController@addCart');
+
+
+
 // Order
 Route::get('/order','OrderController@showOrder');
 Route::post('/add-order','OrderController@addOrder');

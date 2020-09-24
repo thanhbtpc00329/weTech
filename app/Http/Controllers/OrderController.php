@@ -21,35 +21,39 @@ class OrderController extends Controller
         $status = $request->status;
         $cart = $request->order_detail;
         $arr = json_decode($cart);
-
-        $time = now()->timezone('Asia/Ho_Chi_Minh');
-        $group = array();
-        foreach ($arr as $value) {
-            $group[$value->shop_id][] = $value;   
-                
+        $kq = array();
+        for ($i=0; $i < count($arr); $i++) { 
+            $re = $arr[$i]->shop_id;
+            array_push($kq,$re);            
         }
-        // for ($i=0; $i < count($group); $i++) { 
-        //     $order_detail = $group[$i];
-        // }
+        $result = array_unique($kq);
+        foreach ($arr as $value) {
+            $group[$value->shop_id][] = $value;       
+        }
+        $time = now()->timezone('Asia/Ho_Chi_Minh');
         
-        return $group;
+        for ($i=0; $i < count($group); $i++) { 
+            $order_detail = $group[$result[$i]];
 
-        // $order = new Order;
-        // $order->username = $username;
-        // $order->address = $address;
-        // $order->shipping = $shipping;
-        // $order->total = $total;
-        // $order->status = $status;
-        // $order->order_detail = $order_detail;
-        // $order->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+            $order = new Order;
+            $order->username = $username;
+            $order->address = $address;
+            $order->shipping = $shipping;
+            $order->total = $total;
+            $order->status = $status;
+            $order->order_detail = json_encode($order_detail);
+            $order->created_at = $time;
 
-        // $order->save();
-        // if ($order) {
-        //     echo 'Thành công';
-        // }
-        // else{
-        //     echo 'Lỗi';
-        // }
+            $order->save();
+        }
+        
+       
+        if ($order) {
+            echo 'Thành công';
+        }
+        else{
+            echo 'Lỗi';
+        }
 
     }
 
