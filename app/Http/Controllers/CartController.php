@@ -23,7 +23,7 @@ class CartController extends Controller
 				->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             	->groupby('product_image.prodetail_id')
 				->where('carts.user_id','=',$user_id)
-				->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','products.brand','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_id','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
+				->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','products.brand','product_detail.prodetail_id','product_detail.price','product_detail.color','cart_detail.cart_quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_id','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
 				->get();
 
 		
@@ -45,6 +45,7 @@ class CartController extends Controller
         $prodetail_id = $request->prodetail_id;
         $user_id = $request->user_id;
         $shop_id = $request->shop_id;
+        $cart_quantity = $request->cart_quantity;
         $cart = new Cart;
         $cart->cart_id = $id;
         $cart->user_id = $user_id;
@@ -56,6 +57,7 @@ class CartController extends Controller
         	$cart_detail->cart_id = $id;
         	$cart_detail->prodetail_id = $prodetail_id;
         	$cart_detail->shop_id = $shop_id;
+        	$cart_detail->cart_quantity = $cart_quantity;
         	$cart_detail->created_at = $time;
         	$cart_detail->save();
 

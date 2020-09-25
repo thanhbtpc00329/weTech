@@ -17,6 +17,7 @@ class CreateCartDetailTable extends Migration
             $table->increments('cart_detail_id');
             $table->string('cart_id');
             $table->integer('prodetail_id')->length(10)->unsigned();
+            $table->integer('cart_quantity');
             $table->integer('shop_id')->length(10)->unsigned();
             
             
