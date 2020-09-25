@@ -15,7 +15,7 @@ class CartController extends Controller
 		$user_id = $request->user_id;
 
 		$cart1 = DB::table('carts')
-				->join('cart_detail','carts.cart_id','=','cart_detail.cart_id',)
+				->join('cart_detail','carts.cart_id','=','cart_detail.cart_id')
 				->join('product_detail','cart_detail.prodetail_id','=','product_detail.prodetail_id')
 				->join('products','product_detail.product_id','=','products.product_id')
 				->join('users','users.user_id','=','carts.user_id')
@@ -54,12 +54,12 @@ class CartController extends Controller
         $cart->save();
 
         $cart_detail = new Cart_detail;
-        	$cart_detail->cart_id = $id;
-        	$cart_detail->prodetail_id = $prodetail_id;
-        	$cart_detail->shop_id = $shop_id;
-        	$cart_detail->cart_quantity = $cart_quantity;
-        	$cart_detail->created_at = $time;
-        	$cart_detail->save();
+        $cart_detail->cart_id = $id;
+        $cart_detail->prodetail_id = $prodetail_id;
+        $cart_detail->shop_id = $shop_id;
+        $cart_detail->cart_quantity = $cart_quantity;
+        $cart_detail->created_at = $time;
+        $cart_detail->save();
 
         if ($cart_detail) {
         	echo "Thành công";

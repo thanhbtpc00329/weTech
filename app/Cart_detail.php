@@ -8,6 +8,6 @@ class Cart_detail extends Model
 {
     protected $primaryKey="cart_detail_id";
     protected $table="cart_detail";
-    protected $fillable=['cart_id','prodetail_id','shop_id'];
+    protected $fillable=['cart_id','prodetail_id','cart_quantity','shop_id'];
     public $timestamps=false;
 }
