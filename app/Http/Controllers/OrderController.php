@@ -20,7 +20,9 @@ class OrderController extends Controller
         $total = $request->total;
         $status = $request->status;
         $cart = $request->order_detail;
-        $arr = json_decode($cart);
+        $tt = ltrim($cart,"'");
+        $rr = rtrim($tt,"'");
+        $arr = json_decode($rr);
         $kq = array();
         for ($i=0; $i < count($arr); $i++) { 
             $re = $arr[$i]->shop_id;
