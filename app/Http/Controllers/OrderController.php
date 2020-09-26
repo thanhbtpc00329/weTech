@@ -40,6 +40,7 @@ class OrderController extends Controller
             $order->address = $address;
             $order->shipping = $shipping;
             $order->total = $total;
+            $order->shop = $result[$i];
             $order->status = $status;
             $order->order_detail = json_encode($order_detail);
             $order->created_at = $time;
