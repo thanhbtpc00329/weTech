@@ -24,23 +24,24 @@ class OrderController extends Controller
         $kq = array();
         for ($i=0; $i < count($arr); $i++) { 
             $re = $arr[$i]->shop_id;
-            array_push($kq,$re);            
+            if (in_array($re,$kq) == false) {
+                array_push($kq,$re);
+            }
         }
-        $result = array_unique($kq);
         foreach ($arr as $value) {
             $group[$value->shop_id][] = $value;       
         }
         $time = now()->timezone('Asia/Ho_Chi_Minh');
         
         for ($i=0; $i < count($group); $i++) { 
-            $order_detail = $group[$result[$i]];
+            $order_detail = $group[$kq[$i]];
 
             $order = new Order;
             $order->username = $username;
             $order->address = $address;
             $order->shipping = $shipping;
             $order->total = $total;
-            $order->shop = $result[$i];
+            $order->shop = $kq[$i];
             $order->status = $status;
             $order->order_detail = json_encode($order_detail);
             $order->created_at = $time;
