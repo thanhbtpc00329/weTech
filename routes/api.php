@@ -93,7 +93,10 @@ Route::post('/add-cart','CartController@addCart');
 Route::post('/order','OrderController@showOrder');
 Route::post('/order-detail','OrderController@orderDetail');
 Route::post('/add-order','OrderController@addOrder');
+Route::post('/active-order','OrderController@activeOrder');
 Route::post('/update-order','OrderController@updateOrder');
+Route::post('/confirm-order','OrderController@confirmOrder');
+Route::post('/finish-order','OrderController@finishOrder');
 Route::post('/delete-order','OrderController@deleteOrder');
 
 
@@ -104,11 +107,11 @@ Route::post('/add-wishlist','WishlistController@addWishlist');
 Route::post('/delete-wishlist','WishlistController@deleteWishlist');
 
 
-// Shipper->chưa làm
-Route::post('/shipper','AdminController@showShipper');
-Route::post('/add-shipper','AdminController@addShipper');
-Route::post('/update-shipper','AdminController@updateShipper');
-Route::post('/delete-shipper','AdminController@deleteShipper');
+// Shipper
+Route::post('/shipper','ShipperController@showShipper');
+Route::post('/detail-shipper','ShipperController@detailShipper');
+Route::post('/update-shipper','ShipperController@updateShipper');
+Route::post('/delete-shipper','ShipperController@deleteShipper');
 
 
 // Shop

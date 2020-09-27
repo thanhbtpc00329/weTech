@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Cloudder;
-use App\Shipper;
 use App\Shop;
 use App\Bill;
 use Response,File;
@@ -117,12 +116,6 @@ class AdminController extends Controller
         }
     }
 
-
-
-    public function showShipper()
-    {
-        return Shipper::all();
-    }
 
     
     

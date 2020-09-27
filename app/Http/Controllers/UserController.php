@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Shipper;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use Response,File;
@@ -67,7 +68,8 @@ class UserController extends Controller
 
     // User
     public function showUser(){
-        return User::all();
+        $user = User::where('role','User')->get();
+        return $user;
     }
 
     public function addUser(Request $request){
@@ -126,6 +128,15 @@ class UserController extends Controller
         $account->role = $role;
         $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
         $account->save();
+        if($role == 'Shipper'){
+            $ship = new Shipper;
+            $ship->user_id = $id;
+            $ship->order_quantity = 0;
+            $ship->salary = 0;
+            $ship->status = 0;
+            $ship->created_at = now()->timezone('Asia/Ho_Chi_Minh');    
+            $ship->save();
+        }
         if ($account) {
             return response()->json(['success' => 'Tạo tài khoản thành công!']);  
         }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Cart;
 use App\Cart_detail;
+use App\Shipper;
 
 class OrderController extends Controller
 {
@@ -76,20 +77,90 @@ class OrderController extends Controller
 
     }
 
-    public function updateOrder(Request $request){
-        $id = $request->id;
-        $status = $request->status;  
+    public function activeOrder(Request $request){
+        $id = $request->id; 
 
         $order = Order::find($id);
-        $order->status = $status;
+        $order->status = 'Đã duyệt';
         $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $order->save();
         if ($order) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Lỗi']);
+        }
+    }
+
+    public function updateOrder(Request $request){
+        $id = $request->id; 
+
+        $order = Order::find($id);
+        $order->status = 'Đã đóng gói';
+        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $order->save();
+        if ($order) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Lỗi']);
+        }
+    }
+
+    public function confirmOrder(Request $request){
+        $id = $request->id; 
+        $shipper_id = $request->shipper_id;
+        $order = Order::find($id);
+        $order->shipper_id = $shipper_id;
+        $order->status = 'Đang giao';
+        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $order->save();
+        if ($order) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Lỗi']);
+        }
+    }
+
+    public function finishOrder(Request $request){
+        $id = $request->id; 
+        $order = Order::find($id);
+        $order->status = 'Đã giao';
+        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $order->save();
+        if ($order) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Lỗi']);
+        }
+    }
+
+    public function acceptOrder(Request $request){
+        $shipper_id = $request->shipper_id; 
+        $ship = Shipper::find($shipper_id);
+        if ($ship->order_quantity == 0) {
+            $ship->order_quantity = 1;
+        }elseif(0 < $ship->order_quantity < 20){
+            $ship->order_quantity += 1;
+        }else{
+            $ship->salary = 4000000;
+            $ship->status = 1;
+        }
+        
+        $ship->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $ship->save();
+        if ($ship) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Lỗi']);
         }
     }
 
