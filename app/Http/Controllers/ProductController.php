@@ -223,11 +223,11 @@ class ProductController extends Controller
 
         $pro->save();
 
-        if($pro){
-            return 'Thành công';
+        if ($pro) {
+            return response()->json(['success' => 'Thêm sản phẩm thành công!']);  
         }
         else{
-            return 'Thất bại';
+            return response()->json(['error' => 'Thêm thất bại']);
         }
 
     }

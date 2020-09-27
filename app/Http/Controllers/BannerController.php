@@ -32,11 +32,11 @@ class BannerController extends Controller
         $banner->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $banner->save();
         if ($banner) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thêm thành công!']);  
         }
         else{
-            echo 'Lỗi';
-        }      
+            return response()->json(['error' => 'Thêm thất bại']);
+        }
 
 	}
 
@@ -63,10 +63,10 @@ class BannerController extends Controller
         $banner->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
         $banner->save();
         if ($banner) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Cập nhật thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Cập nhật thất bại']);
         }
     }
 
@@ -76,10 +76,10 @@ class BannerController extends Controller
         $banner = Banner::find($id);
         $banner->delete();
         if ($banner) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Xóa thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Xóa thất bại']);
         }
     }
 }

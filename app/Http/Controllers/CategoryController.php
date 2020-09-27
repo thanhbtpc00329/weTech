@@ -41,10 +41,10 @@ class CategoryController extends Controller
         $cate->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $cate->save();
         if ($cate) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thêm danh mục thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Thêm thất bại']);
         }
 	}
 
@@ -65,10 +65,10 @@ class CategoryController extends Controller
         $cate->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
         $cate->save();
         if ($cate) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Cập nhật danh mục thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Cập nhật thất bại']);
         }
     }
 
@@ -77,10 +77,10 @@ class CategoryController extends Controller
     	$id = $request->id;
         $cate = Category::find($id);
         if ($cate) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Xóa danh mục thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Xóa thất bại']);
         }
         $cate->delete();
     }

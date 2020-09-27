@@ -46,10 +46,10 @@ class UserController extends Controller
         $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
         $account->save();
         if ($account) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Đăng ký tài khoản thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Đăng ký tài khoản thất bại']);
         }
     }
 
@@ -127,10 +127,10 @@ class UserController extends Controller
         $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
         $account->save();
         if ($account) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Tạo tài khoản thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Tạo tài khoản thất bại']);
         }
 
     }
@@ -182,11 +182,12 @@ class UserController extends Controller
         $account->role = $role;
         $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
         $account->save();
+
         if ($account) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Cập nhật tài khoản thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Cập nhật tài khoản thất bại']);
         }
 
     }
@@ -198,10 +199,12 @@ class UserController extends Controller
         $user = DB::table('users')->where('user_id','=',$id)->get();
 
         $user->delete();
+
         if ($user) {
-            return 'Thành công';
-        }else{
-            return 'Thất bại';
+            return response()->json(['success' => 'Xóa tài khoản thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Xóa tài khoản thất bại']);
         }
     }
 

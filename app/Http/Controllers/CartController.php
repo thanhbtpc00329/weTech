@@ -60,10 +60,10 @@ class CartController extends Controller
         $cart_detail->save();
 
         if ($cart_detail) {
-        	echo "Thành công";
+            return response()->json(['success' => 'Thêm sản phẩm vào giỏ hàng thành công!']);  
         }
         else{
-        	echo "Thất bại";
+            return response()->json(['error' => 'Thêm sản phẩm vào giỏ hàng thất bại']);
         }
 
  	}

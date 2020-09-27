@@ -68,10 +68,10 @@ class OrderController extends Controller
 
        
         if ($order) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thanh toán thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Thanh toán bị lỗi']);
         }
 
     }
