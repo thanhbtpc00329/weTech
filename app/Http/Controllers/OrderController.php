@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Order;
+use App\Cart;
+use App\Cart_detail;
 
 class OrderController extends Controller
 {
@@ -13,14 +15,23 @@ class OrderController extends Controller
         return Order::all();
     }
 
+
+    public function orderDetail(Request $request){
+        $user_id = $request->user_id;
+
+        $order = Order::where('user_id',$user_id)->orderBy('created_at','DESC')->get();
+        return $order;
+    }
+    
+
     public function addOrder(Request $request){
-        $username = $request->username;
+        $user_id = $request->user_id;
         $address = $request->address;
         $shipping = $request->shipping;
         $total = $request->total;
-        $status = $request->status;
-        $cart = $request->order_detail;
-        $tt = ltrim($cart,"'");
+        $cart_id = $request->cart_id;
+        $add = $request->order_detail;
+        $tt = ltrim($add,"'");
         $rr = rtrim($tt,"'");
         $arr = json_decode($rr);
         $kq = array();
@@ -34,23 +45,29 @@ class OrderController extends Controller
             $group[$value->shop_id][] = $value;       
         }
         $time = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $cart = Cart::find($cart_id);
+        $cart->delete();
+        // $cart_detail = Cart_detail::where('cart_id',$cart)->get();
+        // $cart_detail->delete();
         
         for ($i=0; $i < count($group); $i++) { 
             $order_detail = $group[$kq[$i]];
 
             $order = new Order;
-            $order->username = $username;
+            $order->user_id = $user_id;
             $order->address = $address;
             $order->shipping = $shipping;
             $order->total = $total;
-            $order->shop = $kq[$i];
-            $order->status = $status;
+            $order->shop_id = $kq[$i];
+            $order->status = 'Chờ duyệt';
             $order->order_detail = json_encode($order_detail);
             $order->created_at = $time;
 
             $order->save();
         }
-        
+
+
        
         if ($order) {
             echo 'Thành công';

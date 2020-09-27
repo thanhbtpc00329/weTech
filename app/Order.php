@@ -8,6 +8,6 @@ class Order extends Model
 {
     protected $primaryKey="id";
     protected $table="orders";
-    protected $fillable=['username','address','shipping','total','status','order_detail'];
+    protected $fillable=['user_id','address','shipping','total','shop_id','status','order_detail'];
     public $timestamps=false;
 }

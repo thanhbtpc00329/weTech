@@ -8,6 +8,6 @@ class Wishlist extends Model
 {
     protected $primaryKey="id";
     protected $table="wishlists";
-    protected $fillable=['username','product_name','product_image','product_id'];
+    protected $fillable=['user_id','product_id'];
     public $timestamps=false;
 }

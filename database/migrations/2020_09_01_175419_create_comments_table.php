@@ -15,9 +15,7 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
-            $table->string('username',32);
-            $table->string('email',50);
+            $table->string('user_id');
             $table->text('content');
             $table->string('product_id');
             $table->integer('rating')->length(10);
@@ -25,6 +23,7 @@ class CreateCommentsTable extends Migration
             $table->timestamps();
 
             $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 

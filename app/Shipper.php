@@ -8,6 +8,6 @@ class Shipper extends Model
 {
     protected $primaryKey="id";
     protected $table="shippers";
-    protected $fillable=['name','username','delivery_address','user_id','status'];
+    protected $fillable=['delivery_address','user_id','order_qauntity','salary','status'];
     public $timestamps=false;
 }

@@ -15,10 +15,10 @@ class CreateShippersTable extends Migration
     {
         Schema::create('shippers', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
-            $table->string('username',32);
-            $table->string('delivery_address');
             $table->string('user_id');
+            $table->string('delivery_address');
+            $table->integer('order_quantity');
+            $table->integer('salary');
             $table->boolean('status');
             $table->timestamps();
 

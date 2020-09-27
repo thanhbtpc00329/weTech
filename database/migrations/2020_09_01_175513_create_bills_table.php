@@ -16,7 +16,7 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->string('product_id');
-            $table->integer('sale_amount')->length(10)->unsigned();
+            $table->integer('sale_quantity')->length(10)->unsigned();
             $table->boolean('status');
             $table->timestamps();
 
