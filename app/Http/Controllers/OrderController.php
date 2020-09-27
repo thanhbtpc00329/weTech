@@ -29,7 +29,6 @@ class OrderController extends Controller
         $address = $request->address;
         $shipping = $request->shipping;
         $total = $request->total;
-        $cart_id = $request->cart_id;
         $add = $request->order_detail;
         $tt = ltrim($add,"'");
         $rr = rtrim($tt,"'");
@@ -46,8 +45,7 @@ class OrderController extends Controller
         }
         $time = now()->timezone('Asia/Ho_Chi_Minh');
 
-        $cart = Cart::find($cart_id);
-        $cart->delete();
+        $cart = Cart::where('user_id',$user_id)->delete();
         // $cart_detail = Cart_detail::where('cart_id',$cart)->get();
         // $cart_detail->delete();
         
