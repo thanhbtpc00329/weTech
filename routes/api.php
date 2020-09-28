@@ -93,6 +93,7 @@ Route::post('/add-cart','CartController@addCart');
 Route::post('/order','OrderController@showOrder');
 Route::post('/order-detail','OrderController@orderDetail');
 Route::post('/add-order','OrderController@addOrder');
+Route::post('/unactive-order','OrderController@unactiveOrder');
 Route::post('/active-order','OrderController@activeOrder');
 Route::post('/update-order','OrderController@updateOrder');
 Route::post('/confirm-order','OrderController@confirmOrder');

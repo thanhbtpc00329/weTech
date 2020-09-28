@@ -79,6 +79,13 @@ class OrderController extends Controller
 
     }
 
+    public function unactiveOrder(Request $request){
+        $user_id = $request->user_id; 
+
+        $order = Order::where('user_id',$user_id)->where('status','Chờ duyệt')->get();
+        return response()->json($order);
+    }
+
     public function activeOrder(Request $request){
         $user_id = $request->user_id; 
 
