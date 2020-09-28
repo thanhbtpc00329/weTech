@@ -23,6 +23,8 @@ class OrderController extends Controller
         $order = Order::where('user_id',$user_id)->groupBy('created_at')->orderBy('created_at','DESC')->get();
         return $order;
     }
+
+    
     
 
     public function addOrder(Request $request){
@@ -78,72 +80,45 @@ class OrderController extends Controller
     }
 
     public function activeOrder(Request $request){
-        $id = $request->id; 
+        $user_id = $request->user_id; 
 
-        $order = Order::find($id);
-        $order->status = 'Đã duyệt';
-        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $order->save();
-        if ($order) {
-            return response()->json(['success' => 'Thành công!']);  
-        }
-        else{
-            return response()->json(['error' => 'Lỗi']);
-        }
+        $order = Order::where('user_id',$user_id)->where('status','Đã duyệt')->get();
+        return response()->json($order);
     }
 
     public function updateOrder(Request $request){
-        $id = $request->id; 
+        // $id = $request->id; 
 
-        $order = Order::find($id);
-        $order->status = 'Đã đóng gói';
-        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+        // $order = Order::find($id);
+        // $order->status = 'Đã đóng gói';
+        // $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
-        $order->save();
-        if ($order) {
-            return response()->json(['success' => 'Thành công!']);  
-        }
-        else{
-            return response()->json(['error' => 'Lỗi']);
-        }
+        // $order->save();
+        // if ($order) {
+        //     return response()->json(['success' => 'Thành công!']);  
+        // }
+        // else{
+        //     return response()->json(['error' => 'Lỗi']);
+        // }
     }
 
     public function confirmOrder(Request $request){
-        $id = $request->id; 
-        $shipper_id = $request->shipper_id;
-        $order = Order::find($id);
-        $order->shipper_id = $shipper_id;
-        $order->status = 'Đang giao';
-        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $user_id = $request->user_id; 
 
-        $order->save();
-        if ($order) {
-            return response()->json(['success' => 'Thành công!']);  
-        }
-        else{
-            return response()->json(['error' => 'Lỗi']);
-        }
+        $order = Order::where('user_id',$user_id)->where('status','Đang giao')->get();
+        return response()->json($order);
     }
 
     public function finishOrder(Request $request){
-        $id = $request->id; 
-        $order = Order::find($id);
-        $order->status = 'Đã giao';
-        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $user_id = $request->user_id; 
 
-        $order->save();
-        if ($order) {
-            return response()->json(['success' => 'Thành công!']);  
-        }
-        else{
-            return response()->json(['error' => 'Lỗi']);
-        }
+        $order = Order::where('user_id',$user_id)->where('status','Đã giao')->get();
+        return response()->json($order);
     }
 
     public function acceptOrder(Request $request){
         $shipper_id = $request->shipper_id; 
-        $ship = Shipper::find($shipper_id);
+        $ship = Shipper::where('shipper_id',$shipper_id)->get();
         return $ship;
     }
 

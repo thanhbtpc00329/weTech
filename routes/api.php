@@ -97,6 +97,7 @@ Route::post('/active-order','OrderController@activeOrder');
 Route::post('/update-order','OrderController@updateOrder');
 Route::post('/confirm-order','OrderController@confirmOrder');
 Route::post('/finish-order','OrderController@finishOrder');
+Route::post('/accept-order','OrderController@acceptOrder');
 Route::post('/delete-order','OrderController@deleteOrder');
 
 
