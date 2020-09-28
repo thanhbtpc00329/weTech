@@ -116,11 +116,12 @@ Route::post('/delete-shipper','ShipperController@deleteShipper');
 
 
 // Shop
-Route::post('/shop','AdminController@showShop');
-Route::post('/detail-shop','AdminController@detailShop');
-Route::post('/add-shop','AdminController@addShop');
-Route::post('/update-shop','AdminController@updateShop');
-Route::post('/delete-shop','AdminController@deleteShop');
+Route::post('/shop','ShopController@accountShop');
+Route::post('/show-shop','ShopController@showShop');
+Route::post('/detail-shop','ShopController@detailShop');
+Route::post('/add-shop','ShopController@addShop');
+Route::post('/update-shop','ShopController@updateShop');
+Route::post('/delete-shop','ShopController@deleteShop');
 
 
 // Bill

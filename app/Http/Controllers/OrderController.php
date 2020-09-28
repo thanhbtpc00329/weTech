@@ -117,9 +117,9 @@ class OrderController extends Controller
     }
 
     public function acceptOrder(Request $request){
-        $shipper_id = $request->shipper_id; 
-        $ship = Shipper::where('shipper_id',$shipper_id)->get();
-        return $ship;
+        // $shipper_id = $request->shipper_id; 
+        // $ship = Shipper::where('shipper_id',$shipper_id)->get();
+        // return $ship;
     }
 
     public function deleteOrder(Request $request){
