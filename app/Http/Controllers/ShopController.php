@@ -17,7 +17,7 @@ class ShopController extends Controller
         return response()->json($shop);
     }
 
-    public function showShop(Request $request){
+    public function showShop(){
     	$shop = DB::table('shops')
     			->join('users','users.user_id','=','shops.user_id')
     			->get();
