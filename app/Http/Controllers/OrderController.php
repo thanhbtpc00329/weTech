@@ -20,7 +20,7 @@ class OrderController extends Controller
     public function orderDetail(Request $request){
         $user_id = $request->user_id;
 
-        $order = Order::where('user_id',$user_id)->orderBy('created_at','DESC')->get();
+        $order = Order::where('user_id',$user_id)->groupBy('created_at')->orderBy('created_at','DESC')->get();
         return $order;
     }
     
@@ -142,26 +142,7 @@ class OrderController extends Controller
     }
 
     public function acceptOrder(Request $request){
-        $shipper_id = $request->shipper_id; 
-        $ship = Shipper::find($shipper_id);
-        if ($ship->order_quantity == 0) {
-            $ship->order_quantity = 1;
-        }elseif(0 < $ship->order_quantity < 20){
-            $ship->order_quantity += 1;
-        }else{
-            $ship->salary = 4000000;
-            $ship->status = 1;
-        }
         
-        $ship->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $ship->save();
-        if ($ship) {
-            return response()->json(['success' => 'Thành công!']);  
-        }
-        else{
-            return response()->json(['error' => 'Lỗi']);
-        }
     }
 
     public function deleteOrder(Request $request){
