@@ -21,8 +21,7 @@ class UserController extends Controller
         for ($i = 0; $i < 4; $i++) {
             $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
         }
-        $rd = $ran;
-        $id = Hash::make($ran);
+        $id = Hash::make($rd);
         $name = $request->name;
         $username = $request->username;
         $email = $request->email;
