@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Shipper;
 use App\User;
+use DB;
 
 class ShipperController extends Controller
 {
