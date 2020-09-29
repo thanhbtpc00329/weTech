@@ -21,7 +21,7 @@ class UserController extends Controller
         for ($i = 0; $i < 4; $i++) {
             $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
         }
-        $id = Hash::make($rd);
+        $id = crc32($rd);
         $name = $request->name;
         $username = $request->username;
         $email = $request->email;
@@ -65,6 +65,24 @@ class UserController extends Controller
     }
 
 
+    public function loginMember(Request $request){
+        $name = $request->username;
+        $pass = $request->password;
+        $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->where('role','Member')->get();
+        if(count($user) <= 0){
+            return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);  
+        }else{
+            $mem = DB::table('users')
+                ->join('shops','users.user_id','=','shops.user_id')
+                ->where('username',$name)
+                ->where('password',$pass)
+                ->where('role','Member')
+                ->get();
+            return response()->json($mem);
+        }
+    }
+
+
     // User
     public function showUser(){
         $user = User::where('role','User')->get();
@@ -78,7 +96,7 @@ class UserController extends Controller
         for ($i = 0; $i < 4; $i++) {
             $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
         }
-        $id = Hash::make($rd);
+        $id = crc32($rd);
         $name = $request->name;
         $username = $request->username;
         $email = $request->email;
