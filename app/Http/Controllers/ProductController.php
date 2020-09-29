@@ -61,6 +61,110 @@ class ProductController extends Controller
     }
 
 
+    public function productCate(Request $request){
+        $cate_name = $request->cate_name;
+
+        $cate = Category::where('cate_name',$cate_name)->get();
+
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.cate_id',$cate[0]->cate_id)
+            ->groupBy('product_detail.product_id')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
+            ->get();
+        return response()->json($product);
+    }
+
+    public function searchCate(Request $request){
+        $keywords = $request->keywords;
+
+        $cate = Category::where('cate_name','like','%'.$keywords.'%')->get();
+        $kq = array();
+        for ($i=0; $i < count($cate); $i++) { 
+            $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.cate_id',$cate[$i]->cate_id)
+            ->groupBy('product_detail.product_id')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
+            ->get();
+            if(count($product) > 0){
+                array_push($kq,$product);
+            }
+        }
+        $str1 = json_encode($kq);
+        $str2 = str_replace(array('[[',']]','],['),array('[',']',','),$str1);
+        $str3 = json_decode($str2);
+        return response()->json($str3);
+    }
+
+
+    public function searchCategory(Request $request){
+        $keywords = $request->keywords;
+
+        $cate = Category::where('category','like','%'.$keywords.'%')->get();
+        $kq = array();
+        for ($i=0; $i < count($cate); $i++) { 
+            $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.cate_id',$cate[$i]->cate_id)
+            ->groupBy('product_detail.product_id')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
+            ->get();
+            if(count($product) > 0){
+                array_push($kq,$product);
+            }
+        }
+        $str1 = json_encode($kq);
+        $str2 = str_replace(array('[[',']]','],['),array('[',']',','),$str1);
+        $str3 = json_decode($str2);
+        return response()->json($str3);
+    }
+
+
+    public function searchProduct(Request $request){
+        $keywords = $request->keywords;
+
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.product_name','like','%'.$keywords.'%')
+            ->groupBy('product_detail.product_id')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
+            ->get();
+        return response()->json($product); 
+    }
+
+
+    public function productCategory(Request $request){
+        $category = $request->category;
+
+        $cate = Category::where('category',$category)->get();
+        $kq = array();
+        for ($i=0; $i < count($cate); $i++) { 
+            $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.cate_id',$cate[$i]->cate_id)
+            ->groupBy('product_detail.product_id')
+            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
+            ->get();
+            array_push($kq,$product);
+        }
+        $str1 = json_encode($kq);
+        $str2 = str_replace(array('[[',']]','],['),array('[',']',','),$str1);
+        $str3 = json_decode($str2);
+        return response()->json($str3);
+    }
+
+
     public function productShop(Request $request){
         $shop_id = $request->shop_id;
 
@@ -237,6 +341,9 @@ class ProductController extends Controller
         $prodetail_id = $request->prodetail_id;
         
     }
+
+
+
     
 
     public function test(Request $request){

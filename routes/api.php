@@ -39,6 +39,15 @@ Route::post('/post','ProductController@test');
 
 Route::post('/product','ProductController@showProduct');
 Route::post('/product-type','ProductController@productType');
+
+Route::post('/product-cate','ProductController@productCate');
+Route::post('/product-category','ProductController@productCategory');
+
+Route::post('/search-cate','ProductController@searchCate');
+Route::post('/search-category','ProductController@searchCategory');
+
+Route::post('/search-product','ProductController@searchProduct');
+
 Route::post('/product-shop','ProductController@productShop');
 Route::post('/show-product-shop','ProductController@showProductShop');
 
