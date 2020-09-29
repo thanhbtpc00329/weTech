@@ -156,7 +156,9 @@ class ProductController extends Controller
             ->groupBy('product_detail.product_id')
             ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
             ->get();
-            array_push($kq,$product);
+            if(count($product) > 0){
+                array_push($kq,$product);
+            }
         }
         $str1 = json_encode($kq);
         $str2 = str_replace(array('[[',']]','],['),array('[',']',','),$str1);
