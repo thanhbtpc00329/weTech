@@ -21,7 +21,7 @@ class UserController extends Controller
         for ($i = 0; $i < 4; $i++) {
             $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
         }
-        $id = crc32($rd);
+        $id = abs(crc32($rd));
         $name = $request->name;
         $username = $request->username;
         $email = $request->email;
@@ -96,7 +96,7 @@ class UserController extends Controller
         for ($i = 0; $i < 4; $i++) {
             $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
         }
-        $id = crc32($rd);
+        $id = abs(crc32($rd));
         $name = $request->name;
         $username = $request->username;
         $email = $request->email;
