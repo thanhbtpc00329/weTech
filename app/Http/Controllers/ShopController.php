@@ -36,20 +36,26 @@ class ShopController extends Controller
     }
 
     public function addShop(Request $request){
-        $name = $request->name;
+        $shop_name = $request->shop_name;
+        $user_id = $request->user_id;
+        $identity_card = $request->identity_card;
         $address = $request->address;
         $location = $request->location;
         $phone_number = $request->phone_number;
 
         $shop = new Shop;
-        $shop->name = $name;
+        $shop->shop_name = $shop_name;
+        $shop->user_id = $user_id;
+        $shop->identity_card = $identity_card;
         $shop->address = $address;
         $shop->location = $location;
         $shop->phone_number = $phone_number;
         $shop->created_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $shop->save();
-        if ($shop) {
+
+        $mem = User::where('user_id',$user_id)->update(['role' => 'Member']);
+        if ($mem) {
             echo 'Thành công';
         }
         else{

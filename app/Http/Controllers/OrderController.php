@@ -82,16 +82,48 @@ class OrderController extends Controller
     public function unactiveOrder(Request $request){
         $user_id = $request->user_id; 
 
-        $order = Order::where('user_id',$user_id)->where('status','Chờ duyệt')->get();
+        $order = Order::where('user_id',$user_id)->where('status','Chờ duyệt')->orderBy('created_at','DESC')->get();
         return response()->json($order);
     }
 
     public function activeOrder(Request $request){
         $user_id = $request->user_id; 
 
-        $order = Order::where('user_id',$user_id)->where('status','Đã duyệt')->get();
+        $order = Order::where('user_id',$user_id)->where('status','Đã duyệt')->orderBy('created_at','DESC')->get();
         return response()->json($order);
     }
+
+
+    public function confirmOrder(Request $request){
+        $user_id = $request->user_id; 
+
+        $order = Order::where('user_id',$user_id)->where('status','Đang giao')->orderBy('created_at','DESC')->get();
+        return response()->json($order);
+    }
+
+    public function finishOrder(Request $request){
+        $user_id = $request->user_id; 
+
+        $order = Order::where('user_id',$user_id)->where('status','Đã giao')->get();
+        return response()->json($order);
+    }
+
+   
+    public function deleteOrder(Request $request){
+        $id = $request->id;  
+
+        $order = Order::find($id);
+
+        $order->delete();
+        if ($order) {
+            echo 'Thành công';
+        }
+        else{
+            echo 'Lỗi';
+        }
+
+    }
+
 
     public function updateOrder(Request $request){
         // $id = $request->id; 
@@ -109,39 +141,11 @@ class OrderController extends Controller
         // }
     }
 
-    public function confirmOrder(Request $request){
-        $user_id = $request->user_id; 
 
-        $order = Order::where('user_id',$user_id)->where('status','Đang giao')->get();
-        return response()->json($order);
-    }
-
-    public function finishOrder(Request $request){
-        $user_id = $request->user_id; 
-
-        $order = Order::where('user_id',$user_id)->where('status','Đã giao')->get();
-        return response()->json($order);
-    }
-
-    public function acceptOrder(Request $request){
+     public function acceptOrder(Request $request){
         // $shipper_id = $request->shipper_id; 
         // $ship = Shipper::where('shipper_id',$shipper_id)->get();
         // return $ship;
-    }
-
-    public function deleteOrder(Request $request){
-        $id = $request->id;  
-
-        $order = Order::find($id);
-
-        $order->delete();
-        if ($order) {
-            echo 'Thành công';
-        }
-        else{
-            echo 'Lỗi';
-        }
-
     }
 
 }
