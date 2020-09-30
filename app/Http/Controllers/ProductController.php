@@ -344,7 +344,18 @@ class ProductController extends Controller
         
     }
 
+    public function deleteProduct(Request $request){
+        $prodetail_id = $request->prodetail_id;
 
+        $product = Product_detail::where('prodetail_id',$prodetail_id)->delete();
+
+        if ($product) {
+            return response()->json(['success' => 'Xóa sản phẩm thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Xóa sản phẩm thất bại']);
+        }        
+    }
 
     
 

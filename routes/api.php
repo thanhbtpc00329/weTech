@@ -61,6 +61,8 @@ Route::post('/detail-info','ProductController@detailInfo');
 Route::post('/detail','ProductController@showDetail');
 Route::post('/detail-image','ProductController@detailImage');
 
+Route::post('delete-product','ProductController@deleteProduct');
+
 
 // Category
 Route::post('/cate','CategoryController@showCate');

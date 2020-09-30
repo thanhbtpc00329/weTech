@@ -68,17 +68,28 @@ class UserController extends Controller
     public function loginMember(Request $request){
         $name = $request->username;
         $pass = $request->password;
-        $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->where('role','Member')->get();
+        $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
         if(count($user) <= 0){
             return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);  
         }else{
-            $mem = DB::table('users')
+            if ($user[0]->role == 'Member') {
+                $mem = DB::table('users')
                 ->join('shops','users.user_id','=','shops.user_id')
-                ->where('username',$name)
-                ->where('password',$pass)
-                ->where('role','Member')
+                ->where('users.username',$name)
+                ->orWhere('users.email',$name)
+                ->where('users.password',$pass)
+                ->where('users.role','Member')
                 ->get();
-            return response()->json($mem);
+                return response()->json($mem);
+            }
+            else{
+                $mem = User::where('username',$name)
+                ->where('users.password',$pass)
+                ->orWhere('users.email',$name)
+                ->where('users.role','Admin')
+                ->get();
+                return response()->json($mem);
+            }
         }
     }
 
