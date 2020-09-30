@@ -7,6 +7,7 @@ use App\Order;
 use App\Cart;
 use App\Cart_detail;
 use App\Shipper;
+use DB;
 
 class OrderController extends Controller
 {
@@ -20,8 +21,13 @@ class OrderController extends Controller
     public function orderDetail(Request $request){
         $user_id = $request->user_id;
 
-        $order = Order::where('user_id',$user_id)->groupBy('created_at')->orderBy('created_at','DESC')->get();
-        return $order;
+        $order = DB::table('orders')
+            ->join('shops','shops.shop_id','orders.shop_id')
+            ->where('orders.user_id','=',$user_id)
+            ->groupBy('orders.created_at')
+            ->orderBy('orders.created_at','DESC')
+            ->get();
+        return response()->json($order);
     }
 
     
