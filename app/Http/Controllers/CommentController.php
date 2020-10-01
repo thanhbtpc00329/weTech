@@ -16,18 +16,14 @@ class CommentController extends Controller
 
     public function addComment(Request $request)
     {
-        $name = $request->name;
-        $username = $request->username;
-        $email = $request->email;
+        $user_id = $request->user_id;
         $content = $request->content;
         $product_id = $request->product_id;
         $rating = $request->rating;
         $status = $request->status;
 
         $comment = new Comment;
-        $comment->name = $name;
-        $comment->username = $username;
-        $comment->email = $email;
+        $comment->user_id = $user_id;
         $comment->content = $content;
         $comment->product_id = $product_id;
         $comment->rating = $rating;
@@ -43,7 +39,7 @@ class CommentController extends Controller
         }
     }
 
-    public function updateComment(Request $request){
+    public function activeComment(Request $request){
         $id = $request->id;  
 
         $comment = Comment::find($id);

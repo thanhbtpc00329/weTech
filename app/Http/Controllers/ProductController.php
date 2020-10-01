@@ -344,12 +344,25 @@ class ProductController extends Controller
         
     }
 
+
+    public function updateProduct(Request $request){
+        
+    }
+
+
     public function deleteProduct(Request $request){
         $prodetail_id = $request->prodetail_id;
 
-        $product = Product_detail::where('prodetail_id',$prodetail_id)->delete();
-
-        if ($product) {
+        $product = Product_detail::where('prodetail_id',$prodetail_id)->get();
+        $pro = Product_detail::where('product_id',$product[0]->product_id)->get();
+        if(count($pro) == 1){
+            $pro2 = Product::where('product_id',$product[0]->product_id)->delete();
+        }
+        else{
+            $pro3 = Product_detail::where('prodetail_id',$prodetail_id)->delete(); 
+        }
+        
+        if ($pro) {
             return response()->json(['success' => 'Xóa sản phẩm thành công!']);  
         }
         else{
@@ -396,11 +409,6 @@ class ProductController extends Controller
             $ban->save();
         }
         
-        
-
-
-
-
          
     }
     

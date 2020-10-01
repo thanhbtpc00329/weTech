@@ -61,7 +61,9 @@ Route::post('/detail-info','ProductController@detailInfo');
 Route::post('/detail','ProductController@showDetail');
 Route::post('/detail-image','ProductController@detailImage');
 
-Route::post('delete-product','ProductController@deleteProduct');
+Route::post('/update-product','ProductController@updateProduct');
+
+Route::post('/delete-product','ProductController@deleteProduct');
 
 
 // Category
@@ -83,7 +85,7 @@ Route::post('/delete-banner', 'BannerController@deleteBanner');
 // Comment
 Route::post('/comment','CommentController@showComment');
 Route::post('/add-comment','CommentController@addComment');
-Route::post('/update-comment','CommentController@updateComment');
+Route::post('/active-comment','CommentController@activeComment');
 Route::post('/delete-comment','CommentController@deleteComment');
 
 

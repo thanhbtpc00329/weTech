@@ -56,11 +56,11 @@ class ShopController extends Controller
 
         $mem = User::where('user_id',$user_id)->update(['role' => 'Member']);
         if ($mem) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Đăng ký thành viên thành công!']);  
         }
         else{
-            echo 'Lỗi';
-        }
+            return response()->json(['error' => 'Đăng ký thành viên thất bại']);
+        }  
     }
 
     public function updateShop(Request $request){
@@ -79,11 +79,11 @@ class ShopController extends Controller
         ]);
 
         if ($shop) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Cập nhật thành công!']);  
         }
         else{
-            echo 'Lỗi';
-        }
+            return response()->json(['error' => 'Cập nhật thất bại']);
+        }  
     }
 
     public function deleteShop(Request $request){
@@ -91,10 +91,10 @@ class ShopController extends Controller
 
         $shop = Shop::where('shop_id',$id)->delete();
         if ($shop) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Xóa thành công!']);  
         }
         else{
-            echo 'Lỗi';
-        }
+            return response()->json(['error' => 'Xóa thất bại']);
+        }  
     }
 }
