@@ -54,12 +54,20 @@ class ShopController extends Controller
 
         $shop->save();
 
+        
         if ($shop) {
             return response()->json(['success' => 'Đăng ký thành viên thành công!']);  
         }
         else{
             return response()->json(['error' => 'Đăng ký thành viên thất bại']);
         }  
+    }
+
+    public function activeShop(Request $request){
+        $user_id = $request->user_id;
+
+        $mem = User::where('user_id',$user_id)->update(['role' => 'Member']);
+        return response()->json($mem);
     }
 
     public function updateShop(Request $request){

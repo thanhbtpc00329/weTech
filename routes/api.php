@@ -135,6 +135,9 @@ Route::post('/shop','ShopController@accountShop');
 Route::post('/show-shop','ShopController@showShop');
 Route::post('/detail-shop','ShopController@detailShop');
 Route::post('/add-shop','ShopController@addShop');
+
+Route::post('active-shop','ShopController@activeShop');
+
 Route::post('/update-shop','ShopController@updateShop');
 Route::post('/delete-shop','ShopController@deleteShop');
 
