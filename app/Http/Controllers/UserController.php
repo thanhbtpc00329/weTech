@@ -119,25 +119,7 @@ class UserController extends Controller
         $avatar = $request->avatar;
         $role = $request->role;
         $background = $request->background;
-        if ($avatar) {
-            //get name image
-            $filename = $request->file('avatar');
-            $name = $filename->getClientOriginalName();
-            $extension = $filename->getClientOriginalExtension();
-            $cut1 = substr($name, 0,strlen($name)-(strlen($extension)+1));
-            //upload image
-            Cloudder::upload($filename, 'users/' . $cut1);        
-        }
 
-        if ($background) {
-            //get name image
-            $filename = $request->file('background');
-            $name = $filename->getClientOriginalName();
-            $extension = $filename->getClientOriginalExtension();
-            $cut2 = substr($name, 0,strlen($name)-(strlen($extension)+1));
-            //upload image
-            Cloudder::upload($filename, 'users/' . $cut2);        
-        }
 
         $account = new User;
         $account->user_id = $id;
@@ -156,8 +138,10 @@ class UserController extends Controller
             $extension = $filename->getClientOriginalExtension();
             $cut1 = substr($name, 0,strlen($name)-(strlen($extension)+1));
             //upload image
-            Cloudder::upload($filename, 'users/' . $cut1); 
-            $account->avatar = Cloudder::show('users/'. $cut1);       
+            Cloudder::upload($filename, 'users/' . $cut1);
+            list($width, $height) = getimagesize($filename);         
+            $account->avatar = Cloudder::show('users/'. $cut1, ['width'=>$width,'height'=>$height]); 
+
         }
 
         if ($request->hasFile('background')) {
@@ -168,7 +152,8 @@ class UserController extends Controller
             $cut2 = substr($name1, 0,strlen($name1)-(strlen($extension1)+1));
             //upload image
             Cloudder::upload($filename, 'users/' . $cut2);    
-            $account->background = Cloudder::show('users/'. $cut2);    
+            list($width, $height) = getimagesize($filename1);        
+            $account->background = Cloudder::show('users/'. $cut2, ['width'=>$width,'height'=>$height]);    
         }
         $account->status=1;
         $account->role = $role;
@@ -224,7 +209,8 @@ class UserController extends Controller
             $cut1 = substr($name, 0,strlen($name)-(strlen($extension)+1));
             //upload image
             Cloudder::upload($filename, 'users/' . $cut1); 
-            $account->avatar = Cloudder::show('users/'. $cut1);       
+            list($width, $height) = getimagesize($filename);
+            $account->avatar = Cloudder::show('users/'. $cut1, ['width'=>$width,'height'=>$height]);       
         }
 
         if ($request->hasFile('background')) {
@@ -234,8 +220,9 @@ class UserController extends Controller
             $extension1 = $filename1->getClientOriginalExtension();
             $cut2 = substr($name1, 0,strlen($name1)-(strlen($extension1)+1));
             //upload image
-            Cloudder::upload($filename, 'users/' . $cut2);    
-            $account->background = Cloudder::show('users/'. $cut2);    
+            Cloudder::upload($filename, 'users/' . $cut2);   
+            list($width, $height) = getimagesize($filename1); 
+            $account->background = Cloudder::show('users/'. $cut2, ['width'=>$width,'height'=>$height]);    
         }
         $account->status = $status;
         $account->role = $role;

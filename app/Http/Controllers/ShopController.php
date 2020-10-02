@@ -54,8 +54,7 @@ class ShopController extends Controller
 
         $shop->save();
 
-        $mem = User::where('user_id',$user_id)->update(['role' => 'Member']);
-        if ($mem) {
+        if ($shop) {
             return response()->json(['success' => 'Đăng ký thành viên thành công!']);  
         }
         else{

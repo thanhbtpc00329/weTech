@@ -23,11 +23,12 @@ class BannerController extends Controller
             $extension = $filename->getClientOriginalExtension();
             $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
             //upload image
-            Cloudder::upload($filename, 'banners/' . $cut);        
+            Cloudder::upload($filename, 'banners/' . $cut);  
+            list($width, $height) = getimagesize($filename);      
         }
 
         $banner = new Banner;
-        $banner->image = Cloudder::show('banners/'. $cut);
+        $banner->image = Cloudder::show('banners/'. $cut, ['width'=>$width,'height'=>$height]);
         $banner->status = $status;
         $banner->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $banner->save();
@@ -53,11 +54,12 @@ class BannerController extends Controller
             $extension = $filename->getClientOriginalExtension();
             $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
             //upload image
-            Cloudder::upload($filename, 'banners/' . $cut);            
+            Cloudder::upload($filename, 'banners/' . $cut); 
+            list($width, $height) = getimagesize($filename);              
         }
 
         $banner = Banner::find($id);
-        $banner->image = Cloudder::show('banners/'. $cut);
+        $banner->image = Cloudder::show('banners/'. $cut, ['width'=>$width,'height'=>$height]);
         $banner->status = $status;
         $banner->save();
         $banner->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
