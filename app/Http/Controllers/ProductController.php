@@ -346,7 +346,53 @@ class ProductController extends Controller
 
 
     public function updateProduct(Request $request){
-        
+        $prodetail_id = $request->prodetail_id;
+        $price = $request->price;
+        $color = $request->color;
+        $quantity = $request->quantity;
+        $size = $request->size;
+        $status = $request->status;
+        $discount_price = $request->discount_price;
+        $origin = $request->origin;
+        $accessory = $request->accessory;
+        $dimension = $request->dimension;
+        $weight = $request->weight;
+        $system = $request->system;
+        $material = $request->material;
+        $screen_size = $request->screen_size;
+        $wattage = $request->wattage;
+        $resolution = $request->resolution;
+        $memory = $request->memory;
+
+        $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
+        $pro->price = $price;
+        $pro->color = $color;
+        $pro->quantity = $quantity;
+        $pro->size = $size;
+        $pro->status = $status;
+        $pro->discount_price = $discount_price;
+        $pro->origin = $origin;
+        $pro->accessory = $accessory;
+        $pro->dimension = $dimension;
+        $pro->weight = $weight;
+        $pro->system = $system;
+        $pro->material = $material;
+        $pro->screen_size = $screen_size;
+        $pro->wattage = $wattage;
+        $pro->resolution = $resolution;
+        $pro->memory = $memory;
+        $pro->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $pro->save();
+
+        if ($pro) {
+            return response()->json(['success' => 'Cập nhật sản phẩm thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Cập nhật thất bại']);
+        }
+
+
     }
 
 

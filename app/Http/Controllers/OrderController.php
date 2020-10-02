@@ -57,32 +57,40 @@ class OrderController extends Controller
         $cart = Cart::where('user_id',$user_id)->delete();
         // $cart_detail = Cart_detail::where('cart_id',$cart)->get();
         // $cart_detail->delete();
-        
+        $money = array();
+        $tong = 0;
         for ($i=0; $i < count($group); $i++) { 
             $order_detail = $group[$kq[$i]];
+
+            for ($j=0; $j < count($group[$kq[$i]]); $j++) { 
+                $tinh = $group[$kq[$i]][$j]->price * $group[$kq[$i]][$j]->quantity;
+                array_push($money,$tinh);
+            }
+            foreach ($money as $value) {
+                $tong += $value;
+            }
 
             $order = new Order;
             $order->user_id = $user_id;
             $order->address = $address;
             $order->shipping = $shipping;
-            $order->total = $total;
+            $order->total = $tong;
             $order->shop_id = $kq[$i];
             $order->status = 'Chờ duyệt';
             $order->order_detail = json_encode($order_detail);
             $order->created_at = $time;
 
             $order->save();
+            $tong = 0;
+            $money = array();
         }
 
-
-       
         if ($order) {
             return response()->json(['success' => 'Thanh toán thành công!']);  
         }
         else{
             return response()->json(['error' => 'Thanh toán bị lỗi']);
         }
-
     }
 
     public function unactiveOrder(Request $request){

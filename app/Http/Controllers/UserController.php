@@ -149,8 +149,27 @@ class UserController extends Controller
         $account->address=$address;
         $account->birth_day=$birth_day;
         $account->phone_number=$phone_number;
-        $account->avatar = Cloudder::show('users/'. $cut1);
-        $account->background = Cloudder::show('users/'. $cut2);
+        if ($request->hasFile('avatar')) {
+            //get name image
+            $filename = $request->file('avatar');
+            $name = $filename->getClientOriginalName();
+            $extension = $filename->getClientOriginalExtension();
+            $cut1 = substr($name, 0,strlen($name)-(strlen($extension)+1));
+            //upload image
+            Cloudder::upload($filename, 'users/' . $cut1); 
+            $account->avatar = Cloudder::show('users/'. $cut1);       
+        }
+
+        if ($request->hasFile('background')) {
+            //get name image
+            $filename1 = $request->file('background');
+            $name1 = $filename1->getClientOriginalName();
+            $extension1 = $filename1->getClientOriginalExtension();
+            $cut2 = substr($name1, 0,strlen($name1)-(strlen($extension1)+1));
+            //upload image
+            Cloudder::upload($filename, 'users/' . $cut2);    
+            $account->background = Cloudder::show('users/'. $cut2);    
+        }
         $account->status=1;
         $account->role = $role;
         $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
@@ -186,36 +205,38 @@ class UserController extends Controller
         $role = $request->role;
         $background = $request->background;
         $status = $request->status;
-        if ($avatar) {
-            //get name image
-            $filename = $request->file('avatar');
-            $name = $filename->getClientOriginalName();
-            $extension = $filename->getClientOriginalExtension();
-            $cut1 = substr($name, 0,strlen($name)-(strlen($extension)+1));
-            //upload image
-            Cloudder::upload($filename, 'users/' . $cut1);        
-        }
+        
 
-        if ($background) {
-            //get name image
-            $filename = $request->file('background');
-            $name = $filename->getClientOriginalName();
-            $extension = $filename->getClientOriginalExtension();
-            $cut2 = substr($name, 0,strlen($name)-(strlen($extension)+1));
-            //upload image
-            Cloudder::upload($filename, 'users/' . $cut2);        
-        }
+        
 
-        $account = new User;
-        $account->user_id = $id;
+        $account = User::where('user_id',$user_id)->first();
         $account->name=$name;
         $account->password=Hash::make($password);
         $account->gender=$gender;
         $account->address=$address;
         $account->birth_day=$birth_day;
         $account->phone_number=$phone_number;
-        $account->avatar = Cloudder::show('users/'. $cut1);
-        $account->background = Cloudder::show('users/'. $cut2);
+        if ($request->hasFile('avatar')) {
+            //get name image
+            $filename = $request->file('avatar');
+            $name = $filename->getClientOriginalName();
+            $extension = $filename->getClientOriginalExtension();
+            $cut1 = substr($name, 0,strlen($name)-(strlen($extension)+1));
+            //upload image
+            Cloudder::upload($filename, 'users/' . $cut1); 
+            $account->avatar = Cloudder::show('users/'. $cut1);       
+        }
+
+        if ($request->hasFile('background')) {
+            //get name image
+            $filename1 = $request->file('background');
+            $name1 = $filename1->getClientOriginalName();
+            $extension1 = $filename1->getClientOriginalExtension();
+            $cut2 = substr($name1, 0,strlen($name1)-(strlen($extension1)+1));
+            //upload image
+            Cloudder::upload($filename, 'users/' . $cut2);    
+            $account->background = Cloudder::show('users/'. $cut2);    
+        }
         $account->status = $status;
         $account->role = $role;
         $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
