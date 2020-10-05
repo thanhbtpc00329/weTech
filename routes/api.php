@@ -78,7 +78,8 @@ Route::post('/delete-cate', 'CategoryController@deleteCate');// Xóa cate
 // Banner
 Route::post('/banner','BannerController@showBanner');// Show all banner
 Route::post('/add-banner', 'BannerController@addBanner'); // Thêm banner
-Route::post('/update-banner', 'BannerController@updateBanner');//Update banner
+Route::post('/active-banner', 'BannerController@activeBanner');//Active banner
+Route::post('/unactive-banner', 'BannerController@unactiveBanner');//Unactive banner
 Route::post('/delete-banner', 'BannerController@deleteBanner');// Xóa banner
 
 
