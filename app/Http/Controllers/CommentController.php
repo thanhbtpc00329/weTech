@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comment;
+use DB;
+
 
 class CommentController extends Controller
 {
@@ -14,20 +16,28 @@ class CommentController extends Controller
         return Comment::all();
     }
 
+    public function detailComment(){
+        $cmt = DB::table('comments')
+                ->join('users','users.user_id','=','comments.user_id')
+                ->join('products','products.product_id','=','comments.product_id')
+                ->get();
+        return response()->json($cmt);
+    }
+
     public function addComment(Request $request)
     {
         $user_id = $request->user_id;
         $content = $request->content;
         $product_id = $request->product_id;
         $rating = $request->rating;
-        $status = $request->status;
-
+        
+        
         $comment = new Comment;
         $comment->user_id = $user_id;
         $comment->content = $content;
         $comment->product_id = $product_id;
         $comment->rating = $rating;
-        $comment->status = $status;
+        $comment->status = 0;
         $comment->created_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $comment->save();

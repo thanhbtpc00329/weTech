@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contact;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 
 class ContactController extends Controller
 {
@@ -19,18 +21,25 @@ class ContactController extends Controller
         $email = $request->email;
         $title = $request->title;
         $content = $request->content;
-        $status = $request->status;
 
-        $contact = new Contact;
-        $contact->name = $name;
-        $contact->email = $email;
-        $contact->title = $title;
-        $contact->content = $content;
-        $contact->status = $status;
-        $contact->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $mail = new Contact;
+        $mail->name = $name;
+        $mail->email = $email;
+        $mail->title = $title;
+        $mail->content = $content;
+        $mail->status = 0;
+        $mail->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $mail->save();
 
-        $contact->save();
-        if ($contact) {
+        // Mail::send('layouts.mail', ['email'=>$request], function ($message) use ($data) {
+        //     $message->from('thanhbtpc00329@fpt.edu.vn', 'weTech');
+        //     $message->sender('thanhbtpc00329@fpt.edu.vn', 'weTech');
+        //     $message->to($email,$name);
+        //     $message->subject('Mail phản hồi của weTech');
+        //     $message->priority(1);
+        // });
+       
+        if ($mail) {
             echo 'Thành công';
         }
         else{

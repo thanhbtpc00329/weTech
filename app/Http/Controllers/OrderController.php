@@ -32,7 +32,6 @@ class OrderController extends Controller
 
     
     
-
     public function addOrder(Request $request){
         $user_id = $request->user_id;
         $address = $request->address;
@@ -136,30 +135,6 @@ class OrderController extends Controller
             echo 'Lỗi';
         }
 
-    }
-
-
-    public function updateOrder(Request $request){
-        // $id = $request->id; 
-
-        // $order = Order::find($id);
-        // $order->status = 'Đã đóng gói';
-        // $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        // $order->save();
-        // if ($order) {
-        //     return response()->json(['success' => 'Thành công!']);  
-        // }
-        // else{
-        //     return response()->json(['error' => 'Lỗi']);
-        // }
-    }
-
-
-     public function acceptOrder(Request $request){
-        // $shipper_id = $request->shipper_id; 
-        // $ship = Shipper::where('shipper_id',$shipper_id)->get();
-        // return $ship;
     }
 
 }
