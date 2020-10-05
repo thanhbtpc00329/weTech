@@ -41,26 +41,28 @@ class BannerController extends Controller
 
 	}
 
-	public function updateBanner(Request $request)
+	public function unactiveBanner(Request $request)
     {
         $id = $request->id;
-        $image = $request->file('image');
-        $status = $request->status;
-
-        if ($image) {
-            //get name image
-            $filename =$request->file('image');
-            $name = $filename->getClientOriginalName();
-            $extension = $filename->getClientOriginalExtension();
-            $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
-            //upload image
-            Cloudder::upload($filename, 'banners/' . $cut); 
-            list($width, $height) = getimagesize($filename);              
-        }
-
         $banner = Banner::find($id);
-        $banner->image = Cloudder::show('banners/'. $cut, ['width'=>$width,'height'=>$height]);
-        $banner->status = $status;
+        $banner->status = 0;
+        $banner->save();
+        $banner->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $banner->save();
+        if ($banner) {
+            return response()->json(['success' => 'Cập nhật thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Cập nhật thất bại']);
+        }
+    }
+
+
+    public function activeBanner(Request $request)
+    {
+        $id = $request->id;
+        $banner = Banner::find($id);
+        $banner->status = 1;
         $banner->save();
         $banner->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
         $banner->save();

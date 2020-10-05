@@ -31,20 +31,20 @@ class ContactController extends Controller
         $mail->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $mail->save();
 
-        // Mail::send('layouts.mail', ['email'=>$request], function ($message) use ($data) {
+        // Mail::send('mail', ['email'=>$request], function ($message) use ($request) {
         //     $message->from('thanhbtpc00329@fpt.edu.vn', 'weTech');
         //     $message->sender('thanhbtpc00329@fpt.edu.vn', 'weTech');
-        //     $message->to($email,$name);
+        //     $message->to($request->email,$request->name);
         //     $message->subject('Mail phản hồi của weTech');
         //     $message->priority(1);
         // });
        
         if ($mail) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
-        }
+            return response()->json(['error' => 'Thất bại']);
+        }  
     }
 
     public function updateContact(Request $request){
@@ -56,11 +56,11 @@ class ContactController extends Controller
 
         $contact->save();
         if ($contact) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
-        }
+            return response()->json(['error' => 'Thất bại']);
+        } 
 
     }
 
@@ -71,11 +71,11 @@ class ContactController extends Controller
 
         $contact->delete();
         if ($contact) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
-        }
+            return response()->json(['error' => 'Thất bại']);
+        } 
 
     }
     
