@@ -14,7 +14,7 @@ class CreateProductDetailTable extends Migration
     public function up()
     {
         Schema::create('product_detail', function (Blueprint $table) {
-            $table->increments('prodetail_id'); 
+            $table->string('prodetail_id')->primary(); 
             $table->string('product_id');
             $table->integer('price')->unsigned();
             $table->string('color')->nullable();

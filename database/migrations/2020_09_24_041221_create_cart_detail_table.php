@@ -16,7 +16,7 @@ class CreateCartDetailTable extends Migration
         Schema::create('cart_detail', function (Blueprint $table) {
             $table->increments('cart_detail_id');
             $table->string('cart_id');
-            $table->integer('prodetail_id')->length(10)->unsigned();
+            $table->string('prodetail_id');
             $table->integer('cart_quantity');
             $table->integer('shop_id')->length(10)->unsigned();
             

@@ -22,6 +22,7 @@ class CreateShopsTable extends Migration
             $table->string('phone_number',20);
             $table->string('identity_card');
             $table->string('background');
+            $table->boolean('status');
             $table->timestamps();
 
 
