@@ -128,11 +128,11 @@ class OrderController extends Controller
         $order = Order::find($id);
 
         $order->delete();
-        if ($order) {
-            echo 'Thành công';
+        if ($comment) {
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Thất bại']);
         }
 
     }

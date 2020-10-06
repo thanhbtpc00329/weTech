@@ -42,10 +42,10 @@ class CommentController extends Controller
 
         $comment->save();
         if ($comment) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Thất bại']);
         }
     }
 
@@ -58,10 +58,10 @@ class CommentController extends Controller
 
         $comment->save();
         if ($comment) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Thất bại']);
         }
 
     }
@@ -73,10 +73,10 @@ class CommentController extends Controller
 
         $comment->delete();
         if ($comment) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Thất bại']);
         }
 
     }
