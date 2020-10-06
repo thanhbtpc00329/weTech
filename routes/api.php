@@ -139,6 +139,7 @@ Route::post('/delete-contact','ContactController@deleteContact');// Xóa contact
 Route::post('/wishlist','WishlistController@showWishlist');// Show all wishlist
 Route::post('/detail-wishlist','WishlistController@detailWishlist');// Chi tiết wishlist
 Route::post('/add-wishlist','WishlistController@addWishlist');// Tạo wishlist
+Route::post('/get-wishlist','WishlistController@getWishlist');// Lấy wishlist
 Route::post('/cart','WishlistController@cart');// Thêm vào giỏ hàng
 Route::post('/delete-wishlist','WishlistController@deleteWishlist');// Xóa wishlist
 

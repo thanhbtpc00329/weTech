@@ -17,6 +17,21 @@ class WishlistController extends Controller
     }
 
 
+    public function getWishlist(Request $request){
+        $user_id = $request->user_id;
+
+        $wish = DB::table('wishlists')
+                ->join('users','users.user_id','=','wishlists.user_id')
+                ->join('products','products.product_id','=','wishlists.product_id')
+                ->join('product_detail','product_detail.product_id','=','products.product_id')
+                ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+                ->where('wishlists.user_id','=',$user_id)
+                ->groupBy('product_detail.product_id')
+                ->get();
+        return response()->json($wish);
+    }
+
+
     public function detailWishlist(){
         $wish = DB::table('wishlists')
                 ->join('users','users.user_id','=','wishlists.user_id')
@@ -27,6 +42,8 @@ class WishlistController extends Controller
                 ->get();
         return response()->json($wish);
     }
+
+
 
 
     public function addWishlist(Request $request){
