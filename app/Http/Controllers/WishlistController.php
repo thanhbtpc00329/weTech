@@ -40,10 +40,10 @@ class WishlistController extends Controller
 
         $wishlist->save();
         if ($wishlist) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Thất bại']);
         }
     }
 
@@ -103,10 +103,10 @@ class WishlistController extends Controller
         $wishlist = Wishlist::find($id);
         $wishlist->delete();
         if ($wishlist) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Thất bại']);
         }
     }
 }
