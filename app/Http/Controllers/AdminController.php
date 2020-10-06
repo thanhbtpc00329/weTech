@@ -49,12 +49,11 @@ class AdminController extends Controller
 
         $bill->save();
         if ($bill) {
-            echo 'Thành công';
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            echo 'Lỗi';
+            return response()->json(['error' => 'Thất bại']);
         }
-
     }
 
 
