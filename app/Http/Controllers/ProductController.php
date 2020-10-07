@@ -49,6 +49,7 @@ class ProductController extends Controller
         $shop_id = $request->shop_id;
 
         $product = DB::table('products')
+            ->join('categories','products.cate_id','=','categories.cate_id')
             ->join('product_detail','product_detail.product_id','=','products.product_id')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
