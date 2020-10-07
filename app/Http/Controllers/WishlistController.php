@@ -66,14 +66,16 @@ class WishlistController extends Controller
 
 
     public function cart(Request $request){
-        $id = $request->id;
+        $user_id = $request->user_id;
+        $product_id = $request->product_id;
 
         $wish = DB::table('wishlists')
                 ->join('users','users.user_id','=','wishlists.user_id')
                 ->join('products','products.product_id','=','wishlists.product_id')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
-                ->where('wishlists.id',$id)
+                ->where('wishlists.product_id',$product_id)
+                ->where('wishlists.user_id',$user_id)
                 ->groupBy('product_detail.product_id')
                 ->get();
         $ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -101,8 +103,8 @@ class WishlistController extends Controller
             $cart_detail->save();
         }
 
-        $del = Wishlist::find($id);
-        $del->delete();
+        $del = Wishlist::where('wishlists.product_id',$product_id)
+                ->where('wishlists.user_id',$user_id)->delete();
         if ($del) {
             return response()->json(['success' => 'Thêm sản phẩm vào giỏ hàng thành công!']);  
         }
@@ -115,15 +117,16 @@ class WishlistController extends Controller
 
 
     public function deleteWishlist(Request $request){
-        $id = $request->id;
-
-        $wishlist = Wishlist::find($id);
-        $wishlist->delete();
-        if ($wishlist) {
-            return response()->json(['success' => 'Thành công!']);  
+        $user_id = $request->user_id;
+        $product_id = $request->product_id;
+        
+        $del = Wishlist::where('wishlists.product_id',$product_id)
+                ->where('wishlists.user_id',$user_id)->delete();
+        if ($del) {
+            return response()->json(['success' => 'Thêm sản phẩm vào giỏ hàng thành công!']);  
         }
         else{
-            return response()->json(['error' => 'Thất bại']);
+            return response()->json(['error' => 'Thêm sản phẩm vào giỏ hàng thất bại']);
         }
     }
 }
