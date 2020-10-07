@@ -31,13 +31,13 @@ class ContactController extends Controller
         $mail->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $mail->save();
 
-        // Mail::send('mail', ['email'=>$request], function ($message) use ($request) {
-        //     $message->from('thanhbtpc00329@fpt.edu.vn', 'weTech');
-        //     $message->sender('thanhbtpc00329@fpt.edu.vn', 'weTech');
-        //     $message->to($request->email,$request->name);
-        //     $message->subject('Mail phản hồi của weTech');
-        //     $message->priority(1);
-        // });
+        Mail::send('mail', ['email'=>$request], function ($message) use ($request) {
+            $message->from('thanhbtpc00329@fpt.edu.vn', 'weTech');
+            $message->sender('thanhbtpc00329@fpt.edu.vn', 'weTech');
+            $message->to($request->email,$request->name);
+            $message->subject('Mail phản hồi của weTech');
+            $message->priority(1);
+        });
        
         if ($mail) {
             return response()->json(['success' => 'Thành công!']);  
@@ -49,10 +49,34 @@ class ContactController extends Controller
 
 
     public function reply(Request $request){
+        $id = $request->id;
         $name = $request->name;
+        $title = $request->title;
+        $email = $request->email;
+        $subject = $request->subject;
+        $content = $request->content;
+        
+        Mail::send(array(),array(), function ($message) use ($request) {
+            $message->from('thanhbtpc00329@fpt.edu.vn', 'weTech');
+            $message->sender('thanhbtpc00329@fpt.edu.vn', 'weTech');
+            $message->to($request->email,$request->name);
+            $message->subject($request->subject);
+            $message->setBody($request->content,'text/html');
+            $message->priority(1);
+        });
 
-        return response()->json(['success' => 'Thành công!']) && view('mail',['name'=>$name]);
-
+        $mail = Contact::find($id);
+        $mail->status = 1;
+        $mail->save();
+        
+        if ($mail) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        } 
+        
+        
     }
 
     public function updateContact(Request $request){
