@@ -119,14 +119,14 @@ class WishlistController extends Controller
     public function deleteWishlist(Request $request){
         $user_id = $request->user_id;
         $product_id = $request->product_id;
-        
+
         $del = Wishlist::where('wishlists.product_id',$product_id)
                 ->where('wishlists.user_id',$user_id)->delete();
         if ($del) {
-            return response()->json(['success' => 'Thêm sản phẩm vào giỏ hàng thành công!']);  
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            return response()->json(['error' => 'Thêm sản phẩm vào giỏ hàng thất bại']);
+            return response()->json(['error' => 'Thất bại']);
         }
     }
 }

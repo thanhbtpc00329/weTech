@@ -47,6 +47,14 @@ class ContactController extends Controller
         }  
     }
 
+
+    public function reply(Request $request){
+        $name = $request->name;
+
+        return response()->json(['success' => 'Thành công!']) && view('mail',['name'=>$name]);
+
+    }
+
     public function updateContact(Request $request){
         $id = $request->id;  
 

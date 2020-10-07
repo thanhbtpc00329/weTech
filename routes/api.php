@@ -132,6 +132,7 @@ Route::post('/delete-comment','CommentController@deleteComment');// Xóa comment
 
 // Contact
 Route::post('/contact','ContactController@showContact');// Show all contact
+Route::post('reply','ContactController@reply');// Show all contact
 Route::post('/add-contact','ContactController@addContact');// Thêm contact
 Route::post('/update-contact','ContactController@updateContact');// Duyệt contact
 Route::post('/delete-contact','ContactController@deleteContact');// Xóa contact
