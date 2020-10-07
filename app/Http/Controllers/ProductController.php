@@ -191,6 +191,23 @@ class ProductController extends Controller
     }
 
 
+    public function detailProductShop(Request $request){
+        $product_id = $request->product_id;
+
+        $detail = DB::table('products')
+            ->join('categories','categories.cate_id','=','products.cate_id')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->join('users','users.user_id','=','shops.user_id')
+            ->where('products.product_id','=',$product_id)
+            ->groupby('product_image.prodetail_id')
+            ->get();
+            
+            return response()->json($detail);
+    }
+
+
     public function detailInfo(Request $request){
         $id = $request->id;
 
