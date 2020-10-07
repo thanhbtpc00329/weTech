@@ -31,13 +31,13 @@ class ContactController extends Controller
         $mail->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $mail->save();
 
-        // Mail::send('mail', ['email'=>$request], function ($message) use ($request) {
-        //     $message->from('thanhbtpc00329@fpt.edu.vn', 'weTech');
-        //     $message->sender('thanhbtpc00329@fpt.edu.vn', 'weTech');
-        //     $message->to($request->email,$request->name);
-        //     $message->subject('Mail phản hồi của weTech');
-        //     $message->priority(1);
-        // });
+        Mail::send('mail', ['email'=>$request], function ($message) use ($request) {
+            $message->from('thanhbtpc00329@fpt.edu.vn', 'weTech');
+            $message->sender('thanhbtpc00329@fpt.edu.vn', 'weTech');
+            $message->to($request->email,$request->name);
+            $message->subject('Mail phản hồi của weTech');
+            $message->priority(1);
+        });
        
         if ($mail) {
             return response()->json(['success' => 'Thành công!']);  

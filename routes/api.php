@@ -47,6 +47,8 @@ Route::post('/search-category','ProductController@searchCategory');//Tìm kiếm
 Route::post('/search-product','ProductController@searchProduct');// Tìm kiếm sp
 
 Route::post('/product-shop','ProductController@productShop');// Lấy chi tiết sp theo shop
+Route::post('/detail-product-shop','ProductController@detailProductShop');// Lấy chi tiết sp theo shop
+
 Route::post('/show-product-shop','ProductController@showProductShop');// Lấy sp theo shop
 
 Route::post('/add-product', 'ProductController@addProduct');// Thêm sp
