@@ -30,10 +30,6 @@ Route::post('/add-user','UserController@addUser');// Thêm tài khoản
 Route::post('/update-user','UserController@updateUser');// Update tài khoản
 Route::post('/delete-user','UserController@deleteUser');// Xóa tài khoản
 
-//Test
-//Route::get('/test','ProductController@test');
-Route::post('/post','ProductController@test');
-
 
 
 // Product
@@ -117,11 +113,16 @@ Route::post('/update-order','ShopController@updateOrder');//Đóng gói order
 Route::post('/update-shop','ShopController@updateShop');// Update shop
 Route::post('/delete-shop','ShopController@deleteShop');// Xóa shop
 
+Route::post('/shop-check', 'ShopController@shopCheck');// Đã tiếp nhận order
+Route::post('/shop-update', 'ShopController@shopUpdate');// Đã đóng gói order
+
 
 
 // Comment
 Route::post('/comment','CommentController@showComment');// Show all comment
 Route::post('/detail-comment','CommentController@detailComment');// Lấy detail comment
+Route::post('/get-comment','CommentController@getComment');// Lấy comment theo sp
+
 Route::post('/add-comment','CommentController@addComment');// Thêm comment
 Route::post('/active-comment','CommentController@activeComment');// Duyệt comment
 Route::post('/delete-comment','CommentController@deleteComment');// Xóa comment
@@ -154,7 +155,8 @@ Route::post('/delete-shipper','ShipperController@deleteShipper');
 
 
 // Admin
-Route::post('admin-check','AdminController@adminCheck');
+Route::post('admin-check','AdminController@adminCheck');// Check sau khi treo order 3 ngày
+Route::post('salary-shipper','AdminController@salaryShipper');// Check đã trả lương cho shipper
 
 // Bill
 Route::post('/bill','AdminController@showBill');

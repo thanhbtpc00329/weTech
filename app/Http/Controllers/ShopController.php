@@ -147,4 +147,39 @@ class ShopController extends Controller
             return response()->json(['error' => 'Lỗi']);
         }
     }
+
+
+    // Order
+
+    public function shopCheck(Request $request){
+        $id = $request->id; 
+
+        $order = Order::find($id);
+        $order->status = 'Đã tiếp nhận';
+        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $order->save();
+        if ($order) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Lỗi']);
+        }
+    }
+
+    public function shopUpdate(Request $request){
+        $id = $request->id; 
+
+        $order = Order::find($id);
+        $order->status = 'Đã đóng gói';
+        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $order->save();
+        if ($order) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Lỗi']);
+        }
+    }
 }

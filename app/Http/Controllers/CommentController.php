@@ -24,6 +24,17 @@ class CommentController extends Controller
         return response()->json($cmt);
     }
 
+    public function getComment(Request $request){
+        $product_id = $request->product_id;
+
+        $cmt = DB::table('comments')
+                ->join('users','users.user_id','=','comments.user_id')
+                ->where('comments.product_id','=',$product_id)
+                ->where('comments.status','=',1)
+                ->get();
+        return response()->json($cmt);
+    }
+
     public function addComment(Request $request)
     {
         $user_id = $request->user_id;

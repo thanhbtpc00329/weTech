@@ -27,8 +27,8 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->groupBy('product_detail.product_id')
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
             ->get();
+        
         return response()->json($product);
     }
 
@@ -41,7 +41,6 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.cate_id',$cate_id)
             ->groupBy('product_detail.product_id')
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
             ->get();
         return response()->json($product);
     }
@@ -55,7 +54,6 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.shop_id','=',$shop_id)
             ->groupby('product_detail.product_id')
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name','products.brand','product_detail.prodetail_id','product_detail.color','product_detail.size','product_detail.status','shops.shop_id','shops.shop_name','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory')
             ->get();
         return response()->json($product);
     }
@@ -72,7 +70,6 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.cate_id',$cate[0]->cate_id)
             ->groupBy('product_detail.product_id')
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
             ->get();
         return response()->json($product);
     }
@@ -89,7 +86,6 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.cate_id',$cate[$i]->cate_id)
             ->groupBy('product_detail.product_id')
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
             ->get();
             if(count($product) > 0){
                 array_push($kq,$product);
@@ -114,7 +110,6 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.cate_id',$cate[$i]->cate_id)
             ->groupBy('product_detail.product_id')
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
             ->get();
             if(count($product) > 0){
                 array_push($kq,$product);
@@ -136,7 +131,6 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.product_name','like','%'.$keywords.'%')
             ->groupBy('product_detail.product_id')
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
             ->get();
         return response()->json($product); 
     }
@@ -154,7 +148,6 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.cate_id',$cate[$i]->cate_id)
             ->groupBy('product_detail.product_id')
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name')
             ->get();
             if(count($product) > 0){
                 array_push($kq,$product);
@@ -176,7 +169,6 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.shop_id','=',$shop_id)
             ->groupby('product_image.prodetail_id')
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.status','product_detail.price','product_detail.quantity','product_detail.discount_price','product_image.image','shops.shop_name','products.brand','product_detail.prodetail_id','product_detail.color','product_detail.size','product_detail.status','shops.shop_id','shops.shop_name','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory')
             ->get();
         return response()->json($product);
     }
@@ -192,7 +184,6 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('users','users.user_id','=','shops.user_id')
             ->where('products.product_id','=',$id)
-            ->select('products.product_id','products.product_name','products.introduction','products.description','products.tag','products.brand','categories.cate_id','categories.cate_name','categories.category','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.discount_price','product_detail.status','product_image.image','shops.shop_id','shops.shop_name','shops.address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
             ->get();
             
             return response()->json($detail);
@@ -512,47 +503,9 @@ class ProductController extends Controller
         }        
     }
 
+
+
     
-
-    public function test(Request $request){
-        // $name = $request->username;
-
-        // $test = DB::table('orders')
-        //     ->select('username','created_at',DB::raw('COUNT(1) as x'))
-        //     ->where('username','=','nva')
-        //     ->groupby('username','created_at')
-        //     ->get();
-
-        // $ds = DB::table('orders')
-        //     ->where('username','=',$test[0]->username)
-        //     ->where('created_at','=',$test[0]->created_at)
-        //     ->get();
-        
-        // return response()->json($ds);
-
-        // $arr = $request->cart;
-        // $arr1 = json_decode($arr);    
-
-        // foreach ($arr1 as $key) {
-        //     $group[$key->shop_id][]= $key;
-
-        // }
-        // return response()->json($group);
-        $time = now()->timezone('Asia/Ho_Chi_Minh');
-        $arr = [3,4,5,6,7,8,3,4,6,7,8,9,9];
-        for ($i=0; $i < count($arr); $i++) { 
-            
-            $image = $arr[$i];
-            $ban = new Banner;
-            $ban->image = $image;
-            $ban->status = 1;
-            $ban->created_at = $day;
-
-            $ban->save();
-        }
-        
-         
-    }
     
 }
 
