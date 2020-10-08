@@ -35,6 +35,26 @@ class CommentController extends Controller
         return response()->json($cmt);
     }
 
+    public function unactiveCommentAdmin(Request $request){
+
+        $cmt = DB::table('comments')
+                ->join('users','users.user_id','=','comments.user_id')
+                ->where('comments.status','=',0)
+                ->get();
+        return response()->json($cmt);
+    }
+
+
+    public function activeCommentAdmin(Request $request){
+
+        $cmt = DB::table('comments')
+                ->join('users','users.user_id','=','comments.user_id')
+                ->where('comments.status','=',1)
+                ->get();
+        return response()->json($cmt);
+    }
+
+
     public function addComment(Request $request)
     {
         $user_id = $request->user_id;
