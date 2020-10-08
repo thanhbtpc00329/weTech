@@ -350,20 +350,24 @@ class ProductController extends Controller
 
         $pro->save();
 
+
         $image = $request->image;
-        $tt = ltrim($image,'"[');
-        $pp = rtrim($tt,'"]');
-        $arr = explode(",", $pp);
-        for ($i=0; $i < count($arr); $i++) { 
-            $bt = ltrim($arr[$i],"'");
-            $bp = rtrim($bt,"'");
-            $pro_img = new Product_image;
-            $pro_img->prodetail_id = $id1;
-            $pro_img->image = $bp;
-            $pro_img->created_at = $timedt;
-            $pro_img->save();
+        if ($image) {
+            $tt = ltrim($image,'"[');
+            $pp = rtrim($tt,'"]');
+            $arr = explode(",", $pp);
+            for ($i=0; $i < count($arr); $i++) { 
+                $bt = ltrim($arr[$i],"'");
+                $bp = rtrim($bt,"'");
+                $pro_img = new Product_image;
+                $pro_img->prodetail_id = $id1;
+                $pro_img->image = $bp;
+                $pro_img->created_at = $timedt;
+                $pro_img->save();
             
+            }
         }
+        
         if ($pro_img) {
             return response()->json(['success' => 'Thêm sản phẩm thành công!']);  
         }
@@ -428,18 +432,20 @@ class ProductController extends Controller
         $pro->save();
 
         $image = $request->image;
-        $tt = ltrim($image,'"[');
-        $pp = rtrim($tt,'"]');
-        $arr = explode(",", $pp);
-        for ($i=0; $i < count($arr); $i++) { 
-            $bt = ltrim($arr[$i],"'");
-            $bp = rtrim($bt,"'");
-            $pro_img = new Product_image;
-            $pro_img->prodetail_id = $id1;
-            $pro_img->image = $bp;
-            $pro_img->created_at = $timedt;
-            $pro_img->save();
-            
+        if($image){
+            $tt = ltrim($image,'"[');
+            $pp = rtrim($tt,'"]');
+            $arr = explode(",", $pp);
+            for ($i=0; $i < count($arr); $i++) { 
+                $bt = ltrim($arr[$i],"'");
+                $bp = rtrim($bt,"'");
+                $pro_img = new Product_image;
+                $pro_img->prodetail_id = $id1;
+                $pro_img->image = $bp;
+                $pro_img->created_at = $timedt;
+                $pro_img->save();
+                
+            }
         }
         if ($pro_img) {
             return response()->json(['success' => 'Thêm sản phẩm thành công!']);  
@@ -519,6 +525,12 @@ class ProductController extends Controller
         else{
             return response()->json(['error' => 'Xóa sản phẩm thất bại']);
         }        
+    }
+
+
+    public function test(Request $request){
+
+        return response()->json($request);
     }
 
 

@@ -177,3 +177,6 @@ Route::post('/cancel-order-admin','AdminController@cancelOrderAdmin');// Láº¥y Ä
 Route::post('/bill','AdminController@showBill');
 Route::post('/add-bill','AdminController@addBill');
 
+
+Route::post('/test','ProductController@test');
+
