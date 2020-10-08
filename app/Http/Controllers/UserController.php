@@ -128,4 +128,43 @@ class UserController extends Controller
 
     }
 
+
+    public function showUnactiveUser(){
+        $user = User::where('role','User')->where('status',0)->get();
+        return response()->json($user);
+    }
+
+    public function showActiveUser(){
+        $user = User::where('role','User')->where('status',1)->get();
+        return response()->json($user);
+    }
+
+
+    public function activeAccount(Request $request){
+        $user_id = $request->user_id;
+
+        $account = User::where('user_id',$user_id)->update(['status' => 1]);
+
+        if ($account) {
+            return response()->json(['success' => 'Kích hoạt tài khoản thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Kích hoạt tài khoản thất bại']);
+        }
+    }
+
+
+    public function unactiveAccount(Request $request){
+        $user_id = $request->user_id;
+
+        $account = User::where('user_id',$user_id)->update(['status' => 0]);
+
+        if ($account) {
+            return response()->json(['success' => 'Vô hiệu hóa tài khoản thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Vô hiệu hóa tài khoản thất bại']);
+        }
+    }
+
 }
