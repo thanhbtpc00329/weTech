@@ -35,7 +35,7 @@ class CommentController extends Controller
         return response()->json($cmt);
     }
 
-    public function unactiveComment(Request $request){
+    public function unactiveCommentAdmin(Request $request){
 
         $cmt = DB::table('comments')
                 ->join('users','users.user_id','=','comments.user_id')
@@ -45,7 +45,7 @@ class CommentController extends Controller
     }
 
 
-    public function activeComment(Request $request){
+    public function activeCommentAdmin(Request $request){
 
         $cmt = DB::table('comments')
                 ->join('users','users.user_id','=','comments.user_id')

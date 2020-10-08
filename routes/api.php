@@ -124,9 +124,9 @@ Route::post('/comment','CommentController@showComment');// Show all comment
 Route::post('/detail-comment','CommentController@detailComment');// Lấy detail comment
 Route::post('/get-comment','CommentController@getComment');// Lấy comment theo sp
 
-Route::post('/unactive-comment','CommentController@unactiveComment');// Lấy comment chưa duyệt
+Route::post('/unactive-comment-admin','CommentController@unactiveCommentAdmin');// Lấy comment chưa duyệt
 
-Route::post('/active-comment','CommentController@activeComment');// Lấy comment đã duyệt
+Route::post('/active-comment-admin','CommentController@activeCommentAdmin');// Lấy comment đã duyệt
 
 Route::post('/add-comment','CommentController@addComment');// Thêm comment
 Route::post('/active-comment','CommentController@activeComment');// Duyệt comment
