@@ -107,7 +107,7 @@ Route::post('/unactive-shop','ShopController@unactiveShop');// Lấy all thông 
 Route::post('/detail-shop','ShopController@detailShop');// Chi tiết shop theo id
 Route::post('/add-shop','ShopController@addShop');// Đăng ký shop
 
-Route::post('active-shop','ShopController@activeShop');// Duyệt shop
+Route::post('/active-shop','ShopController@activeShop');// Duyệt shop
 
 Route::post('/update-order','ShopController@updateOrder');//Đóng gói order
 
@@ -157,8 +157,8 @@ Route::post('/delete-shipper','ShipperController@deleteShipper');
 
 
 // Admin
-Route::post('admin-check','AdminController@adminCheck');// Check sau khi treo order 3 ngày
-Route::post('salary-shipper','AdminController@salaryShipper');// Check đã trả lương cho shipper
+Route::post('/admin-check','AdminController@adminCheck');// Check sau khi treo order 3 ngày
+Route::post('/salary-shipper','AdminController@salaryShipper');// Check đã trả lương cho shipper
 Route::post('/add-user','AdminController@addUser');// Thêm tài khoản
 Route::post('/update-user','AdminController@updateUser');// Update tài khoản
 Route::post('/delete-user','AdminController@deleteUser');// Xóa tài khoản

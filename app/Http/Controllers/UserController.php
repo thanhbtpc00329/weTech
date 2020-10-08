@@ -82,13 +82,16 @@ class UserController extends Controller
                 ->get();
                 return response()->json($mem);
             }
-            else{
+            else if($user[0]->role == 'Admin'){
                 $mem = User::where('username',$name)
                 ->where('users.password',$pass)
                 ->orWhere('users.email',$name)
                 ->where('users.role','Admin')
                 ->get();
                 return response()->json($mem);
+            }
+            else{
+                return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);
             }
         }
     }
