@@ -25,7 +25,10 @@ Route::post('/login-member','UserController@loginMember'); // Login admin
 
 
 // User
-Route::post('/user','UserController@showUser');// Lấy tài khoản user
+Route::post('/user-unactive','UserController@showUnactiveUser');// Lấy tài khoản user chưa duyệt
+Route::post('/user-active','UserController@showActiveUser');// Lấy tài khoản user đã duyệt
+Route::post('/active-account','UserController@activeAccount');// Duyệt tài khoản người dùng
+Route::post('/unactive-account','UserController@unactiveAccount');// Vô hiệu hóa tài khoản người dùng
 Route::post('/update-account','UserController@updateAccount');// Update tài khoản
 
 
@@ -100,7 +103,9 @@ Route::post('/delete-order','OrderController@deleteOrder');// Xóa order
 
 
 // Shop
-Route::post('/shop','ShopController@accountShop');// Lấy tài khoản shop
+Route::post('/shop-active','ShopController@accountShopActive');// Lấy tài khoản shop đã duyệt
+Route::post('/shop-unactive','ShopController@accountShopUnactive');// Lấy tài khoản shop chưa duyệt
+
 Route::post('/show-shop','ShopController@showShop');// Lấy all thông tin shop
 Route::post('/get-shop','ShopController@getShop');// Lấy all thông tin shop đã duyệt
 Route::post('/unactive-shop','ShopController@unactiveShop');// Lấy all thông tin shop chờ duyệt

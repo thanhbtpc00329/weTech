@@ -84,10 +84,6 @@ class AdminController extends Controller
 
 
     // User
-    public function showUser(){
-        $user = User::where('role','User')->get();
-        return $user;
-    }
 
     public function addUser(Request $request){
         $ch1 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

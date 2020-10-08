@@ -12,9 +12,15 @@ use DB;
 class ShopController extends Controller
 {
     // Shop
-    public function accountShop()
+    public function accountShopActive()
     {
-        $shop = User::where('role','Member')->get();
+        $shop = User::where('role','Member')->where('status',1)->get();
+        return response()->json($shop);
+    }
+
+    public function accountShopUnactive()
+    {
+        $shop = User::where('role','Member')->where('status',0)->get();
         return response()->json($shop);
     }
 
