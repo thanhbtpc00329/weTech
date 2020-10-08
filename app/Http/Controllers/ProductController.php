@@ -212,6 +212,8 @@ class ProductController extends Controller
         $id = $request->id;
 
         $detail = DB::table('product_detail')
+            ->join('product_image','product_detail.prodetail_id','=','product_image.prodetail_id')
+            ->groupby('product_image.prodetail_id')
             ->where('product_id',$id)
             
             ->get();
