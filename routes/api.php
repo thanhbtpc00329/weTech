@@ -124,6 +124,10 @@ Route::post('/comment','CommentController@showComment');// Show all comment
 Route::post('/detail-comment','CommentController@detailComment');// Lấy detail comment
 Route::post('/get-comment','CommentController@getComment');// Lấy comment theo sp
 
+Route::post('/unactive-comment','CommentController@unactiveComment');// Lấy comment chưa duyệt
+
+Route::post('/active-comment','CommentController@activeComment');// Lấy comment đã duyệt
+
 Route::post('/add-comment','CommentController@addComment');// Thêm comment
 Route::post('/active-comment','CommentController@activeComment');// Duyệt comment
 Route::post('/delete-comment','CommentController@deleteComment');// Xóa comment
@@ -162,6 +166,12 @@ Route::post('/salary-shipper','AdminController@salaryShipper');// Check đã tr�
 Route::post('/add-user','AdminController@addUser');// Thêm tài khoản
 Route::post('/update-user','AdminController@updateUser');// Update tài khoản
 Route::post('/delete-user','AdminController@deleteUser');// Xóa tài khoản
+Route::post('/unactive-order-admin','AdminController@unactiveOrderAdmin');// Lấy đơn hàng chưa duyệt
+Route::post('/active-order-admin','AdminController@activeOrderAdmin');// Lấy đơn hàng đã duyệt
+Route::post('/update-order-admin','AdminController@updateOrderAdmin');// Lấy đơn hàng đã đóng gói 
+Route::post('/confirm-order-admin','AdminController@confirmOrderAdmin');// Lấy đơn hàng đang giao
+Route::post('/finish-order-admin','AdminController@finishOrderAdmin');// Lấy đơn hàng đã giao
+Route::post('/cancel-order-admin','AdminController@cancelOrderAdmin');// Lấy đơn hàng đã hủy
 
 // Bill
 Route::post('/bill','AdminController@showBill');

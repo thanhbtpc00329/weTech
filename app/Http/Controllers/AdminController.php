@@ -242,6 +242,44 @@ class AdminController extends Controller
     }
 
 
+    // Order
+    public function unactiveOrderAdmin(Request $request){
+
+        $order = Order::where('status','Chờ duyệt')->orderBy('created_at','DESC')->get();
+        return response()->json($order);
+    }
+
+    public function activeOrderAdmin(Request $request){
+
+        $order = Order::where('status','Đã duyệt')->orderBy('created_at','DESC')->get();
+        return response()->json($order);
+    }
+
+    public function updateOrderAdmin(Request $request){
+
+        $order = Order::where('status','Đã đóng gói')->orderBy('created_at','DESC')->get();
+        return response()->json($order);
+    }
+
+
+    public function confirmOrderAdmin(Request $request){
+        
+        $order = Order::where('status','Đang giao')->orderBy('created_at','DESC')->get();
+        return response()->json($order);
+    }
+
+    public function finishOrderAdmin(Request $request){
+
+        $order = Order::where('status','Đã giao')->get();
+        return response()->json($order);
+    }
+
+    public function cancelOrderAdmin(Request $request){
+
+        $order = Order::where('status','Đã hủy')->get();
+        return response()->json($order);
+    }
+
         
     
 
