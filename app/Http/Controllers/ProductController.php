@@ -357,10 +357,10 @@ class ProductController extends Controller
         if ($image) {
             $tt = ltrim($image,'"[');
             $pp = rtrim($tt,'"]');
-            $arr = explode("','", $pp);
+            $arr = explode('","', $pp);
             for ($i=0; $i < count($arr); $i++) { 
-                $bt = ltrim($arr[$i],"'");
-                $bp = rtrim($bt,"'");
+                $bt = ltrim($arr[$i],'"');
+                $bp = rtrim($bt,'"');
                 $pro_img = new Product_image;
                 $pro_img->prodetail_id = $id1;
                 $pro_img->image = $bp;
@@ -436,10 +436,10 @@ class ProductController extends Controller
         if($image){
             $tt = ltrim($image,'"[');
             $pp = rtrim($tt,'"]');
-            $arr = explode("','", $pp);
+            $arr = explode('","', $pp);
             for ($i=0; $i < count($arr); $i++) { 
-                $bt = ltrim($arr[$i],"'");
-                $bp = rtrim($bt,"'");
+                $bt = ltrim($arr[$i],'"');
+                $bp = rtrim($bt,'"');
                 $pro_img = new Product_image;
                 $pro_img->prodetail_id = $id1;
                 $pro_img->image = $bp;
