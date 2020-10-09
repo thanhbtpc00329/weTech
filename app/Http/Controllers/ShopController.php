@@ -47,6 +47,14 @@ class ShopController extends Controller
         return response()->json($shop);
     }    
 
+    public function blockShop(){
+        $shop = DB::table('shops')
+                ->join('users','users.user_id','=','shops.user_id')
+                ->where('shops.status','=',2)
+                ->get();
+        return response()->json($shop);
+    } 
+
     public function detailShop(Request $request){
         $shop_id = $request->id;
 
@@ -99,6 +107,21 @@ class ShopController extends Controller
             return response()->json(['error' => 'Kích hoạt thành viên thất bại']);
         }
     }
+
+
+    public function cancelShop(Request $request){
+        $shop_id = $request->shop_id;
+        $user_id = $request->user_id;
+        $shop = Shop::where('shop_id',$shop_id)->update(['status' => 2]);
+        $mem = User::where('user_id',$user_id)->update(['role' => 'User']);
+        if ($mem) {
+            return response()->json(['success' => 'Chặn thành viên thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Chặn thành viên thất bại']);
+        }
+    }
+
 
     public function updateShop(Request $request){
         $id = $request->shop_id;

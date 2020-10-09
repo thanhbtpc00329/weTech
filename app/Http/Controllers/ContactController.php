@@ -10,10 +10,19 @@ use App\Mail\SendMail;
 class ContactController extends Controller
 {
     // Contact
-    public function showContact()
+    public function showUnactiveContact()
     {
-        return Contact::all();
+        $cmt = Contact::where('status',0)->get();
+        return response()->json($cmt);
     }
+
+
+    public function showActiveContact()
+    {
+        $cmt = Contact::where('status',1)->get();
+        return response()->json($cmt);
+    }
+
 
     public function addContact(Request $request)
     {
@@ -79,22 +88,7 @@ class ContactController extends Controller
         
     }
 
-    public function updateContact(Request $request){
-        $id = $request->id;  
-
-        $contact = Contact::find($id);
-        $contact->status = 1;
-        $contact->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $contact->save();
-        if ($contact) {
-            return response()->json(['success' => 'Thành công!']);  
-        }
-        else{
-            return response()->json(['error' => 'Thất bại']);
-        } 
-
-    }
+    
 
     public function deleteContact(Request $request){
         $id = $request->id;  
