@@ -109,6 +109,10 @@ Route::post('/shop-unactive','ShopController@accountShopUnactive');// Lấy tài
 Route::post('/show-shop','ShopController@showShop');// Lấy all thông tin shop
 Route::post('/get-shop','ShopController@getShop');// Lấy all thông tin shop đã duyệt
 Route::post('/unactive-shop','ShopController@unactiveShop');// Lấy all thông tin shop chờ duyệt
+Route::post('/block-shop','ShopController@blockShop');// Lấy all thông tin shop đã chặn
+
+Route::post('/cancel-shop','ShopController@cancelShop');// Chặn shop
+
 Route::post('/detail-shop','ShopController@detailShop');// Chi tiết shop theo id
 Route::post('/add-shop','ShopController@addShop');// Đăng ký shop
 
