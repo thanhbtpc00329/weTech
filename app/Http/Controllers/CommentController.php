@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comment;
+use App\Order;
 use DB;
 
 
@@ -11,6 +12,18 @@ class CommentController extends Controller
 {
     
     // Comment
+    public function checkComment(Request $request){
+        $user_id = $request->user_id;
+
+        $cmt = Order::where('user_id',$user_id)->get();
+        if (count($cmt) >= 1 ) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }
+    }
+
     public function showComment()
     {
         return Comment::all();

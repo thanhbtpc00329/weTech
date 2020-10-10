@@ -129,6 +129,7 @@ Route::post('/shop-update', 'ShopController@shopUpdate');// Đã đóng gói ord
 
 
 // Comment
+Route::post('/check-comment','CommentController@checkComment');// Xem người đó có mua hàng chưa để có thể comment
 Route::post('/comment','CommentController@showComment');// Show all comment
 Route::post('/detail-comment','CommentController@detailComment');// Lấy detail comment
 Route::post('/get-comment','CommentController@getComment');// Lấy comment theo sp

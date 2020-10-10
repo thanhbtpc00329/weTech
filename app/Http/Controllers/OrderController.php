@@ -60,9 +60,10 @@ class OrderController extends Controller
         // $tong = 0;
         for ($i=0; $i < count($group); $i++) { 
             $order_detail = $group[$kq[$i]];
-
-            // for ($j=0; $j < count($group[$kq[$i]]); $j++) { 
-            //     $tinh = $group[$kq[$i]][$j]->price * $group[$kq[$i]][$j]->quantity;
+            // $tong = 0;
+            // $money = array();
+            // for ($j=0; $j < count($order_detail); $j++) { 
+            //     $tinh = $order_detail[$j]->price * $order_detail[$j]->quantity;
             //     array_push($money,$tinh);
             // }
             // foreach ($money as $value) {
@@ -80,8 +81,7 @@ class OrderController extends Controller
             $order->created_at = $time;
 
             $order->save();
-            // $tong = 0;
-            // $money = array();
+            
         }
 
         if ($order) {
