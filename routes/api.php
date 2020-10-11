@@ -97,7 +97,9 @@ Route::post('/add-order','OrderController@addOrder');// Tạo order
 Route::post('/unactive-order','OrderController@unactiveOrder');// Lấy order chờ duyệt
 Route::post('/active-order','OrderController@activeOrder');// Lấy order đã duyệt
 Route::post('/confirm-order','OrderController@confirmOrder');// Lấy order đang giao
+Route::post('/cancel-order-user','OrderController@cancelOrderUser');// Lấy order đã hủy
 Route::post('/finish-order','OrderController@finishOrder');// Lấy order đã giao
+Route::post('/cancel-order','OrderController@cancelOrder');// Hủy đơn hàng
 Route::post('/delete-order','OrderController@deleteOrder');// Xóa order
 
 

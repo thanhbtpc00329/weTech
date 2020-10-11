@@ -121,6 +121,13 @@ class OrderController extends Controller
         return response()->json($order);
     }
 
+    public function cancelOrderUser(Request $request){
+        $user_id = $request->user_id; 
+
+        $order = Order::where('user_id',$user_id)->where('status','Đã hủy')->get();
+        return response()->json($order);
+    }
+
    
     public function deleteOrder(Request $request){
         $id = $request->id;  
@@ -135,6 +142,22 @@ class OrderController extends Controller
             return response()->json(['error' => 'Thất bại']);
         }
 
+    }
+
+    public function cancelOrder(Request $request){
+        $id = $request->id; 
+
+        $order = Order::find($id);
+        $order->status = 'Đã hủy';
+        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $order->save();
+        if ($order) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Lỗi']);
+        }
     }
 
 }
