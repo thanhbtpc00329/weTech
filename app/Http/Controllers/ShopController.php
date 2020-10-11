@@ -188,6 +188,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Chờ duyệt')
                 ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
                 ->get();
         return response()->json($order);
     }
@@ -202,6 +203,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Đã duyệt')
                 ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
                 ->get();
         return response()->json($order);
     }
@@ -215,6 +217,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Đã đóng gói')
                 ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
                 ->get();
         return response()->json($order);
     }
@@ -229,6 +232,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Đang giao')
                 ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
                 ->get();
         return response()->json($order);
     }
@@ -242,6 +246,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Đã giao')
                 ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
                 ->get();
         return response()->json($order);
     }
@@ -255,6 +260,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Đã hủy')
                 ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
                 ->get();
         return response()->json($order);
     }
@@ -268,6 +274,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Trả hàng')
                 ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
                 ->get();
         return response()->json($order);
     }
