@@ -127,13 +127,14 @@ Route::post('/delete-shop','ShopController@deleteShop');// Xóa shop
 
 Route::post('/shop-check', 'ShopController@shopCheck');// Đã tiếp nhận order
 Route::post('/shop-update', 'ShopController@shopUpdate');// Đã đóng gói order
-Route::post('unactive-order-shop', 'ShopController@unactiveOrderShop');
-Route::post('active-order-shop', 'ShopController@activeOrderShop');
-Route::post('update-order-shop', 'ShopController@updateOrderShop');
-Route::post('confirm-order-shop', 'ShopController@confirmOrderShop');
-Route::post('finish-order-shop', 'ShopController@finishOrderShop');
-Route::post('cancel-order-shop', 'ShopController@cancelOrderShop');
-Route::post('return-order-shop', 'ShopController@returnOrderShop');
+Route::post('unactive-order-shop', 'ShopController@unactiveOrderShop');// Lấy order chưa duyệt theo shop
+Route::post('active-order-shop', 'ShopController@activeOrderShop');// Lấy order đã duyệt theo shop
+Route::post('update-order-shop', 'ShopController@updateOrderShop');// Lấy order đã đóng gói theo shop
+Route::post('confirm-order-shop', 'ShopController@confirmOrderShop');// Lấy order đang giao theo shop
+Route::post('finish-order-shop', 'ShopController@finishOrderShop');// Lấy order đã giao theo shop
+Route::post('cancel-order-shop', 'ShopController@cancelOrderShop');// Lấy order đã hủy theo shop
+Route::post('return-order-shop', 'ShopController@returnOrderShop');// Lấy order trả hàng theo shop
+Route::post('get-order-shop', 'ShopController@getOrderShop');// Lấy order theo shop
 
 // Comment
 Route::post('/check-comment','CommentController@checkComment');// Xem người đó có mua hàng chưa để có thể comment

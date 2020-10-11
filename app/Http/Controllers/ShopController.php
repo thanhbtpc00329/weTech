@@ -180,6 +180,18 @@ class ShopController extends Controller
 
     // Order
 
+    public function getOrderShop(Request $request){
+        $shop_id = $request->shop_id;
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shop_id',$shop_id)
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
+                ->get();
+        return response()->json($order);
+    }
+
     public function unactiveOrderShop(Request $request){
         $shop_id = $request->shop_id;
 
