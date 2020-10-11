@@ -102,7 +102,7 @@ Route::post('/finish-order','OrderController@finishOrder');// Lấy order đã g
 Route::post('/cancel-order','OrderController@cancelOrder');// Hủy đơn hàng
 Route::post('/delete-order','OrderController@deleteOrder');// Xóa order
 Route::post('/update-order-user','OrderController@updateOrder');// Lấy order đã đóng gói
-
+Route::post('return-order','OrderController@returnOrder');// Lấy order đã trả hàng
 
 // Shop
 Route::post('/shop-active','ShopController@accountShopActive');// Lấy tài khoản shop đã duyệt
@@ -127,8 +127,13 @@ Route::post('/delete-shop','ShopController@deleteShop');// Xóa shop
 
 Route::post('/shop-check', 'ShopController@shopCheck');// Đã tiếp nhận order
 Route::post('/shop-update', 'ShopController@shopUpdate');// Đã đóng gói order
-
-
+Route::post('unactive-order-shop', 'ShopController@unactiveOrderShop');
+Route::post('active-order-shop', 'ShopController@activeOrderShop');
+Route::post('update-order-shop', 'ShopController@updateOrderShop');
+Route::post('confirm-order-shop', 'ShopController@confirmOrderShop');
+Route::post('finish-order-shop', 'ShopController@finishOrderShop');
+Route::post('cancel-order-shop', 'ShopController@cancelOrderShop');
+Route::post('return-order-shop', 'ShopController@returnOrderShop');
 
 // Comment
 Route::post('/check-comment','CommentController@checkComment');// Xem người đó có mua hàng chưa để có thể comment
@@ -185,6 +190,7 @@ Route::post('/update-order-admin','AdminController@updateOrderAdmin');// Lấy �
 Route::post('/confirm-order-admin','AdminController@confirmOrderAdmin');// Lấy đơn hàng đang giao
 Route::post('/finish-order-admin','AdminController@finishOrderAdmin');// Lấy đơn hàng đã giao
 Route::post('/cancel-order-admin','AdminController@cancelOrderAdmin');// Lấy đơn hàng đã hủy
+Route::post('/return-order-admin','AdminController@returnOrderAdmin');// Lấy đơn hàng đã hủy
 
 // Bill
 Route::post('/bill','AdminController@showBill');

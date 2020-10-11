@@ -266,13 +266,19 @@ class AdminController extends Controller
 
     public function finishOrderAdmin(Request $request){
 
-        $order = Order::where('status','Đã giao')->get();
+        $order = Order::where('status','Đã giao')->orderBy('created_at','DESC')->get();
         return response()->json($order);
     }
 
     public function cancelOrderAdmin(Request $request){
 
-        $order = Order::where('status','Đã hủy')->get();
+        $order = Order::where('status','Đã hủy')->orderBy('created_at','DESC')->get();
+        return response()->json($order);
+    }
+
+    public function returnOrderAdmin(Request $request){
+
+        $order = Order::where('status','Trả hàng')->orderBy('created_at','DESC')->get();
         return response()->json($order);
     }
 

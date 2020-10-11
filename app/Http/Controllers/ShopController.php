@@ -180,6 +180,98 @@ class ShopController extends Controller
 
     // Order
 
+    public function unactiveOrderShop(Request $request){
+        $shop_id = $request->shop_id;
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shop_id',$shop_id)
+                ->where('orders.status','Chờ duyệt')
+                ->orderBy('orders.created_at','DESC')
+                ->get();
+        return response()->json($order);
+    }
+
+    public function activeOrderShop(Request $request){
+        $shop_id = $request->shop_id;
+
+        $shop_id = $request->shop_id;
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shop_id',$shop_id)
+                ->where('orders.status','Đã duyệt')
+                ->orderBy('orders.created_at','DESC')
+                ->get();
+        return response()->json($order);
+    }
+
+    public function updateOrderShop(Request $request){
+
+        $shop_id = $request->shop_id;
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shop_id',$shop_id)
+                ->where('orders.status','Đã đóng gói')
+                ->orderBy('orders.created_at','DESC')
+                ->get();
+        return response()->json($order);
+    }
+
+
+    public function confirmOrderShop(Request $request){
+        
+        $shop_id = $request->shop_id;
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shop_id',$shop_id)
+                ->where('orders.status','Đang giao')
+                ->orderBy('orders.created_at','DESC')
+                ->get();
+        return response()->json($order);
+    }
+
+    public function finishOrderShop(Request $request){
+
+        $shop_id = $request->shop_id;
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shop_id',$shop_id)
+                ->where('orders.status','Đã giao')
+                ->orderBy('orders.created_at','DESC')
+                ->get();
+        return response()->json($order);
+    }
+
+    public function cancelOrderShop(Request $request){
+
+        $shop_id = $request->shop_id;
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shop_id',$shop_id)
+                ->where('orders.status','Đã hủy')
+                ->orderBy('orders.created_at','DESC')
+                ->get();
+        return response()->json($order);
+    }
+
+    public function returnOrderShop(Request $request){
+
+        $shop_id = $request->shop_id;
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shop_id',$shop_id)
+                ->where('orders.status','Trả hàng')
+                ->orderBy('orders.created_at','DESC')
+                ->get();
+        return response()->json($order);
+    }
+
     public function shopCheck(Request $request){
         $id = $request->id; 
 

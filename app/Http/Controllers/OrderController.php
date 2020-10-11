@@ -136,6 +136,15 @@ class OrderController extends Controller
         return response()->json($order);   
     }
 
+
+    public function returnOrder(Request $request){
+        $user_id = $request->user_id; 
+
+        $order = Order::where('user_id',$user_id)->where('status','Trả hàng')->get();
+        return response()->json($order);   
+    }
+
+
    
     public function deleteOrder(Request $request){
         $id = $request->id;  
