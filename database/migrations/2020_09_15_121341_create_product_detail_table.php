@@ -20,7 +20,9 @@ class CreateProductDetailTable extends Migration
             $table->string('color')->nullable();
             $table->integer('quantity')->length(50)->unsigned();
             $table->integer('size')->length(50)->unsigned()->nullable();
-            $table->boolean('status');
+            $table->boolean('status_discount');
+            $table->string('status_product');
+            $table->boolean('status_confirm');
             $table->integer('discount_price')->unsigned()->nullable();
             $table->string('origin')->nullable();
             $table->string('accessory')->nullable();
