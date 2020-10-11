@@ -101,7 +101,7 @@ Route::post('/cancel-order-user','OrderController@cancelOrderUser');// Lấy ord
 Route::post('/finish-order','OrderController@finishOrder');// Lấy order đã giao
 Route::post('/cancel-order','OrderController@cancelOrder');// Hủy đơn hàng
 Route::post('/delete-order','OrderController@deleteOrder');// Xóa order
-
+Route::post('/update-order','OrderController@updateOrder');// Lấy order đã đóng gói
 
 
 // Shop
