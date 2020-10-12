@@ -307,7 +307,9 @@ class ProductController extends Controller
         $color = $request->color;
         $quantity = $request->quantity;
         $size = $request->size;
-        $status = $request->status;
+        $status_discount = $request->status_discount;
+        $status_product = 'Còn hàng';
+        $status_confirm = 0;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -387,7 +389,9 @@ class ProductController extends Controller
         $color = $request->color;
         $quantity = $request->quantity;
         $size = $request->size;
-        $status = $request->status;
+        $status_discount = $request->status_discount;
+        $status_product = 'Còn hàng';
+        $status_confirm = 0;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -463,7 +467,9 @@ class ProductController extends Controller
         $color = $request->color;
         $quantity = $request->quantity;
         $size = $request->size;
-        $status = $request->status;
+        $status_discount = $request->status_discount;
+        $status_product = 'Còn hàng';
+        $status_confirm = 0;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
