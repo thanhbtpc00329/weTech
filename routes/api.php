@@ -152,8 +152,8 @@ Route::post('/delete-comment','CommentController@deleteComment');// Xóa comment
 
 
 // Contact
-Route::post('/unactive-contact','ContactController@showContact');// Show all contact chưa trả lời
-Route::post('/active-contact','ContactController@showContact');// Show all contact đã trả lời
+Route::post('/unactive-contact','ContactController@showUnactiveContact');// Show all contact chưa trả lời
+Route::post('/active-contact','ContactController@showActiveContact');// Show all contact đã trả lời
 Route::post('/reply','ContactController@reply');// Show all contact
 Route::post('/add-contact','ContactController@addContact');// Thêm contact
 
