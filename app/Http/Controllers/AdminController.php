@@ -8,6 +8,8 @@ use App\Shop;
 use App\Bill;
 use App\Order;
 use App\Shipper;
+use App\Product;
+use App\Product_detail;
 use Response,File;
 use DB;
 
@@ -282,6 +284,62 @@ class AdminController extends Controller
         return response()->json($order);
     }
 
+
+    // Product
+    public function unactiveProductAdmin(Request $request){
+        $product = DB::table('products')
+            ->join('categories','categories.cate_id','=','products.cate_id')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->join('users','users.user_id','=','shops.user_id')
+            ->groupby('product_image.prodetail_id')
+            ->where('product_detail.status_confirm','=',0)
+            ->get();
+            
+            return response()->json($product);
+    }
+
+    public function activeProductAdmin(Request $request){
+        $product = DB::table('products')
+            ->join('categories','categories.cate_id','=','products.cate_id')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->join('users','users.user_id','=','shops.user_id')
+            ->groupby('product_image.prodetail_id')
+            ->where('product_detail.status_confirm','=',1)
+            ->get();
+            
+            return response()->json($product);
+    }
+
+    public function blockProductAdmin(Request $request){
+        $prodetail_id = $request->prodetail_id;
+
+        $product = Product_detail::where('prodetail_id',$prodetail_id)->update(['status_confirm'=>0]);
+            
+        if ($product) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }
+    }
+
+
+    public function confirmProductAdmin(Request $request){
+        $prodetail_id = $request->prodetail_id;
+
+        $product = Product_detail::where('prodetail_id',$prodetail_id)->update(['status_confirm'=>1]);
+            
+        if ($product) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }
+    }
         
     
 

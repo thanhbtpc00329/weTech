@@ -27,6 +27,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->groupBy('product_detail.product_id')
+            ->where('product_detail.status_confirm','=',1)
             ->get();
         
         return response()->json($product);
@@ -40,6 +41,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.cate_id',$cate_id)
+            ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
             ->get();
         return response()->json($product);
@@ -54,6 +56,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.shop_id','=',$shop_id)
+            ->where('product_detail.status_confirm','=',1)
             ->groupby('product_detail.product_id')
             ->get();
         return response()->json($product);
@@ -70,6 +73,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.cate_id',$cate[0]->cate_id)
+            ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
             ->get();
         return response()->json($product);
@@ -86,6 +90,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.cate_id',$cate[$i]->cate_id)
+            ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
             ->get();
             if(count($product) > 0){
@@ -110,6 +115,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.cate_id',$cate[$i]->cate_id)
+            ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
             ->get();
             if(count($product) > 0){
@@ -131,6 +137,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.product_name','like','%'.$keywords.'%')
+            ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
             ->get();
         return response()->json($product); 
@@ -148,6 +155,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.cate_id',$cate[$i]->cate_id)
+            ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
             ->get();
             if(count($product) > 0){
@@ -169,6 +177,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.shop_id','=',$shop_id)
+            ->where('product_detail.status_confirm','=',1)
             ->groupby('product_image.prodetail_id')
             ->get();
         return response()->json($product);
@@ -185,6 +194,7 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('users','users.user_id','=','shops.user_id')
             ->where('products.product_id','=',$id)
+            ->where('product_detail.status_confirm','=',1)
             ->get();
             
             return response()->json($detail);
@@ -201,6 +211,7 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('users','users.user_id','=','shops.user_id')
             ->where('products.product_id','=',$product_id)
+            ->where('product_detail.status_confirm','=',1)
             ->groupby('product_image.prodetail_id')
             ->get();
             
@@ -215,7 +226,7 @@ class ProductController extends Controller
             ->join('product_image','product_detail.prodetail_id','=','product_image.prodetail_id')
             ->groupby('product_image.prodetail_id')
             ->where('product_id',$id)
-            
+            ->where('product_detail.status_confirm','=',1)
             ->get();
             $da = json_decode($detail);
             
@@ -248,6 +259,7 @@ class ProductController extends Controller
             ->join('products','products.product_id','=','product_detail.product_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('product_detail.prodetail_id','=',$prodetail_id)
+            ->where('product_detail.status_confirm','=',1)
             ->first();
         return response()->json($prod);
     }
@@ -308,7 +320,7 @@ class ProductController extends Controller
         $quantity = $request->quantity;
         $size = $request->size;
         $status_discount = $request->status_discount;
-        //$status_product = 'Còn hàng';
+        $status_product = $request->status_product;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -338,7 +350,7 @@ class ProductController extends Controller
         $pro->quantity = $quantity;
         $pro->size = $size;
         $pro->status_discount = $status_discount;
-        $pro->status_product = 'Còn hàng';
+        $pro->status_product = $status_product;
         $pro->status_confirm = 0;
         $pro->discount_price = $discount_price;
         $pro->origin = $origin;
@@ -391,7 +403,7 @@ class ProductController extends Controller
         $quantity = $request->quantity;
         $size = $request->size;
         $status_discount = $request->status_discount;
-        //$status_product = 'Còn hàng';
+        $status_product = $request->status_product;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -421,7 +433,7 @@ class ProductController extends Controller
         $pro->quantity = $quantity;
         $pro->size = $size;
         $pro->status_discount = $status_discount;
-        $pro->status_product = 'Còn hàng';
+        $pro->status_product = $status_product;
         $pro->status_confirm = 0;
         $pro->discount_price = $discount_price;
         $pro->origin = $origin;
@@ -470,7 +482,7 @@ class ProductController extends Controller
         $quantity = $request->quantity;
         $size = $request->size;
         $status_discount = $request->status_discount;
-        //$status_product = 'Còn hàng';
+        $status_product = $request->status_product;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -489,7 +501,7 @@ class ProductController extends Controller
         $pro->quantity = $quantity;
         $pro->size = $size;
         $pro->status_discount = $status_discount;
-        $pro->status_product = 'Còn hàng';
+        $pro->status_product = $status_product;
         $pro->status_confirm = 0;
         $pro->discount_price = $discount_price;
         $pro->origin = $origin;
