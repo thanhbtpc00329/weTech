@@ -20,6 +20,7 @@ class ShipperController extends Controller
     public function detailShipper(){
     	$ship = DB::table('shippers')
     			->join('users','users.user_id','=','shippers.user_id')
+                ->where('users.role','=','Shipper')
     			->get();
     	return response()->json($ship);
     }
