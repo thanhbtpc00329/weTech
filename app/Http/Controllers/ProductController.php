@@ -12,6 +12,7 @@ use App\Product_detail;
 use App\Shop;
 use App\Product_image;
 use App\Banner;
+use App\Order;
 use DB;
 use Cloudder;
 use Response,File;
@@ -551,8 +552,15 @@ class ProductController extends Controller
 
 
     public function test(Request $request){
+        $id = $request->id;
 
-        return response()->json($request);
+        $or = Order::find($id);
+        $tong = 0;
+        $arr = json_decode($or->order_detail);
+        for ($i=0; $i < count($arr); $i++) { 
+            $tong += $arr[$i]->price * $arr[$i]->cart_quantity;
+        }
+        return $arr;
     }
 
 
