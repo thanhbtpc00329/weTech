@@ -36,7 +36,7 @@ class UserController extends Controller
         $account->name=$name;
         $account->username=$username;
         $account->email=$email;
-        $account->password=Hash::make($password);
+        $account->password=$password;
         $account->gender=$gender;
         $account->address=$address;
         $account->birth_day=$birth_day;
@@ -56,18 +56,11 @@ class UserController extends Controller
     public function login(Request $request){
         $name = $request->username;
         $pass = $request->password;
-        $account = User::where('username',$name)->orWhere('email',$name)->first();
-        if($account){
-            if(Hash::check($pass,$account->password) == true){
-                $user = User::where('username',$name)->orWhere('email',$name)->get();
-                return response()->json($user);
-            }
-            else{
-                return response()->json(['error_password' => 'Mật khẩu không đúng!']);
-            }
-        }
-        else{
-            return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);
+        $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
+        if(count($user) <= 0){
+            return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);  
+        }else{
+            return response()->json($user);
         }
     }
 
@@ -75,30 +68,31 @@ class UserController extends Controller
     public function loginMember(Request $request){
         $name = $request->username;
         $pass = $request->password;
-        $account = User::where('username',$name)->orWhere('email',$name)->first();
-        if ($account) {
-            if(Hash::check($pass,$account->password) == true && $account->role == 'Admin'){
+        $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
+        if(count($user) <= 0){
+            return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);  
+        }else{
+            if ($user[0]->role == 'Member') {
+                $mem = DB::table('users')
+                ->join('shops','users.user_id','=','shops.user_id')
+                ->where('users.username',$name)
+                ->orWhere('users.email',$name)
+                ->where('users.password',$pass)
+                ->where('users.role','Member')
+                ->get();
+                return response()->json($mem);
+            }
+            else if($user[0]->role == 'Admin'){
                 $mem = User::where('username',$name)
+                ->where('users.password',$pass)
                 ->orWhere('users.email',$name)
                 ->where('users.role','Admin')
                 ->get();
                 return response()->json($mem);
             }
-            else if(Hash::check($pass,$account->password) == true && $account->role == 'Member'){
-                $mem = DB::table('users')
-                ->join('shops','users.user_id','=','shops.user_id')
-                ->where('users.username',$name)
-                ->orWhere('users.email',$name)
-                ->where('users.role','Member')
-                ->get();
-                return response()->json($mem);
-            }
             else{
-                return response()->json(['error_password' => 'Mật khẩu không đúng!']);
+                return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']); 
             }
-        }
-        else{
-            return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);
         }
         
     }
@@ -121,8 +115,8 @@ class UserController extends Controller
         $account = User::where('user_id',$user_id)->first();
         $account->name=$name;
         if($password_new != '' && $password_old != ''){
-            if(Hash::check($password_old,$account->password) == true){
-                $account->password=Hash::make($password_new);
+            if($password_old == $account->password){
+                $account->password=$password_new;
             }
             else{
                 return response()->json(['error_password' => 'Mật khẩu cũ không đúng!']);
