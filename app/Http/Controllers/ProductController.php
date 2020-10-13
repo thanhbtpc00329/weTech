@@ -554,13 +554,16 @@ class ProductController extends Controller
     public function test(Request $request){
         $id = $request->id;
 
-        $or = Order::find($id);
-        $tong = 0;
-        $arr = json_decode($or->order_detail);
-        for ($i=0; $i < count($arr); $i++) { 
-            $tong += $arr[$i]->price * $arr[$i]->cart_quantity;
-        }
-        return $arr;
+        // $or = Order::find($id);
+        // $tong = 0;
+        // $arr = json_decode($or->order_detail);
+        // for ($i=0; $i < count($arr); $i++) { 
+        //     $tong += $arr[$i]->price * $arr[$i]->cart_quantity;
+        // }
+        // return $arr;
+        $shop = Shop::where('shop_id',$id)->first();
+
+        return $shop;
     }
 
 
