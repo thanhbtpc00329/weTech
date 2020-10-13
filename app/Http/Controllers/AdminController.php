@@ -13,6 +13,7 @@ use App\Product_detail;
 use Response,File;
 use App\User;
 use DB;
+use Illuminate\Support\Facades\Hash;
 
 
 class AdminController extends Controller
