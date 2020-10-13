@@ -100,7 +100,8 @@ class UserController extends Controller
     public function updateAccount(Request $request){
         $user_id = $request->user_id;
         $name = $request->name;
-        $password = $request->password;
+        $password_old = $request->password_old;
+        $password_new = $request->password_new;
         $gender = $request->gender;
         $address = $request->address;
         $birth_day = $request->birth_day;
@@ -108,13 +109,17 @@ class UserController extends Controller
         $background = $request->background;
         $status = $request->status;
         
-
         
 
         $account = User::where('user_id',$user_id)->first();
         $account->name=$name;
-        if($password != ''){
-            $account->password=Hash::make($password);
+        if($password_new != '' && $password_old != ''){
+            if(Hash::check($password_old,$account->password) == true){
+                $account->password=Hash::make($password_new);
+            }
+            else{
+                return response()->json(['error_password' => 'Mật khẩu cũ không đúng!']);
+            }
         }
         $account->gender=$gender;
         $account->address=$address;
