@@ -113,7 +113,9 @@ class UserController extends Controller
 
         $account = User::where('user_id',$user_id)->first();
         $account->name=$name;
-        $account->password=Hash::make($password);
+        if($password != ''){
+            $account->password=Hash::make($password);
+        }
         $account->gender=$gender;
         $account->address=$address;
         $account->birth_day=$birth_day;
