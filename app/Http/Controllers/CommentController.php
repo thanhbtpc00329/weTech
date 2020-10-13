@@ -14,8 +14,9 @@ class CommentController extends Controller
     // Comment
     public function checkComment(Request $request){
         $user_id = $request->user_id;
+        $keywords = $request->product_id;
 
-        $cmt = Order::where('user_id',$user_id)->where('status','=','Đã giao')->get();
+        $cmt = Order::where('user_id',$user_id)->where('order_detail','like','%'.$keywords.'%')->where('status','=','Đã giao')->get();
         if (count($cmt) >= 1 ) {
             return response()->json(['success' => 'Thành công!']);  
         }
