@@ -115,7 +115,7 @@ class AdminController extends Controller
         $account->name=$name;
         $account->username=$username;
         $account->email=$email;
-        $account->password=Hash::make($password);
+        $account->password=$password;
         $account->gender=$gender;
         $account->address=$address;
         $account->birth_day=$birth_day;
@@ -185,7 +185,7 @@ class AdminController extends Controller
 
         $account = User::where('user_id',$user_id)->first();
         $account->name=$name;
-        $account->password=Hash::make($password);
+        $account->password=$password;
         $account->gender=$gender;
         $account->address=$address;
         $account->birth_day=$birth_day;
