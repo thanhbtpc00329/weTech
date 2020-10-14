@@ -21,9 +21,11 @@ class AdminController extends Controller
     // Order
     public function adminCheck(Request $request){
         $shipper_id = $request->shipper_id; 
+        $id = $request->id;
 
         $ship = Shipper::where('shipper_id',$shipper_id)->first();
-
+        $check = Order::find($id);
+        $check->status = 'Hoàn thành';
         $order = Shipper::where('shipper_id',$shipper_id)->update(['order_quantity' => $ship->order_quantity + 1]);
         if ($ship->order_quantity > 19) {
             $ship = Shipper::where('shipper_id',$shipper_id)->update([
