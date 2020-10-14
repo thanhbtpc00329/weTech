@@ -552,8 +552,8 @@ class ProductController extends Controller
 
 
     public function test(Request $request){
-        $id = $request->id;
-
+        $id = $request->username;
+        // tính total theo shop -> duyệt đơn hàng
         // $or = Order::find($id);
         // $tong = 0;
         // $arr = json_decode($or->order_detail);

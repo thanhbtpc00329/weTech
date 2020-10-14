@@ -295,7 +295,7 @@ class ShopController extends Controller
         $id = $request->id; 
 
         $order = Order::find($id);
-        $order->status = 'Đã tiếp nhận';
+        $order->status = 'Đã duyệt';
         $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $order->save();
