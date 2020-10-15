@@ -60,7 +60,7 @@ class ShopController extends Controller
 
         $shop = DB::table('shops')
                 ->join('users','users.user_id','=','shops.user_id')
-                ->select('shops.shop_id','shops.shop_name','shops.address','shops.phone_number','shops.background','users.avatar')
+                ->select('shops.shop_id','shops.shop_name','shops.address','shops.phone_number','shops.background','shops.location','shops.tax','users.avatar')
                 ->where('shop_id','=',$shop_id)
                 ->get();
         return response()->json($shop);
@@ -73,6 +73,7 @@ class ShopController extends Controller
         $address = $request->address;
         $location = $request->location;
         $phone_number = $request->phone_number;
+        $tax = $request->tax;
 
         $shop = new Shop;
         $shop->shop_name = $shop_name;
@@ -81,6 +82,7 @@ class ShopController extends Controller
         $shop->address = $address;
         $shop->location = $location;
         $shop->phone_number = $phone_number;
+        $shop->tax = $tax;
         $shop->status = '0';
         $shop->created_at = now()->timezone('Asia/Ho_Chi_Minh');
 
@@ -130,12 +132,14 @@ class ShopController extends Controller
         $location = $request->location;
         $phone_number = $request->phone_number;
         $status = $request->status;
+        $tax = $request->tax;
 
         $shop = Shop::where('shop_id',$id)->update([
             'name'=>$name,
             'address'=>$address,
             'location'=>$location,
             'phone_number'=>$phone_number,
+            'tax' => $tax,
             'status'=>$status,
             'updated_at'=>now()->timezone('Asia/Ho_Chi_Minh')
         ]);
@@ -187,7 +191,7 @@ class ShopController extends Controller
                 ->join('users','users.user_id','=','orders.user_id')
                 ->where('orders.shop_id',$shop_id)
                 ->orderBy('orders.created_at','DESC')
-                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
                 ->get();
         return response()->json($order);
     }
@@ -200,7 +204,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Chờ duyệt')
                 ->orderBy('orders.created_at','DESC')
-                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
                 ->get();
         return response()->json($order);
     }
@@ -215,7 +219,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Đã duyệt')
                 ->orderBy('orders.created_at','DESC')
-                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
                 ->get();
         return response()->json($order);
     }
@@ -229,7 +233,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Đã đóng gói')
                 ->orderBy('orders.created_at','DESC')
-                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
                 ->get();
         return response()->json($order);
     }
@@ -244,7 +248,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Đang giao')
                 ->orderBy('orders.created_at','DESC')
-                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
                 ->get();
         return response()->json($order);
     }
@@ -258,7 +262,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Đã giao')
                 ->orderBy('orders.created_at','DESC')
-                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
                 ->get();
         return response()->json($order);
     }
@@ -272,7 +276,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Đã hủy')
                 ->orderBy('orders.created_at','DESC')
-                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
                 ->get();
         return response()->json($order);
     }
@@ -286,7 +290,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Trả hàng')
                 ->orderBy('orders.created_at','DESC')
-                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
                 ->get();
         return response()->json($order);
     }
