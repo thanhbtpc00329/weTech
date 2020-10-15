@@ -21,7 +21,6 @@ class CreateProductDetailTable extends Migration
             $table->integer('quantity')->length(50)->unsigned();
             $table->integer('size')->length(50)->unsigned()->nullable();
             $table->boolean('status_discount');
-            $table->string('status_product');
             $table->boolean('status_confirm');
             $table->integer('discount_price')->unsigned()->nullable();
             $table->string('origin')->nullable();
@@ -32,6 +31,7 @@ class CreateProductDetailTable extends Migration
             $table->string('material')->nullable();
             $table->string('screen_size')->nullable();
             $table->string('wattage')->nullable();
+            $table->string('volume')->nullable();
             $table->string('resolution')->nullable();
             $table->string('memory')->nullable();
             $table->timestamps();

@@ -17,10 +17,12 @@ class CreateBillsTable extends Migration
             $table->id();
             $table->string('product_id');
             $table->integer('sale_quantity')->length(10)->unsigned();
+            $table->integer('shop_id')->length(10)->unsigned();
             $table->boolean('status');
             $table->timestamps();
 
             $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
+            $table->foreign('shop_id')->references('shop_id')->on('shops')->onDelete('cascade');
         });
     }
 

@@ -321,7 +321,6 @@ class ProductController extends Controller
         $quantity = $request->quantity;
         $size = $request->size;
         $status_discount = $request->status_discount;
-        $status_product = $request->status_product;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -331,6 +330,7 @@ class ProductController extends Controller
         $material = $request->material;
         $screen_size = $request->screen_size;
         $wattage = $request->wattage;
+        $volume = $request->volume;
         $resolution = $request->resolution;
         $memory = $request->memory;
 
@@ -351,7 +351,6 @@ class ProductController extends Controller
         $pro->quantity = $quantity;
         $pro->size = $size;
         $pro->status_discount = $status_discount;
-        $pro->status_product = $status_product;
         $pro->status_confirm = 0;
         $pro->discount_price = $discount_price;
         $pro->origin = $origin;
@@ -362,6 +361,7 @@ class ProductController extends Controller
         $pro->material = $material;
         $pro->screen_size = $screen_size;
         $pro->wattage = $wattage;
+        $pro->volume = $volume;
         $pro->resolution = $resolution;
         $pro->memory = $memory;
         $pro->created_at = $timedt;
@@ -404,7 +404,6 @@ class ProductController extends Controller
         $quantity = $request->quantity;
         $size = $request->size;
         $status_discount = $request->status_discount;
-        $status_product = $request->status_product;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -414,6 +413,7 @@ class ProductController extends Controller
         $material = $request->material;
         $screen_size = $request->screen_size;
         $wattage = $request->wattage;
+        $volume = $request->volume;
         $resolution = $request->resolution;
         $memory = $request->memory;
 
@@ -434,7 +434,6 @@ class ProductController extends Controller
         $pro->quantity = $quantity;
         $pro->size = $size;
         $pro->status_discount = $status_discount;
-        $pro->status_product = $status_product;
         $pro->status_confirm = 0;
         $pro->discount_price = $discount_price;
         $pro->origin = $origin;
@@ -445,6 +444,7 @@ class ProductController extends Controller
         $pro->material = $material;
         $pro->screen_size = $screen_size;
         $pro->wattage = $wattage;
+        $pro->volume = $volume;
         $pro->resolution = $resolution;
         $pro->memory = $memory;
         $pro->created_at = $timedt;
@@ -483,7 +483,6 @@ class ProductController extends Controller
         $quantity = $request->quantity;
         $size = $request->size;
         $status_discount = $request->status_discount;
-        $status_product = $request->status_product;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -493,6 +492,7 @@ class ProductController extends Controller
         $material = $request->material;
         $screen_size = $request->screen_size;
         $wattage = $request->wattage;
+        $volume = $request->volume;
         $resolution = $request->resolution;
         $memory = $request->memory;
 
@@ -502,7 +502,6 @@ class ProductController extends Controller
         $pro->quantity = $quantity;
         $pro->size = $size;
         $pro->status_discount = $status_discount;
-        $pro->status_product = $status_product;
         $pro->status_confirm = 0;
         $pro->discount_price = $discount_price;
         $pro->origin = $origin;
@@ -513,6 +512,7 @@ class ProductController extends Controller
         $pro->material = $material;
         $pro->screen_size = $screen_size;
         $pro->wattage = $wattage;
+        $pro->volume = $volume;
         $pro->resolution = $resolution;
         $pro->memory = $memory;
         $pro->created_at = now()->timezone('Asia/Ho_Chi_Minh');
