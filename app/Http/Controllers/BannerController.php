@@ -13,6 +13,12 @@ class BannerController extends Controller
     public function showBanner(){
         return Banner::all();
     }
+
+    public function banner(){
+        $banner = Banner::where('status',1)->get();
+        return response()->json($banner);
+    }
+
 	public function addBanner(Request $request){
 		$image = $request->file('image');
         $status = $request->status;
