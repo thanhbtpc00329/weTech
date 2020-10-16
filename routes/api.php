@@ -32,8 +32,6 @@ Route::post('/unactive-account','UserController@unactiveAccount');// Vô hiệu 
 Route::post('/update-account','UserController@updateAccount');// Update tài khoản
 
 
-
-
 // Product
 
 Route::post('/product','ProductController@showProduct');// Lấy sp

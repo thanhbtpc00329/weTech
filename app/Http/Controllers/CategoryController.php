@@ -24,7 +24,11 @@ class CategoryController extends Controller
 
     }
     public function showCate(){
-		return Category::all();
+        $test = Category::all();
+        foreach ($test as $key) {
+             $group[$key->category][] = $key;
+         } 
+		return response()->json($group);
 	}
     public function addCate(Request $request){
         $cate_name = $request->cate_name;
