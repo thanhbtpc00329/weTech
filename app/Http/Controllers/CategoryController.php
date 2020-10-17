@@ -23,6 +23,13 @@ class CategoryController extends Controller
         return response()->json($cate);
 
     }
+
+    public function showCateAdmin(){
+        $cate = Category::all();
+
+        return response()->json($cate);
+    }
+
     public function showCate(){
         $test = Category::all();
         foreach ($test as $key) {

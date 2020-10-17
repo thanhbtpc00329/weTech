@@ -65,8 +65,9 @@ Route::post('/delete-product','ProductController@deleteProduct');// Xóa sp
 
 
 // Category
-Route::post('/cate','CategoryController@showCate');// Show all danh mục
-Route::post('/category','CategoryController@category');//Lấy danh mục con
+Route::post('/cate','CategoryController@showCate');// Show all danh mục theo cha
+Route::post('/cate-admin','CategoryController@showCateAdmin');// Show all danh mục
+Route::post('/category','CategoryController@category');//Lấy danh mục cha
 Route::post('/cate-product','CategoryController@cateProduct');//Lấy danh mục con theo cha
 Route::post('/add-cate', 'CategoryController@addCate');// Thêm danh mục con
 Route::post('/update-cate', 'CategoryController@updateCate');// Update cate
