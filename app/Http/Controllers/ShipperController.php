@@ -26,6 +26,14 @@ class ShipperController extends Controller
     }
 
     // Order
+
+    public function showOrder(){
+        $show = Order::where('shipper_id',null)->get();
+
+        return response()->json($show);
+    }
+
+
     public function getOrder(Request $request){
         $id = $request->id; 
         $shipper_id = $request->shipper_id;
