@@ -30,7 +30,7 @@ Route::post('/user-active','UserController@showActiveUser');// Lấy tài khoả
 Route::post('/active-account','UserController@activeAccount');// Duyệt tài khoản người dùng
 Route::post('/unactive-account','UserController@unactiveAccount');// Vô hiệu hóa tài khoản người dùng
 Route::post('/update-account','UserController@updateAccount');// Update tài khoản
-Route::post('upload-avatar', 'UserController@uploadAvatar');
+Route::post('/upload-avatar', 'UserController@uploadAvatar');// Update avatar
 
 
 // Product
