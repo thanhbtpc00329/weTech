@@ -107,7 +107,6 @@ class UserController extends Controller
         $address = $request->address;
         $birth_day = $request->birth_day;
         $phone_number = $request->phone_number;
-        $background = $request->background;
         $status = $request->status;
         
         
@@ -125,32 +124,8 @@ class UserController extends Controller
         $account->gender=$gender;
         $account->address=$address;
         $account->birth_day=$birth_day;
-        $account->phone_number=$phone_number;
-        if ($request->hasFile('avatar')) {
-            //get name image
-            $filename = $request->file('avatar');
-            $name = $filename->getClientOriginalName();
-            $extension = $filename->getClientOriginalExtension();
-            $cut1 = substr($name, 0,strlen($name)-(strlen($extension)+1));
-            //upload image
-            Cloudder::upload($filename, 'users/' . $cut1); 
-            list($width, $height) = getimagesize($filename);
-            $account->avatar = Cloudder::show('users/'. $cut1, ['width'=>$width,'height'=>$height]);       
-        }
-
-        if ($request->hasFile('background')) {
-            //get name image
-            $filename1 = $request->file('background');
-            $name1 = $filename1->getClientOriginalName();
-            $extension1 = $filename1->getClientOriginalExtension();
-            $cut2 = substr($name1, 0,strlen($name1)-(strlen($extension1)+1));
-            //upload image
-            Cloudder::upload($filename, 'users/' . $cut2);   
-            list($width, $height) = getimagesize($filename1); 
-            $account->background = Cloudder::show('users/'. $cut2, ['width'=>$width,'height'=>$height]);    
-        }
-        
-        $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
+        $account->phone_number=$phone_number;        
+        $account->updated_at = now()->timezone('Asia/Ho_Chi_Minh');       
         $account->save();
 
         if ($account) {
@@ -160,6 +135,46 @@ class UserController extends Controller
             return response()->json(['error' => 'Cập nhật tài khoản thất bại']);
         }
 
+    }
+
+    public function uploadAvatar(Request $request){
+        $user_id = $request->user_id;
+        $avatar = $request->file('avatar');
+        $background = $request->file('background');
+
+        $account = User::where('user_id',$user_id)->first();
+        if ($avatar) {
+            //get name image
+            $filename =$request->file('avatar');
+            $name = $filename->getClientOriginalName();
+            $extension = $filename->getClientOriginalExtension();
+            $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
+            //upload image
+            Cloudder::upload($filename, 'users/' . $cut); 
+            list($width, $height) = getimagesize($filename);  
+            $account->background = Cloudder::show('users/'. $cut, ['width'=>$width,'height'=>$height]);      
+        }
+        if ($background) {
+            //get name image
+            $filename1 =$request->file('background');
+            $name1 = $filename1->getClientOriginalName();
+            $extension1 = $filename1->getClientOriginalExtension();
+            $cut1 = substr($name1, 0,strlen($name1)-(strlen($extension1)+1));
+            //upload image
+            Cloudder::upload($filename1, 'backgrounds/' . $cut1); 
+            list($width, $height) = getimagesize($filename1);  
+            $account->background = Cloudder::show('backgrounds/'. $cut1, ['width'=>$width,'height'=>$height]);      
+        }
+
+        $account->updated_at = now()->timezone('Asia/Ho_Chi_Minh');       
+        $account->save();
+
+        if ($account) {
+            return response()->json(['success' => 'Cập nhật hình ảnh thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Cập nhật hình ảnh thất bại']);
+        }
     }
 
 

@@ -12,26 +12,29 @@ class CategoryController extends Controller
 {
     //Category
     public function category(){
-        $cate = DB::table('categories')->groupBy('category')->get();
+        $cate = DB::table('categories')
+                ->groupBy('category')
+                ->where('status','=',1)
+                ->get();
         return response()->json($cate);
     }
     public function cateProduct(Request $request){
         $category = $request->category;
 
-        $cate = Category::where('category',$category)->get();
+        $cate = Category::where('category',$category)->where('status',1)->get();
 
         return response()->json($cate);
 
     }
 
     public function showCateAdmin(){
-        $cate = Category::all();
+        $cate = Category::where('status','=',1)->get();
 
         return response()->json($cate);
     }
 
     public function showCate(){
-        $test = Category::all();
+        $test = Category::where('status','=',1)->get();
         foreach ($test as $key) {
              $group[$key->category][] = $key;
          } 
