@@ -16,6 +16,7 @@ class OrderController extends Controller
     {
         $order = DB::table('orders')
                 ->join('shops','orders.shop_id','=','shops.shop_id')
+                ->select('orders.id','orders.user_id','orders.shop_id','orders.address','orders.shipping','orders.total','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','orders.updated_at','shops.shop_name','shops.location','shops.phone_number')
                 ->get();
         return response()->json($order);
     }
