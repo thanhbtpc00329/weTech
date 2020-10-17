@@ -14,7 +14,10 @@ class OrderController extends Controller
     // Order
     public function showOrder()
     {
-        return Order::all();
+        $order = DB::table('orders')
+                ->join('shops','orders.shop_id','=','shops.shop_id')
+                ->get();
+        return response()->json($order);
     }
 
 

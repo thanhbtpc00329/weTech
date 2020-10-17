@@ -170,6 +170,7 @@ Route::post('/delete-wishlist','WishlistController@deleteWishlist');// Xóa wish
 
 
 // Shipper
+Route::post('show-order', 'ShipperController@showOrder');// Lấy order shipper chưa nhận
 Route::post('/shipper','ShipperController@showShipper');// Tài khoản shipper
 Route::post('/detail-shipper','ShipperController@detailShipper');// Thông tin shipper
 Route::post('/get-order','ShipperController@getOrder');// Đang giao order
