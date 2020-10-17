@@ -152,7 +152,7 @@ class UserController extends Controller
             //upload image
             Cloudder::upload($filename, 'users/' . $cut); 
             list($width, $height) = getimagesize($filename);  
-            $account->background = Cloudder::show('users/'. $cut, ['width'=>$width,'height'=>$height]);      
+            $account->avatar = Cloudder::show('users/'. $cut, ['width'=>$width,'height'=>$height]);      
         }
         if ($background) {
             //get name image
