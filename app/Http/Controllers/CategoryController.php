@@ -27,8 +27,14 @@ class CategoryController extends Controller
 
     }
 
-    public function showCateAdmin(){
+    public function showCateActive(){
         $cate = Category::where('status','=',1)->get();
+
+        return response()->json($cate);
+    }
+
+    public function showCateUnactive(){
+        $cate = Category::where('status','=',0)->get();
 
         return response()->json($cate);
     }
