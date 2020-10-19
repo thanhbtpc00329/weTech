@@ -235,7 +235,7 @@ class ProductController extends Controller
             $da4 = [];
             for ($j=0; $j < count($da) ; $j++) { 
                 $da2 = $da[$j];
-                for ($i= 2; $i <= 19 ; $i++) {
+                for ($i= 2; $i <= 22 ; $i++) {
                     $x = $arr[$i];
                     unset($da2->product_id);
                     if ($arr[$i] != $arr[6]) { 
