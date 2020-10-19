@@ -150,15 +150,17 @@ class UserController extends Controller
             $cut = substr($name, 0,strlen($name)-(strlen($extension)+1));
             //upload image
             Cloudder::upload($filename, 'users/' . $cut); 
-            list($width, $height) = getimagesize($filename);  
-            $account->avatar = Cloudder::show('users/'. $cut, ['width'=>$width,'height'=>$height]);      
+            list($width, $height) = getimagesize($filename);
+            $account->avatar = Cloudder::show('users/'. $cut, ['width'=>$width,'height'=>$height]); 
+
         }
+        $image = Cloudder::show('users/'. $cut, ['width'=>$width,'height'=>$height]);
 
         $account->updated_at = now()->timezone('Asia/Ho_Chi_Minh');       
         $account->save();
 
         if ($account) {
-            return response()->json(['success' => 'Cập nhật hình ảnh thành công!', Cloudder::show('users/'. $cut, ['width'=>$width,'height'=>$height]);  
+            return response()->json(['success' => 'Cập nhật hình ảnh thành công', 'avatar' => $image]); 
         }
         else{
             return response()->json(['error' => 'Cập nhật hình ảnh thất bại']);
