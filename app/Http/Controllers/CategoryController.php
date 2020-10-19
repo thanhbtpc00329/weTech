@@ -94,15 +94,14 @@ class CategoryController extends Controller
 
 	public function deleteCate(Request $request)
     {
-    	$id = $request->id;
-        $cate = Category::find($id);
+    	$cate_id = $request->cate_id;
+        $cate = Category::where('cate_id',$cate_id)->delete();
         if ($cate) {
             return response()->json(['success' => 'Xóa danh mục thành công!']);  
         }
         else{
             return response()->json(['error' => 'Xóa thất bại']);
         }
-        $cate->delete();
     }
 
 
