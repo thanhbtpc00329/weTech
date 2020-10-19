@@ -140,7 +140,6 @@ class UserController extends Controller
     public function uploadAvatar(Request $request){
         $user_id = $request->user_id;
         $avatar = $request->file('avatar');
-        $background = $request->file('background');
 
         $account = User::where('user_id',$user_id)->first();
         if ($avatar) {
@@ -154,23 +153,12 @@ class UserController extends Controller
             list($width, $height) = getimagesize($filename);  
             $account->avatar = Cloudder::show('users/'. $cut, ['width'=>$width,'height'=>$height]);      
         }
-        if ($background) {
-            //get name image
-            $filename1 =$request->file('background');
-            $name1 = $filename1->getClientOriginalName();
-            $extension1 = $filename1->getClientOriginalExtension();
-            $cut1 = substr($name1, 0,strlen($name1)-(strlen($extension1)+1));
-            //upload image
-            Cloudder::upload($filename1, 'backgrounds/' . $cut1); 
-            list($width, $height) = getimagesize($filename1);  
-            $account->background = Cloudder::show('backgrounds/'. $cut1, ['width'=>$width,'height'=>$height]);      
-        }
 
         $account->updated_at = now()->timezone('Asia/Ho_Chi_Minh');       
         $account->save();
 
         if ($account) {
-            return response()->json(['success' => 'Cập nhật hình ảnh thành công!']);  
+            return response()->json(['success' => 'Cập nhật hình ảnh thành công!', Cloudder::show('users/'. $cut, ['width'=>$width,'height'=>$height]);  
         }
         else{
             return response()->json(['error' => 'Cập nhật hình ảnh thất bại']);
