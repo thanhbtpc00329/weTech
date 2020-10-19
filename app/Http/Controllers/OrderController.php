@@ -16,7 +16,7 @@ class OrderController extends Controller
     {
         $order = DB::table('orders')
                 ->join('shops','orders.shop_id','=','shops.shop_id')
-                ->select('orders.id','orders.user_id','orders.shop_id','orders.address','orders.shipping','orders.total','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','orders.updated_at','shops.shop_name','shops.location','shops.phone_number')
+                ->select('orders.id','orders.user_id','orders.shop_id','orders.address','orders.shipping','orders.total','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','orders.updated_at','shops.shop_name','shops.location','shops.phone_number','shops.shop_address')
                 ->get();
         return response()->json($order);
     }
@@ -149,7 +149,14 @@ class OrderController extends Controller
     }
 
 
-   
+    public function insertOrder(Request $request){
+        $user_id = $request->user_id; 
+
+        $order = Order::where('user_id',$user_id)->where('status','Nhập kho')->get();
+        return response()->json($order);   
+    }
+
+
     public function deleteOrder(Request $request){
         $id = $request->id;  
 

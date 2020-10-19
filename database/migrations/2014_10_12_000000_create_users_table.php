@@ -25,7 +25,6 @@ class CreateUsersTable extends Migration
             $table->date('birth_day');
             $table->string('phone_number',20);
             $table->text('avatar');
-            $table->string('background');
             $table->boolean('status');
             $table->string('role',50);
             $table->rememberToken();

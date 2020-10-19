@@ -22,6 +22,7 @@ class CreateProductDetailTable extends Migration
             $table->integer('size')->length(50)->unsigned()->nullable();
             $table->boolean('status_discount');
             $table->boolean('status_confirm');
+            $table->integer('percent');
             $table->integer('discount_price')->unsigned()->nullable();
             $table->string('origin')->nullable();
             $table->string('accessory')->nullable();

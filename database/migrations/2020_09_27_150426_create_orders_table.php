@@ -20,7 +20,8 @@ class CreateOrdersTable extends Migration
             $table->integer('shipping')->length(10)->unsigned();
             $table->integer('total')->length(10)->unsigned();
             $table->integer('shop_id')->length(10)->unsigned();
-            $table->integer('shipper_id')->length(10)->unsigned()->nullable();
+            $table->integer('shipper_deliver')->length(10)->unsigned()->nullable();
+            $table->integer('shipper_receive')->length(10)->unsigned()->nullable();
             $table->string('status');
             $table->text('order_detail');
 
@@ -28,7 +29,8 @@ class CreateOrdersTable extends Migration
 
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
             $table->foreign('shop_id')->references('shop_id')->on('shops')->onDelete('cascade');
-            $table->foreign('shipper_id')->references('shipper_id')->on('shippers')->onDelete('cascade');
+            $table->foreign('shipper_deliver')->references('shipper_id')->on('shippers')->onDelete('cascade');
+            $table->foreign('shipper_receive')->references('shipper_id')->on('shippers')->onDelete('cascade');
         });
     }
 

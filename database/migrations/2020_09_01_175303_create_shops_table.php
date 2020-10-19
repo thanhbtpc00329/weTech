@@ -17,8 +17,9 @@ class CreateShopsTable extends Migration
             $table->increments('shop_id');
             $table->string('user_id');
             $table->string('shop_name',50);
-            $table->string('address');
+            $table->string('shop_address');
             $table->text('location');
+            $table->string('shop_range',20);
             $table->string('phone_number',20);
             $table->string('identity_card');
             $table->string('tax');

@@ -60,7 +60,7 @@ class ShopController extends Controller
 
         $shop = DB::table('shops')
                 ->join('users','users.user_id','=','shops.user_id')
-                ->select('shops.shop_id','shops.shop_name','shops.address','shops.phone_number','shops.background','shops.location','shops.tax','users.avatar')
+                ->select('shops.shop_id','shops.shop_name','shops.shop_address','shops.phone_number','shops.background','shops.shop_range','shops.location','shops.tax','users.avatar')
                 ->where('shop_id','=',$shop_id)
                 ->get();
         return response()->json($shop);
@@ -70,8 +70,9 @@ class ShopController extends Controller
         $shop_name = $request->shop_name;
         $user_id = $request->user_id;
         $identity_card = $request->identity_card;
-        $address = $request->address;
+        $shop_address = $request->shop_address;
         $location = $request->location;
+        $shop_range = $request->shop_range;
         $phone_number = $request->phone_number;
         $tax = $request->tax;
 
@@ -79,8 +80,9 @@ class ShopController extends Controller
         $shop->shop_name = $shop_name;
         $shop->user_id = $user_id;
         $shop->identity_card = $identity_card;
-        $shop->address = $address;
+        $shop->shop_address = $shop_address;
         $shop->location = $location;
+        $shop->shop_range = $shop_range;
         $shop->phone_number = $phone_number;
         $shop->tax = $tax;
         $shop->status = '0';
@@ -128,8 +130,9 @@ class ShopController extends Controller
     public function updateShop(Request $request){
         $id = $request->shop_id;
         $name = $request->name;
-        $address = $request->address;
+        $shop_address = $request->shop_address;
         $location = $request->location;
+        $shop_range = $request->shop_range;
         $phone_number = $request->phone_number;
         $status = $request->status;
         $tax = $request->tax;
@@ -138,6 +141,7 @@ class ShopController extends Controller
             'name'=>$name,
             'address'=>$address,
             'location'=>$location,
+            'shop_range'=>$shop_range,
             'phone_number'=>$phone_number,
             'tax' => $tax,
             'status'=>$status,
@@ -289,6 +293,20 @@ class ShopController extends Controller
                 ->join('users','users.user_id','=','orders.user_id')
                 ->where('orders.shop_id',$shop_id)
                 ->where('orders.status','Trả hàng')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
+                ->get();
+        return response()->json($order);
+    }
+
+    public function insertOrderShop(Request $request){
+
+        $shop_id = $request->shop_id;
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shop_id',$shop_id)
+                ->where('orders.status','Nhập kho')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
                 ->get();

@@ -321,6 +321,7 @@ class ProductController extends Controller
         $quantity = $request->quantity;
         $size = $request->size;
         $status_discount = $request->status_discount;
+        $percent = $request->percent;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -352,6 +353,7 @@ class ProductController extends Controller
         $pro->size = $size;
         $pro->status_discount = $status_discount;
         $pro->status_confirm = 0;
+        $pro->percent = $percent;
         $pro->discount_price = $discount_price;
         $pro->origin = $origin;
         $pro->accessory = $accessory;
@@ -404,6 +406,7 @@ class ProductController extends Controller
         $quantity = $request->quantity;
         $size = $request->size;
         $status_discount = $request->status_discount;
+        $percent = $request->percent;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -435,6 +438,7 @@ class ProductController extends Controller
         $pro->size = $size;
         $pro->status_discount = $status_discount;
         $pro->status_confirm = 0;
+        $pro->percent = $percent;
         $pro->discount_price = $discount_price;
         $pro->origin = $origin;
         $pro->accessory = $accessory;
@@ -483,6 +487,7 @@ class ProductController extends Controller
         $quantity = $request->quantity;
         $size = $request->size;
         $status_discount = $request->status_discount;
+        $percent = $request->percent;
         $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
@@ -503,6 +508,7 @@ class ProductController extends Controller
         $pro->size = $size;
         $pro->status_discount = $status_discount;
         $pro->status_confirm = 0;
+        $pro->percent = $percent;
         $pro->discount_price = $discount_price;
         $pro->origin = $origin;
         $pro->accessory = $accessory;

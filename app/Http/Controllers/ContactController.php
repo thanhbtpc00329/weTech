@@ -60,7 +60,6 @@ class ContactController extends Controller
     public function reply(Request $request){
         $id = $request->id;
         $name = $request->name;
-        $title = $request->title;
         $email = $request->email;
         $subject = $request->subject;
         $content = $request->content;
