@@ -104,6 +104,7 @@ Route::post('/finish-order','OrderController@finishOrder');// Lấy order đã g
 Route::post('/cancel-order','OrderController@cancelOrder');// Hủy đơn hàng
 Route::post('/delete-order','OrderController@deleteOrder');// Xóa order
 Route::post('/update-order-user','OrderController@updateOrder');// Lấy order đã đóng gói
+Route::post('/insert-order','OrderController@insertOrder');// Lấy order đã đóng gói
 Route::post('return-order','OrderController@returnOrder');// Lấy order đã trả hàng
 
 // Shop
@@ -137,6 +138,7 @@ Route::post('finish-order-shop', 'ShopController@finishOrderShop');// Lấy orde
 Route::post('cancel-order-shop', 'ShopController@cancelOrderShop');// Lấy order đã hủy theo shop
 Route::post('return-order-shop', 'ShopController@returnOrderShop');// Lấy order trả hàng theo shop
 Route::post('get-order-shop', 'ShopController@getOrderShop');// Lấy order theo shop
+Route::post('/insert-order-shop','ShopController@insertOrderShop');//Nhập kho order
 
 // Comment
 Route::post('/check-comment','CommentController@checkComment');// Xem người đó có mua hàng chưa để có thể comment
@@ -176,6 +178,7 @@ Route::post('/delete-wishlist','WishlistController@deleteWishlist');// Xóa wish
 Route::post('show-order', 'ShipperController@showOrder');// Lấy order shipper chưa nhận
 Route::post('/shipper','ShipperController@showShipper');// Tài khoản shipper
 Route::post('/detail-shipper','ShipperController@detailShipper');// Thông tin shipper
+Route::post('shipper-insert-order','ShipperController@shipperInsertOrder');// Nhập kho order
 Route::post('/get-order','ShipperController@getOrder');// Đang giao order
 Route::post('/accept-order','ShipperController@acceptOrder');//Đã giao order
 Route::post('/update-shipper','ShipperController@updateShipper');
@@ -191,6 +194,7 @@ Route::post('/delete-user','AdminController@deleteUser');// Xóa tài khoản
 Route::post('/unactive-order-admin','AdminController@unactiveOrderAdmin');// Lấy đơn hàng chưa duyệt
 Route::post('/active-order-admin','AdminController@activeOrderAdmin');// Lấy đơn hàng đã duyệt
 Route::post('/update-order-admin','AdminController@updateOrderAdmin');// Lấy đơn hàng đã đóng gói 
+Route::post('/insert-order-admin','AdminController@insertOrderAdmin');// Lấy đơn hàng nhập kho
 Route::post('/confirm-order-admin','AdminController@confirmOrderAdmin');// Lấy đơn hàng đang giao
 Route::post('/finish-order-admin','AdminController@finishOrderAdmin');// Lấy đơn hàng đã giao
 Route::post('/cancel-order-admin','AdminController@cancelOrderAdmin');// Lấy đơn hàng đã hủy

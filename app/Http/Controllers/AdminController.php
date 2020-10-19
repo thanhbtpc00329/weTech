@@ -112,8 +112,6 @@ class AdminController extends Controller
         $phone_number = $request->phone_number;
         $avatar = $request->avatar;
         $role = $request->role;
-        $background = $request->background;
-
 
         $account = new User;
         $account->user_id = $id;
@@ -138,17 +136,6 @@ class AdminController extends Controller
 
         }
 
-        if ($request->hasFile('background')) {
-            //get name image
-            $filename1 = $request->file('background');
-            $name1 = $filename1->getClientOriginalName();
-            $extension1 = $filename1->getClientOriginalExtension();
-            $cut2 = substr($name1, 0,strlen($name1)-(strlen($extension1)+1));
-            //upload image
-            Cloudder::upload($filename, 'users/' . $cut2);    
-            list($width, $height) = getimagesize($filename1);        
-            $account->background = Cloudder::show('users/'. $cut2, ['width'=>$width,'height'=>$height]);    
-        }
         $account->status=1;
         $account->role = $role;
         $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
@@ -182,7 +169,6 @@ class AdminController extends Controller
         $phone_number = $request->phone_number;
         $avatar = $request->avatar;
         $role = $request->role;
-        $background = $request->background;
         $status = $request->status;
         
 
@@ -207,17 +193,6 @@ class AdminController extends Controller
             $account->avatar = Cloudder::show('users/'. $cut1, ['width'=>$width,'height'=>$height]);       
         }
 
-        if ($request->hasFile('background')) {
-            //get name image
-            $filename1 = $request->file('background');
-            $name1 = $filename1->getClientOriginalName();
-            $extension1 = $filename1->getClientOriginalExtension();
-            $cut2 = substr($name1, 0,strlen($name1)-(strlen($extension1)+1));
-            //upload image
-            Cloudder::upload($filename, 'users/' . $cut2);   
-            list($width, $height) = getimagesize($filename1); 
-            $account->background = Cloudder::show('users/'. $cut2, ['width'=>$width,'height'=>$height]);    
-        }
         $account->status = $status;
         $account->role = $role;
         $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
@@ -236,7 +211,7 @@ class AdminController extends Controller
     public function deleteUser(Request $request){
         $id = $request->id;
 
-        $user = DB::table('users')->where('user_id','=',$id)->delete();
+        $user = User::where('user_id','=',$id)->delete();
 
         if ($user) {
             return response()->json(['success' => 'Xóa tài khoản thành công!']);  
@@ -263,6 +238,12 @@ class AdminController extends Controller
     public function updateOrderAdmin(Request $request){
 
         $order = Order::where('status','Đã đóng gói')->orderBy('created_at','DESC')->get();
+        return response()->json($order);
+    }
+
+    public function insertOrderAdmin(Request $request){
+        
+        $order = Order::where('status','Nhập kho')->orderBy('created_at','DESC')->get();
         return response()->json($order);
     }
 
