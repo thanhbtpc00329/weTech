@@ -621,6 +621,7 @@ class ProductController extends Controller
                 $sp->status_discount = 0;
                 $sp->save();
             }
+        }
 
         if ($pro_img) {
             return response()->json(['success' => 'Thêm sản phẩm thành công!']);  
