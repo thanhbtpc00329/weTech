@@ -498,10 +498,11 @@ class ProductController extends Controller
             }
         }
 
-        if($from_day){
+        
             $sp = Product_detail::where('prodetail_id',$id1)->first();
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
             $now = time();
+        if($sp->created_at){
             // From time
             $ftime = $sp->created_at;
             $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
