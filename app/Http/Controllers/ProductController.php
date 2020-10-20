@@ -498,7 +498,7 @@ class ProductController extends Controller
             }
         }
 
-
+        if($from_day){
             $sp = Product_detail::where('prodetail_id',$id1)->first();
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
             $now = time();
@@ -517,6 +517,7 @@ class ProductController extends Controller
                 $sp->status_discount = 0;
                 $sp->save();
             }
+        }
 
         if ($pro_img) {
             return response()->json(['success' => 'Thêm sản phẩm thành công!']);  
