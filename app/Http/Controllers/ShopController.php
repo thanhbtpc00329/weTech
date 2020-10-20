@@ -66,6 +66,16 @@ class ShopController extends Controller
         return response()->json($shop);
     }
 
+
+    public function rangeShop(Request $request){
+        $shop_id = $request->shop_id;
+
+        $shop = Shop::where('shop_id','=',$shop_id)->first();
+        return response()->json($shop);
+    }
+
+
+
     public function addShop(Request $request){
         $shop_name = $request->shop_name;
         $user_id = $request->user_id;

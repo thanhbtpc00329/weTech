@@ -139,6 +139,7 @@ Route::post('cancel-order-shop', 'ShopController@cancelOrderShop');// Lấy orde
 Route::post('return-order-shop', 'ShopController@returnOrderShop');// Lấy order trả hàng theo shop
 Route::post('get-order-shop', 'ShopController@getOrderShop');// Lấy order theo shop
 Route::post('/insert-order-shop','ShopController@insertOrderShop');//Nhập kho order
+Route::post('/range-shop','ShopController@rangeShop');// Lấy thông tin shop để tính khoảng cách
 
 // Comment
 Route::post('/check-comment','CommentController@checkComment');// Xem người đó có mua hàng chưa để có thể comment
