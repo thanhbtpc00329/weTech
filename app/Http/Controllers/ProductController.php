@@ -292,7 +292,7 @@ class ProductController extends Controller
 
         $id = 'SP_'.$rd;
 
-        
+        $timedt = now()->timezone('Asia/Ho_Chi_Minh');
 
         $product_name = $request->product_name;
         $brand = $request->brand;
@@ -320,9 +320,7 @@ class ProductController extends Controller
         $color = $request->color;
         $quantity = $request->quantity;
         $size = $request->size;
-        $status_discount = $request->status_discount;
         $percent = $request->percent;
-        $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
         $dimension = $request->dimension;
@@ -334,6 +332,8 @@ class ProductController extends Controller
         $volume = $request->volume;
         $resolution = $request->resolution;
         $memory = $request->memory;
+        $from_day = $request->from_day;
+        $to_day = $request->to_day;
 
         $rd1 = '';
             for ($i = 0; $i < 4; $i++) {
@@ -341,8 +341,7 @@ class ProductController extends Controller
             }
             
         $id1 = 'CT_'.$rd1;  
-
-        $timedt = now()->timezone('Asia/Ho_Chi_Minh');        
+       
 
         $pro = new Product_detail;
         $pro->prodetail_id = $id1;
@@ -351,10 +350,10 @@ class ProductController extends Controller
         $pro->color = $color;
         $pro->quantity = $quantity;
         $pro->size = $size;
-        $pro->status_discount = $status_discount;
+        $pro->status_discount = 0;
         $pro->status_confirm = 0;
         $pro->percent = $percent;
-        $pro->discount_price = $discount_price;
+        $pro->discount_price = $price * ($percent / 100);
         $pro->origin = $origin;
         $pro->accessory = $accessory;
         $pro->dimension = $dimension;
@@ -366,8 +365,11 @@ class ProductController extends Controller
         $pro->volume = $volume;
         $pro->resolution = $resolution;
         $pro->memory = $memory;
-        $pro->created_at = $timedt;
-
+        if($from_day){
+            $pro->created_at = str_replace('T',' ',$from_day);
+            $pro->updated_at = str_replace('T',' ',$to_day);
+        }
+        
         $pro->save();
 
 
@@ -386,6 +388,25 @@ class ProductController extends Controller
                 $pro_img->save();
             }
         }
+
+            $sp = Product_detail::where('prodetail_id',$id1)->first();
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $now = time();
+            // From time
+            $ftime = $sp->created_at;
+            $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
+            $ftime_stamp = mktime($ftime['hour'],$ftime['minute'],$ftime['second'],$ftime['month'],$ftime['day'],$ftime['year']);
+            // To time
+            $ttime = $sp->updated_at;
+            $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
+            $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
+            if($now >= $ftime_stamp && $now <= $ttime_stamp){
+                $sp->status_discount = 1;
+                $sp->save();
+            }else{
+                $sp->status_discount = 0;
+                $sp->save();
+            }
         
         if ($pro_img) {
             return response()->json(['success' => 'Thêm sản phẩm thành công!']);  
@@ -399,15 +420,15 @@ class ProductController extends Controller
     public function addDetail(Request $request){
         $ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $ch1len = strlen($ch1);
+
+        $timedt = now()->timezone('Asia/Ho_Chi_Minh');
         
         $product_id = $request->product_id;
         $price = $request->price;
         $color = $request->color;
         $quantity = $request->quantity;
         $size = $request->size;
-        $status_discount = $request->status_discount;
         $percent = $request->percent;
-        $discount_price = $request->discount_price;
         $origin = $request->origin;
         $accessory = $request->accessory;
         $dimension = $request->dimension;
@@ -419,6 +440,8 @@ class ProductController extends Controller
         $volume = $request->volume;
         $resolution = $request->resolution;
         $memory = $request->memory;
+        $from_day = $request->from_day;
+        $to_day = $request->to_day;
 
         $rd1 = '';
             for ($i = 0; $i < 4; $i++) {
@@ -426,8 +449,7 @@ class ProductController extends Controller
             }
             
         $id1 = 'CT_'.$rd1;  
-
-        $timedt = now()->timezone('Asia/Ho_Chi_Minh');        
+     
 
         $pro = new Product_detail;
         $pro->prodetail_id = $id1;
@@ -436,10 +458,10 @@ class ProductController extends Controller
         $pro->color = $color;
         $pro->quantity = $quantity;
         $pro->size = $size;
-        $pro->status_discount = $status_discount;
+        $pro->status_discount = 0;
         $pro->status_confirm = 0;
         $pro->percent = $percent;
-        $pro->discount_price = $discount_price;
+        $pro->discount_price = $price * ($percent / 100);
         $pro->origin = $origin;
         $pro->accessory = $accessory;
         $pro->dimension = $dimension;
@@ -451,7 +473,11 @@ class ProductController extends Controller
         $pro->volume = $volume;
         $pro->resolution = $resolution;
         $pro->memory = $memory;
-        $pro->created_at = $timedt;
+        if($from_day){
+            $pro->created_at = str_replace('T',' ',$from_day);
+            $pro->updated_at = str_replace('T',' ',$to_day);
+        }
+
 
         $pro->save();
 
@@ -471,6 +497,27 @@ class ProductController extends Controller
                 
             }
         }
+
+
+            $sp = Product_detail::where('prodetail_id',$id1)->first();
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $now = time();
+            // From time
+            $ftime = $sp->created_at;
+            $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
+            $ftime_stamp = mktime($ftime['hour'],$ftime['minute'],$ftime['second'],$ftime['month'],$ftime['day'],$ftime['year']);
+            // To time
+            $ttime = $sp->updated_at;
+            $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
+            $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
+            if($now >= $ftime_stamp && $now <= $ttime_stamp){
+                $sp->status_discount = 1;
+                $sp->save();
+            }else{
+                $sp->status_discount = 0;
+                $sp->save();
+            }
+
         if ($pro_img) {
             return response()->json(['success' => 'Thêm sản phẩm thành công!']);  
         }
@@ -500,6 +547,10 @@ class ProductController extends Controller
         $volume = $request->volume;
         $resolution = $request->resolution;
         $memory = $request->memory;
+        $from_day = $request->from_day;
+        $to_day = $request->to_day;
+
+
 
         $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
         $pro->price = $price;
@@ -521,7 +572,8 @@ class ProductController extends Controller
         $pro->volume = $volume;
         $pro->resolution = $resolution;
         $pro->memory = $memory;
-        $pro->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $pro->created_at = $from_day;
+        $pro->updated_at = $to_day;
 
         $pro->save();
 
@@ -558,18 +610,41 @@ class ProductController extends Controller
 
 
     public function test(Request $request){
-        $id = $request->username;
-        // tính total theo shop -> duyệt đơn hàng
-        // $or = Order::find($id);
-        // $tong = 0;
-        // $arr = json_decode($or->order_detail);
-        // for ($i=0; $i < count($arr); $i++) { 
-        //     $tong += $arr[$i]->price * $arr[$i]->cart_quantity;
-        // }
-        // return $arr;
-        $shop = Shop::where('shop_id',$id)->first();
+        // $id = $request->username;
+        // // tính total theo shop -> duyệt đơn hàng
+        // // $or = Order::find($id);
+        // // $tong = 0;
+        // // $arr = json_decode($or->order_detail);
+        // // for ($i=0; $i < count($arr); $i++) { 
+        // //     $tong += $arr[$i]->price * $arr[$i]->cart_quantity;
+        // // }
+        // // return $arr;
+        // $shop = Shop::where('shop_id',$id)->first();
+        //$fofrmat = now()->timezone('Asia/Ho_Chi_Minh')->format('Y\-m\-d\ h:i A');
+        // $kq = "2020-10-20T13:06";
+        // $tt = str_replace('T',' ',$kq);
+        // $oo = now()->timezone('Asia/Ho_Chi_Minh');
+        $kk = Banner::find(2);
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $now = time();
+        // From time
+        $ftime = $kk->created_at;
+        $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
+        $ftime_stamp = mktime($ftime['hour'],$ftime['minute'],$ftime['second'],$ftime['month'],$ftime['day'],$ftime['year']);
+        // To time
+        $ttime = $kk->updated_at;
+        $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
+        $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
+        if($now >= $ftime_stamp && $now <= $ttime_stamp){
+            $kk->status = 1;
+            $kk->save();
+        }else{
+            $kk->status = 0;
+            $kk->save();
+        }
 
-        return $shop;
+
+
     }
 
 
