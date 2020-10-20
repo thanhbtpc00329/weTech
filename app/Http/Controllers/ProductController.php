@@ -460,8 +460,6 @@ class ProductController extends Controller
         $pro->size = $size;
         $pro->status_discount = 0;
         $pro->status_confirm = 0;
-        $pro->percent = $percent;
-        $pro->discount_price = $price * ($percent / 100);
         $pro->origin = $origin;
         $pro->accessory = $accessory;
         $pro->dimension = $dimension;
@@ -474,6 +472,8 @@ class ProductController extends Controller
         $pro->resolution = $resolution;
         $pro->memory = $memory;
         if($from_day){
+            $pro->percent = $percent;
+            $pro->discount_price = $price * ($percent / 100);
             $pro->created_at = str_replace('T',' ',$from_day);
             $pro->updated_at = str_replace('T',' ',$to_day);
         }
@@ -625,23 +625,27 @@ class ProductController extends Controller
         // $kq = "2020-10-20T13:06";
         // $tt = str_replace('T',' ',$kq);
         // $oo = now()->timezone('Asia/Ho_Chi_Minh');
-        $kk = Banner::find(2);
-        date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $now = time();
-        // From time
-        $ftime = $kk->created_at;
-        $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
-        $ftime_stamp = mktime($ftime['hour'],$ftime['minute'],$ftime['second'],$ftime['month'],$ftime['day'],$ftime['year']);
-        // To time
-        $ttime = $kk->updated_at;
-        $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
-        $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
-        if($now >= $ftime_stamp && $now <= $ttime_stamp){
-            $kk->status = 1;
-            $kk->save();
-        }else{
-            $kk->status = 0;
-            $kk->save();
+        
+            $sp = Product_detail::where('prodetail_id',$id1)->first();
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $now = time();
+            // From time
+        if($sp->created_at){
+            $ftime = $sp->created_at;
+            $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
+            $ftime_stamp = mktime($ftime['hour'],$ftime['minute'],$ftime['second'],$ftime['month'],$ftime['day'],$ftime['year']);
+            // To time
+            $ttime = $sp->updated_at;
+            $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
+            $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
+            if($now >= $ftime_stamp && $now <= $ttime_stamp){
+                $sp->status_discount = 1;
+                $sp->save();
+            }else{
+                $sp->status_discount = 0;
+                $sp->save();
+            }
+        }
         }
 
 
