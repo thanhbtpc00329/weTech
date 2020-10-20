@@ -352,8 +352,6 @@ class ProductController extends Controller
         $pro->size = $size;
         $pro->status_discount = 0;
         $pro->status_confirm = 0;
-        $pro->percent = $percent;
-        $pro->discount_price = $price * ($percent / 100);
         $pro->origin = $origin;
         $pro->accessory = $accessory;
         $pro->dimension = $dimension;
@@ -366,6 +364,8 @@ class ProductController extends Controller
         $pro->resolution = $resolution;
         $pro->memory = $memory;
         if($from_day){
+            $pro->percent = $percent;
+            $pro->discount_price = $price * ($percent / 100);
             $pro->created_at = str_replace('T',' ',$from_day);
             $pro->updated_at = str_replace('T',' ',$to_day);
         }
@@ -392,6 +392,7 @@ class ProductController extends Controller
             $sp = Product_detail::where('prodetail_id',$id1)->first();
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
             $now = time();
+        if($sp->created_at){
             // From time
             $ftime = $sp->created_at;
             $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
@@ -407,6 +408,7 @@ class ProductController extends Controller
                 $sp->status_discount = 0;
                 $sp->save();
             }
+        }
         
         if ($pro_img) {
             return response()->json(['success' => 'Thêm sản phẩm thành công!']);  
@@ -574,16 +576,57 @@ class ProductController extends Controller
         $pro->volume = $volume;
         $pro->resolution = $resolution;
         $pro->memory = $memory;
-        $pro->created_at = $from_day;
-        $pro->updated_at = $to_day;
+        if($from_day){
+            $pro->percent = $percent;
+            $pro->discount_price = $price * ($percent / 100);
+            $pro->created_at = str_replace('T',' ',$from_day);
+            $pro->updated_at = str_replace('T',' ',$to_day);
+        }
 
         $pro->save();
 
-        if ($pro) {
-            return response()->json(['success' => 'Cập nhật sản phẩm thành công!']);  
+        $image = $request->image;
+        if($image){
+            $tt = ltrim($image,'"[');
+            $pp = rtrim($tt,'"]');
+            $arr = explode('","', $pp);
+            for ($i=0; $i < count($arr); $i++) { 
+                $bt = ltrim($arr[$i],'"');
+                $bp = rtrim($bt,'"');
+                $pro_img = new Product_image;
+                $pro_img->prodetail_id = $id1;
+                $pro_img->image = $bp;
+                $pro_img->created_at = $timedt;
+                $pro_img->save();
+                
+            }
+        }
+
+        $sp = Product_detail::where('prodetail_id',$id1)->first();
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $now = time();
+        if($sp->created_at){
+            // From time
+            $ftime = $sp->created_at;
+            $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
+            $ftime_stamp = mktime($ftime['hour'],$ftime['minute'],$ftime['second'],$ftime['month'],$ftime['day'],$ftime['year']);
+            // To time
+            $ttime = $sp->updated_at;
+            $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
+            $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
+            if($now >= $ftime_stamp && $now <= $ttime_stamp){
+                $sp->status_discount = 1;
+                $sp->save();
+            }else{
+                $sp->status_discount = 0;
+                $sp->save();
+            }
+
+        if ($pro_img) {
+            return response()->json(['success' => 'Thêm sản phẩm thành công!']);  
         }
         else{
-            return response()->json(['error' => 'Cập nhật thất bại']);
+            return response()->json(['error' => 'Thêm thất bại']);
         }
 
 
