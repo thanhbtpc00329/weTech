@@ -154,7 +154,11 @@ class OrderController extends Controller
     {
         $shipper_deliver = $request->shipper_deliver; 
 
-        $order = Order::where('shipper_deliver',$shipper_deliver)->where('status','Nhập kho')->get();
+        $order = DB::table('orders')
+                ->join('shops','shops.shop_id','=','orders.shop_id')
+                ->where('orders.shipper_deliver','=',$shipper_deliver)
+                ->where('orders.status','=','Nhập kho')
+                ->get();
         return response()->json($order);
     }
 
