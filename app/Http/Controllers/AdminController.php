@@ -297,7 +297,7 @@ class AdminController extends Controller
             ->join('users','users.user_id','=','shops.user_id')
             ->groupby('product_image.prodetail_id')
             ->where('product_detail.status_confirm','=',1)
-            ->get();
+            ->paginate(10);
             
             return response()->json($product);
     }
