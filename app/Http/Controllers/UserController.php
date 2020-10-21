@@ -59,6 +59,15 @@ class UserController extends Controller
         $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
         if(count($user) <= 0){
             return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);  
+        }else if($user[0]->role == 'Shipper'){
+            $ship = DB::table('users')
+                ->join('shippers','users.user_id','=','shippers.user_id')
+                ->where('users.username',$name)
+                ->orWhere('users.email',$name)
+                ->where('users.password',$pass)
+                ->where('users.role','Shipper')
+                ->get();
+                return response()->json($ship);
         }else{
             return response()->json($user);
         }
