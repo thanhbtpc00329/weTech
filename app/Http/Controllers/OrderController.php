@@ -150,6 +150,15 @@ class OrderController extends Controller
     }
 
 
+    public function orderShipper(Request $request)
+    {
+        $shipper_deliver = $request->shipper_deliver; 
+
+        $order = Order::where('shipper_deliver',$shipper_deliver)->where('status','Nhập kho')->get();
+        return response()->json($order);
+    }
+
+
     public function insertOrder(Request $request){
         $user_id = $request->user_id; 
 
