@@ -163,6 +163,19 @@ class OrderController extends Controller
     }
 
 
+    public function receiveShipper(Request $request)
+    {
+        $shipper_receive = $request->shipper_receive; 
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shipper_receive','=',$shipper_receive)
+                ->where('orders.status','=','Đang giao')
+                ->get();
+        return response()->json($order);
+    }
+
+
     public function insertOrder(Request $request){
         $user_id = $request->user_id; 
 

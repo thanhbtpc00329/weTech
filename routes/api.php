@@ -107,6 +107,7 @@ Route::post('/update-order-user','OrderController@updateOrder');// Lấy order �
 Route::post('/insert-order','OrderController@insertOrder');// Lấy order đã đóng gói
 Route::post('return-order','OrderController@returnOrder');// Lấy order đã trả hàng
 Route::post('/order-shipper', 'OrderController@orderShipper');// Lấy order nhập kho theo id shipper
+Route::post('/receive-shipper', 'OrderController@receiveShipper');// Lấy order đang giao theo id shipper
 
 // Shop
 Route::post('/shop-active','ShopController@accountShopActive');// Lấy tài khoản shop đã duyệt
