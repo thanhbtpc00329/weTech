@@ -25,7 +25,7 @@ class CreateOrdersTable extends Migration
             $table->integer('shipper_receive')->length(10)->unsigned()->nullable();
             $table->string('status');
             $table->text('order_detail');
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
