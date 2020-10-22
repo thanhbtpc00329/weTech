@@ -15,7 +15,7 @@ class BannerController extends Controller
     }
 
     public function banner(){
-        $banner = Banner::where('status',1)->paginate(10);
+        $banner = Banner::where('status',1)->get();
         return response()->json($banner);
     }
 

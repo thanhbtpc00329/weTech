@@ -39,7 +39,7 @@ class OrderController extends Controller
     
     public function addOrder(Request $request){
         $user_id = $request->user_id;
-        $address = $request->address;
+        $order_address = $request->order_address;
         $shipping = $request->shipping;
         $total = $request->total;
         $add = $request->order_detail;
