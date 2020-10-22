@@ -178,12 +178,12 @@ class UserController extends Controller
 
 
     public function showUnactiveUser(){
-        $user = User::where('role','User')->where('status',0)->get();
+        $user = User::where('role','User')->where('status',0)->paginate(10);
         return response()->json($user);
     }
 
     public function showActiveUser(){
-        $user = User::where('role','User')->where('status',1)->get();
+        $user = User::where('role','User')->where('status',1)->paginate(10);
         return response()->json($user);
     }
 

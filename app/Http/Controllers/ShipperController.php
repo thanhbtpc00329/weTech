@@ -13,7 +13,7 @@ class ShipperController extends Controller
     //Shipper
     public function showShipper()
     {
-    	$ship = User::where('role','Shipper')->get();
+    	$ship = User::where('role','Shipper')->paginate(10);
         return response()->json($ship);
     }
 
@@ -21,14 +21,14 @@ class ShipperController extends Controller
     	$ship = DB::table('shippers')
     			->join('users','users.user_id','=','shippers.user_id')
                 ->where('users.role','=','Shipper')
-    			->get();
+    			->paginate(10);
     	return response()->json($ship);
     }
 
     // Order
 
     public function showOrder(){
-        $show = Order::where('shipper_id',null)->get();
+        $show = Order::where('shipper_deliver',null)->where('shipper_receive',null)->paginate(10);
 
         return response()->json($show);
     }

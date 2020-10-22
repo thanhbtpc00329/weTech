@@ -13,7 +13,7 @@ class WishlistController extends Controller
     // Wishlist
     public function showWishlist()
     {
-        return Wishlist::all();
+        return Wishlist::paginate(10);
     }
 
 

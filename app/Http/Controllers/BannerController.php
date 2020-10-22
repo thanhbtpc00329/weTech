@@ -11,11 +11,11 @@ class BannerController extends Controller
 {
     // Banner
     public function showBanner(){
-        return Banner::all();
+        return Banner::paginate(10);
     }
 
     public function banner(){
-        $banner = Banner::where('status',1)->get();
+        $banner = Banner::where('status',1)->paginate(10);
         return response()->json($banner);
     }
 

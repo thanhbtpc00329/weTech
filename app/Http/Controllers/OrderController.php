@@ -43,6 +43,8 @@ class OrderController extends Controller
         $shipping = $request->shipping;
         $total = $request->total;
         $add = $request->order_detail;
+        $user_range = $request->user_range;
+        $note = $request->note;
         $tt = ltrim($add,"'");
         $rr = rtrim($tt,"'");
         $arr = json_decode($rr);
@@ -79,10 +81,16 @@ class OrderController extends Controller
             $order->user_id = $user_id;
             $order->address = $address;
             $order->shipping = $shipping;
+            if($user_range){
+                $order->user_range = $user_range;
+            }
             $order->total = $total;
             $order->shop_id = $kq[$i];
             $order->status = 'Chờ duyệt';
             $order->order_detail = json_encode($order_detail);
+            if ($note) {
+                $order->note = $note;
+            }
             $order->created_at = $time;
 
             $order->save();
