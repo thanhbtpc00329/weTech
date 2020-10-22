@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Shop;
 use App\Order;
-use DB;
+use DB; 
 
 
 class ShopController extends Controller
@@ -206,7 +206,7 @@ class ShopController extends Controller
                 ->where('orders.shop_id',$shop_id)
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
-                ->get();
+                ->paginate(5);
         return response()->json($order);
     }
 
@@ -219,7 +219,7 @@ class ShopController extends Controller
                 ->where('orders.status','Chờ duyệt')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
-                ->get();
+                ->paginate(5);
         return response()->json($order);
     }
 
@@ -234,7 +234,7 @@ class ShopController extends Controller
                 ->where('orders.status','Đã duyệt')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
-                ->get();
+                ->paginate(5);
         return response()->json($order);
     }
 
@@ -248,7 +248,7 @@ class ShopController extends Controller
                 ->where('orders.status','Đã đóng gói')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
-                ->get();
+                ->paginate(5);
         return response()->json($order);
     }
 
@@ -263,7 +263,7 @@ class ShopController extends Controller
                 ->where('orders.status','Đang giao')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
-                ->get();
+                ->paginate(5);
         return response()->json($order);
     }
 
@@ -277,7 +277,7 @@ class ShopController extends Controller
                 ->where('orders.status','Đã giao')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
-                ->get();
+                ->paginate(5);
         return response()->json($order);
     }
 
@@ -291,7 +291,7 @@ class ShopController extends Controller
                 ->where('orders.status','Đã hủy')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
-                ->get();
+                ->paginate(5);
         return response()->json($order);
     }
 
@@ -305,7 +305,7 @@ class ShopController extends Controller
                 ->where('orders.status','Trả hàng')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
-                ->get();
+                ->paginate(5);
         return response()->json($order);
     }
 
@@ -319,7 +319,7 @@ class ShopController extends Controller
                 ->where('orders.status','Nhập kho')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
-                ->get();
+                ->paginate(5);
         return response()->json($order);
     }
 
