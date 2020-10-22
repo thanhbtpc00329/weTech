@@ -12,14 +12,14 @@ class ContactController extends Controller
     // Contact
     public function showUnactiveContact()
     {
-        $cmt = Contact::where('status',0)->get();
+        $cmt = Contact::where('status',0)->paginate(10);
         return response()->json($cmt);
     }
 
 
     public function showActiveContact()
     {
-        $cmt = Contact::where('status',1)->get();
+        $cmt = Contact::where('status',1)->paginate(10);
         return response()->json($cmt);
     }
 

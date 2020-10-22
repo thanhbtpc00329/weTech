@@ -29,7 +29,7 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->groupBy('product_detail.product_id')
             ->where('product_detail.status_confirm','=',1)
-            ->get();
+            ->paginate(20);
         
         return response()->json($product);
     }
