@@ -17,7 +17,18 @@ class OrderController extends Controller
         $order = DB::table('orders')
                 ->join('shops','orders.shop_id','=','shops.shop_id')
                 ->select('orders.id','orders.user_id','orders.shop_id','orders.order_address','orders.shipping','orders.total','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','orders.updated_at','shops.shop_name','shops.location','shops.phone_number','shops.shop_address')
+                ->get();
+        return response()->json($order);
+    }
+
+
+    public function showOrderShipper()
+    {
+        $order = DB::table('orders')
+                ->join('shops','orders.shop_id','=','shops.shop_id')
+                ->select('orders.id','orders.user_id','orders.shop_id','orders.order_address','orders.shipping','orders.total','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','orders.updated_at','shops.shop_name','shops.location','shops.phone_number','shops.shop_address')
                 ->where('shipper_deliver','=',null)
+                ->where('orders.status','=','Đã đóng gói')
                 ->get();
         return response()->json($order);
     }
