@@ -225,13 +225,13 @@ class AdminController extends Controller
     // Order
     public function unactiveOrderAdmin(Request $request){
 
-        $order = Order::where('status','Chờ duyệt')->orderBy('created_at','DESC')->get();
+        $order = Order::where('status','Chờ duyệt')->orderBy('created_at','DESC')->paginate(10);
         return response()->json($order);
     }
 
     public function activeOrderAdmin(Request $request){
 
-        $order = Order::where('status','Đã duyệt')->orderBy('created_at','DESC')->get();
+        $order = Order::where('status','Đã duyệt')->orderBy('created_at','DESC')->paginate(10);
         return response()->json($order);
     }
 
@@ -243,32 +243,32 @@ class AdminController extends Controller
 
     public function insertOrderAdmin(Request $request){
         
-        $order = Order::where('status','Nhập kho')->orderBy('created_at','DESC')->get();
+        $order = Order::where('status','Nhập kho')->orderBy('created_at','DESC')->paginate(10);
         return response()->json($order);
     }
 
 
     public function confirmOrderAdmin(Request $request){
         
-        $order = Order::where('status','Đang giao')->orderBy('created_at','DESC')->get();
+        $order = Order::where('status','Đang giao')->orderBy('created_at','DESC')->paginate(10);
         return response()->json($order);
     }
 
     public function finishOrderAdmin(Request $request){
 
-        $order = Order::where('status','Đã giao')->orderBy('created_at','DESC')->get();
+        $order = Order::where('status','Đã giao')->orderBy('created_at','DESC')->paginate(10);
         return response()->json($order);
     }
 
     public function cancelOrderAdmin(Request $request){
 
-        $order = Order::where('status','Đã hủy')->orderBy('created_at','DESC')->get();
+        $order = Order::where('status','Đã hủy')->orderBy('created_at','DESC')->paginate(10);
         return response()->json($order);
     }
 
     public function returnOrderAdmin(Request $request){
 
-        $order = Order::where('status','Trả hàng')->orderBy('created_at','DESC')->get();
+        $order = Order::where('status','Trả hàng')->orderBy('created_at','DESC')->paginate(10);
         return response()->json($order);
     }
 
@@ -283,7 +283,7 @@ class AdminController extends Controller
             ->join('users','users.user_id','=','shops.user_id')
             ->groupby('product_image.prodetail_id')
             ->where('product_detail.status_confirm','=',0)
-            ->get();
+            ->paginate(10);
             
             return response()->json($product);
     }

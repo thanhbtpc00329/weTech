@@ -14,20 +14,20 @@ class ShopController extends Controller
     // Shop
     public function accountShopActive()
     {
-        $shop = User::where('role','Member')->where('status',1)->get();
+        $shop = User::where('role','Member')->where('status',1)->paginate(10);
         return response()->json($shop);
     }
 
     public function accountShopUnactive()
     {
-        $shop = User::where('role','Member')->where('status',0)->get();
+        $shop = User::where('role','Member')->where('status',0)->paginate(10);
         return response()->json($shop);
     }
 
     public function showShop(){
     	$shop = DB::table('shops')
     			->join('users','users.user_id','=','shops.user_id')
-    			->get();
+    			->paginate(10);
     	return response()->json($shop);
     }
 
@@ -35,7 +35,7 @@ class ShopController extends Controller
         $shop = DB::table('shops')
                 ->join('users','users.user_id','=','shops.user_id')
                 ->where('shops.status','=',1)
-                ->get();
+                ->paginate(10);
         return response()->json($shop);
     }  
 
@@ -43,7 +43,7 @@ class ShopController extends Controller
         $shop = DB::table('shops')
                 ->join('users','users.user_id','=','shops.user_id')
                 ->where('shops.status','=',0)
-                ->get();
+                ->paginate(10);
         return response()->json($shop);
     }    
 
@@ -51,7 +51,7 @@ class ShopController extends Controller
         $shop = DB::table('shops')
                 ->join('users','users.user_id','=','shops.user_id')
                 ->where('shops.status','=',2)
-                ->get();
+                ->paginate(10);
         return response()->json($shop);
     } 
 

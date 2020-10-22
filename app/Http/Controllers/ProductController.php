@@ -365,7 +365,7 @@ class ProductController extends Controller
         $pro->memory = $memory;
         if($from_day){
             $pro->percent = $percent;
-            $pro->discount_price = $price * ($percent / 100);
+            $pro->discount_price = $price - ($price * ($percent / 100));
             $pro->created_at = str_replace('T',' ',$from_day);
             $pro->updated_at = str_replace('T',' ',$to_day);
         }
@@ -475,7 +475,7 @@ class ProductController extends Controller
         $pro->memory = $memory;
         if($from_day){
             $pro->percent = $percent;
-            $pro->discount_price = $price * ($percent / 100);
+            $pro->discount_price = $price - ($price * ($percent / 100));
             $pro->created_at = str_replace('T',' ',$from_day);
             $pro->updated_at = str_replace('T',' ',$to_day);
         }
@@ -578,7 +578,7 @@ class ProductController extends Controller
         $pro->memory = $memory;
         if($from_day){
             $pro->percent = $percent;
-            $pro->discount_price = $price * ($percent / 100);
+            $pro->discount_price = $price - ($price * ($percent / 100));
             $pro->created_at = str_replace('T',' ',$from_day);
             $pro->updated_at = str_replace('T',' ',$to_day);
         }

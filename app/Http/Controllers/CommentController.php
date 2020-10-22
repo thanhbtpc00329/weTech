@@ -27,7 +27,7 @@ class CommentController extends Controller
 
     public function showComment()
     {
-        return Comment::all();
+        return Comment::paginate(10);
     }
 
     public function detailComment(){
@@ -64,7 +64,7 @@ class CommentController extends Controller
         $cmt = DB::table('comments')
                 ->join('users','users.user_id','=','comments.user_id')
                 ->where('comments.status','=',1)
-                ->get();
+                ->paginate(10);
         return response()->json($cmt);
     }
 
