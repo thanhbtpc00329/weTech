@@ -28,13 +28,13 @@ class CategoryController extends Controller
     }
 
     public function showCateActive(){
-        $cate = Category::where('status','=',1)->get();
+        $cate = Category::where('status','=',1)->paginate(10);
 
         return response()->json($cate);
     }
 
     public function showCateUnactive(){
-        $cate = Category::where('status','=',0)->get();
+        $cate = Category::where('status','=',0)->paginate(10);
 
         return response()->json($cate);
     }
