@@ -109,6 +109,7 @@ Route::post('/insert-order','OrderController@insertOrder');// Lấy order đã �
 Route::post('return-order','OrderController@returnOrder');// Lấy order đã trả hàng
 Route::post('/order-shipper', 'OrderController@orderShipper');// Lấy order nhập kho theo id shipper
 Route::post('/receive-shipper', 'OrderController@receiveShipper');// Lấy order đang giao theo id shipper
+Route::post('/get-order-receive', 'OrderController@getOrderReceive');// Lấy order nhập kho
 
 // Shop
 Route::post('/shop-active','ShopController@accountShopActive');// Lấy tài khoản shop đã duyệt
@@ -143,6 +144,10 @@ Route::post('return-order-shop', 'ShopController@returnOrderShop');// Lấy orde
 Route::post('get-order-shop', 'ShopController@getOrderShop');// Lấy order theo shop
 Route::post('/insert-order-shop','ShopController@insertOrderShop');//Nhập kho order
 Route::post('/range-shop','ShopController@rangeShop');// Lấy thông tin shop để tính khoảng cách
+Route::post('/active-discount', 'ShopController@activeDiscount');//Lấy sp khuyến mãi
+Route::post('/unactive-discount', 'ShopController@unactiveDiscount');//Lấy sp ko khuyến mãi
+Route::post('/discount','ShopController@discount');// Tạo khuyến mãi sp
+
 
 // Comment
 Route::post('/check-comment','CommentController@checkComment');// Xem người đó có mua hàng chưa để có thể comment

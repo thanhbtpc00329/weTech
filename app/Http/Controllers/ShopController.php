@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Shop;
 use App\Order;
+use App\Product_detail;
 use DB; 
 
 
@@ -354,4 +355,54 @@ class ShopController extends Controller
             return response()->json(['error' => 'Lỗi']);
         }
     }
+
+    public function activeDiscount(Request $request)
+    {
+        $pro = DB::table('products')
+                ->join('product_detail','product_detail.product_id','=','products.product_id')
+                ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+                ->groupBy('product_image.prodetail_id')
+                ->where('product_detail.status_discount','=',1)
+                ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.prodetail_id','product_detail.price','product_image.image')
+                ->paginate(5);
+        return response()->json($pro);
+    }
+
+    public function unactiveDiscount(Request $request)
+    {
+        $pro = DB::table('products')
+                ->join('product_detail','product_detail.product_id','=','products.product_id')
+                ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+                ->groupBy('product_image.prodetail_id')
+                ->where('product_detail.status_discount','=',0)
+                ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.prodetail_id','product_detail.price','product_image.image')
+                ->paginate(5);
+        return response()->json($pro);
+    }
+
+
+    public function discount(Request $request)
+    {
+        $prodetail_id = $request->prodetail_id;
+        $from_day = $request->from_day;
+        $to_day = $request->to_day;
+        $percent = $request->percent;
+
+        $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
+        $pro->percent = $percent;
+        $pro->discount_price = $pro->price - ($pro->price * ($percent / 100));
+        $pro->status_confirm = 1;
+        $pro->created_at = str_replace('T',' ',$from_day);
+        $pro->updated_at = str_replace('T',' ',$to_day);
+        $pro->save();
+
+        if ($pro) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }
+    }
+
+
 }

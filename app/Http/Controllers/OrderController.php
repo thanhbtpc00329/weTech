@@ -34,6 +34,18 @@ class OrderController extends Controller
     }
 
 
+    public function getOrderReceive()
+    {
+        $order = DB::table('orders')
+                ->join('users','orders.user_id','=','users.user_id')
+                ->select('orders.id','orders.user_id','orders.shop_id','orders.order_address','orders.shipping','orders.total','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','orders.updated_at','users.username','users.address','users.phone_number','users.name','users.email','users.user_id','users.gender')
+                ->where('shipper_receive','=',null)
+                ->where('orders.status','=','Nhập kho')
+                ->get();
+        return response()->json($order);
+    }
+
+
     public function orderDetail(Request $request){
         $user_id = $request->user_id;
 
