@@ -94,6 +94,7 @@ Route::post('/add-cart','CartController@addCart');
 
 // Order
 Route::post('/order','OrderController@showOrder');// Show all order
+Route::post('/get-order-shipper','OrderController@showOrderShipper');// Lấy đơn hàng shipper
 Route::post('/order-detail','OrderController@orderDetail');// Chi tiết order
 Route::post('/add-order','OrderController@addOrder');// Tạo order
 Route::post('/unactive-order','OrderController@unactiveOrder');// Lấy order chờ duyệt
