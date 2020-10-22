@@ -358,10 +358,12 @@ class ShopController extends Controller
 
     public function activeDiscount(Request $request)
     {
+        $shop_id = $request->shop_id;
         $pro = DB::table('products')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
                 ->groupBy('product_image.prodetail_id')
+                ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',1)
                 ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.prodetail_id','product_detail.price','product_image.image')
                 ->paginate(5);
@@ -370,13 +372,15 @@ class ShopController extends Controller
 
     public function unactiveDiscount(Request $request)
     {
+        $shop_id = $request->shop_id;
         $pro = DB::table('products')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
                 ->groupBy('product_image.prodetail_id')
+                ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',0)
                 ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.prodetail_id','product_detail.price','product_image.image')
-                ->paginate(5);
+                ->get();
         return response()->json($pro);
     }
 
