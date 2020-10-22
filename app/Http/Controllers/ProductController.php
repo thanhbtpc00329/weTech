@@ -59,7 +59,7 @@ class ProductController extends Controller
             ->where('products.shop_id','=',$shop_id)
             ->where('product_detail.status_confirm','=',1)
             ->groupby('product_detail.product_id')
-            ->get();
+            ->paginate(5);
         return response()->json($product);
     }
 
