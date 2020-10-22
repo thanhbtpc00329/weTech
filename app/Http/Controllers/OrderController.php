@@ -79,7 +79,7 @@ class OrderController extends Controller
 
             $order = new Order;
             $order->user_id = $user_id;
-            $order->address = $address;
+            $order->order_address = $order_address;
             $order->shipping = $shipping;
             if($user_range){
                 $order->user_range = $user_range;
