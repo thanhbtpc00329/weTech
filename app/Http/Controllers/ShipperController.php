@@ -39,7 +39,7 @@ class ShipperController extends Controller
 
         $order = Order::find($id);
         $order->shipper_deliver = $shipper_deliver;
-        $order->status = 'Nhập kho';
+        $order->status = 'Đã nhập kho';
         $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $order->save();
@@ -84,5 +84,13 @@ class ShipperController extends Controller
         else{
             return response()->json(['error' => 'Lỗi']);
         }
+    }
+
+    public function warehouse(Request $request)
+    {
+        $keywords = $request->keywords;
+
+        $ship = Order::where('order_address','like','%'.$keywords.'%')->where('status','Đã nhập kho')->get();
+        return response()->json($ship);
     }
 }

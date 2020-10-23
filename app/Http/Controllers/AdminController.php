@@ -243,7 +243,7 @@ class AdminController extends Controller
 
     public function insertOrderAdmin(Request $request){
         
-        $order = Order::where('status','Nhập kho')->orderBy('created_at','DESC')->paginate(10);
+        $order = Order::where('status','Đã nhập kho')->orderBy('created_at','DESC')->paginate(10);
         return response()->json($order);
     }
 

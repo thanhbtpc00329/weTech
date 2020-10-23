@@ -317,7 +317,7 @@ class ShopController extends Controller
         $order = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
                 ->where('orders.shop_id',$shop_id)
-                ->where('orders.status','Nhập kho')
+                ->where('orders.status','Đã nhập kho')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_id','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar')
                 ->paginate(5);
@@ -365,7 +365,7 @@ class ShopController extends Controller
                 ->groupBy('product_image.prodetail_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',1)
-                ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.prodetail_id','product_detail.price','product_image.image')
+                ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.price','product_image.image')
                 ->paginate(5);
         return response()->json($pro);
     }
@@ -379,7 +379,7 @@ class ShopController extends Controller
                 ->groupBy('product_image.prodetail_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',0)
-                ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.prodetail_id','product_detail.price','product_image.image')
+                ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.price','product_image.image')
                 ->get();
         return response()->json($pro);
     }
@@ -387,18 +387,32 @@ class ShopController extends Controller
 
     public function discount(Request $request)
     {
-        $prodetail_id = $request->prodetail_id;
         $from_day = $request->from_day;
         $to_day = $request->to_day;
         $percent = $request->percent;
+        $product_id = $request->product_id;
 
-        $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
-        $pro->percent = $percent;
-        $pro->discount_price = $pro->price - ($pro->price * ($percent / 100));
-        $pro->status_confirm = 1;
-        $pro->created_at = str_replace('T',' ',$from_day);
-        $pro->updated_at = str_replace('T',' ',$to_day);
-        $pro->save();
+        if($product_id){
+            $pro = Product_detail::where('product_id',$product_id)->update([
+                'status_discount' => 1,
+                'percent' => $percent,
+                'discount_price' => $pro->price - ($pro->price * ($percent / 100)),
+                'created_at' => str_replace('T',' ',$from_day),
+                'updated_at' => str_replace('T',' ',$to_day)
+            ]);
+        }
+        else{
+            $prodetail_id = $request->prodetail_id;
+            $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
+            $pro->percent = $percent;
+            $pro->discount_price = $pro->price - ($pro->price * ($percent / 100));
+            $pro->status_discount = 1;
+            $pro->created_at = str_replace('T',' ',$from_day);
+            $pro->updated_at = str_replace('T',' ',$to_day);
+            $pro->save();
+        }
+
+        
 
         if ($pro) {
             return response()->json(['success' => 'Thành công!']);  

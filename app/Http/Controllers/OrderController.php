@@ -40,7 +40,7 @@ class OrderController extends Controller
                 ->join('users','orders.user_id','=','users.user_id')
                 ->select('orders.id','orders.user_id','orders.shop_id','orders.order_address','orders.shipping','orders.total','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','orders.updated_at','users.username','users.address','users.phone_number','users.name','users.email','users.user_id','users.gender')
                 ->where('shipper_receive','=',null)
-                ->where('orders.status','=','Nhập kho')
+                ->where('orders.status','=','Đã nhập kho')
                 ->get();
         return response()->json($order);
     }
@@ -188,7 +188,7 @@ class OrderController extends Controller
         $order = DB::table('orders')
                 ->join('shops','shops.shop_id','=','orders.shop_id')
                 ->where('orders.shipper_deliver','=',$shipper_deliver)
-                ->where('orders.status','=','Nhập kho')
+                ->where('orders.status','=','Đã nhập kho')
                 ->get();
         return response()->json($order);
     }
@@ -210,7 +210,7 @@ class OrderController extends Controller
     public function insertOrder(Request $request){
         $user_id = $request->user_id; 
 
-        $order = Order::where('user_id',$user_id)->where('status','Nhập kho')->get();
+        $order = Order::where('user_id',$user_id)->where('status','Đã nhập kho')->get();
         return response()->json($order);   
     }
 
