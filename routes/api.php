@@ -192,8 +192,8 @@ Route::post('/get-order','ShipperController@getOrder');// Đang giao order
 Route::post('/accept-order','ShipperController@acceptOrder');//Đã giao order
 Route::post('/update-shipper','ShipperController@updateShipper');
 Route::post('/delete-shipper','ShipperController@deleteShipper');
-Route::post('/warehouse', 'ShipperController@warehouse');
-
+Route::post('/warehouse', 'ShipperController@warehouse');// Kho hàng giao
+Route::post('/insert-warehouse', 'ShipperController@insertWarehouse');// Kho hàng nhận
 
 
 // Admin
