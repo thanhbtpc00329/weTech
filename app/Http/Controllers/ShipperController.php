@@ -90,7 +90,12 @@ class ShipperController extends Controller
     {
         $keywords = $request->keywords;
 
-        $ship = Order::where('order_address','like','%'.$keywords.'%')->where('status','Đã nhập kho')->get();
+        $ship = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.order_address','like','%'.$keywords.'%')
+                ->where('orders.status','=','Đã nhập kho')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.status','orders.shipping','orders.user_range','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.order_detail','users.name','users.username','users.email','users.gender','users.address','users.phone_number','users.avatar','users.birth_day')
+                ->get();
         return response()->json($ship);
     }
 }
