@@ -237,7 +237,7 @@ class AdminController extends Controller
 
     public function updateOrderAdmin(Request $request){
 
-        $order = Order::where('status','Đã đóng gói')->orderBy('created_at','DESC')->get();
+        $order = Order::where('status','Đã đóng gói')->orderBy('created_at','DESC')->paginate(10);
         return response()->json($order);
     }
 
