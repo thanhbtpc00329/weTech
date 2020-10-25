@@ -54,7 +54,7 @@ class CommentController extends Controller
         $cmt = DB::table('comments')
                 ->join('users','users.user_id','=','comments.user_id')
                 ->where('comments.status','=',0)
-                ->get();
+                ->paginate(10);
         return response()->json($cmt);
     }
 

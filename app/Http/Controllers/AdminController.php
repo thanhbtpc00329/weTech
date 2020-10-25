@@ -65,7 +65,7 @@ class AdminController extends Controller
     
     // Bill
     public function showBill(){
-        return Bill::all();
+        return Bill::paginate(10);
     }
 
     public function addBill(Request $request){
