@@ -189,6 +189,7 @@ Route::post('/shipper','ShipperController@showShipper');// Tài khoản shipper
 Route::post('/detail-shipper','ShipperController@detailShipper');// Thông tin shipper
 Route::post('/shipper-insert-order','ShipperController@shipperInsertOrder');// đã nhập kho order
 Route::post('/check-order-shipper','ShipperController@checkOrderShipper');// Đã nhập kho
+Route::post('/take-order','ShipperController@takeOrder');// Đơn hàng đang lấy 
 Route::post('/get-order','ShipperController@getOrder');// Đang giao order
 Route::post('/accept-order','ShipperController@acceptOrder');//Đã giao order
 Route::post('/update-shipper','ShipperController@updateShipper');

@@ -391,6 +391,7 @@ class ShopController extends Controller
         $to_day = $request->to_day;
         $percent = $request->percent;
         $product_id = $request->product_id;
+        $prodetail_id = $request->prodetail_id;
 
         if($product_id){
             $pro = Product_detail::where('product_id',$product_id)->update([
@@ -402,14 +403,7 @@ class ShopController extends Controller
             ]);
         }
         else{
-            $prodetail_id = $request->prodetail_id;
-            $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
-            $pro->percent = $percent;
-            $pro->discount_price = $pro->price - ($pro->price * ($percent / 100));
-            $pro->status_discount = 1;
-            $pro->created_at = str_replace('T',' ',$from_day);
-            $pro->updated_at = str_replace('T',' ',$to_day);
-            $pro->save();
+            return $prodetail_id;
         }
 
         
