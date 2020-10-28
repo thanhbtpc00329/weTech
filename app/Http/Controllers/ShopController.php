@@ -326,9 +326,11 @@ class ShopController extends Controller
 
     public function shopCheck(Request $request){
         $id = $request->id; 
+        $total = $request->total;
 
         $order = Order::find($id);
         $order->status = 'Đã duyệt';
+        $order->total = $total;
         $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $order->save();
@@ -362,7 +364,7 @@ class ShopController extends Controller
         $pro = DB::table('products')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
-                ->groupBy('product_image.prodetail_id')
+                ->groupBy('product_detail.product_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',1)
                 ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.price','product_image.image')
@@ -376,7 +378,7 @@ class ShopController extends Controller
         $pro = DB::table('products')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
-                ->groupBy('product_image.prodetail_id')
+                ->groupBy('product_detail.product_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',0)
                 ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.price','product_image.image')

@@ -68,54 +68,54 @@ class OrderController extends Controller
         $add = $request->order_detail;
         $user_range = $request->user_range;
         $note = $request->note;
-        $tt = ltrim($add,"'");
-        $rr = rtrim($tt,"'");
-        $arr = json_decode($rr);
-        $kq = array();
-        for ($i=0; $i < count($arr); $i++) { 
-            $re = $arr[$i]->shop_id;
-            if (in_array($re,$kq) == false) {
-                array_push($kq,$re);
-            }
-        }
-        foreach ($arr as $value) {
-            $group[$value->shop_id][] = $value;       
-        }
-        $time = now()->timezone('Asia/Ho_Chi_Minh');
+        // $tt = ltrim($add,"'");
+        // $rr = rtrim($tt,"'");
+        // $arr = json_decode($rr);
+        // $kq = array();
+        // for ($i=0; $i < count($arr); $i++) { 
+        //     $re = $arr[$i]->shop_id;
+        //     if (in_array($re,$kq) == false) {
+        //         array_push($kq,$re);
+        //     }
+        // }
+        // foreach ($arr as $value) {
+        //     $group[$value->shop_id][] = $value;       
+        // }
+        // $time = now()->timezone('Asia/Ho_Chi_Minh');
 
-        $cart = Cart::where('user_id',$user_id)->delete();
+        // $cart = Cart::where('user_id',$user_id)->delete();
         
-        for ($i=0; $i < count($group); $i++) { 
-            $order_detail = $group[$kq[$i]];
+        // for ($i=0; $i < count($group); $i++) { 
+        //     $order_detail = $group[$kq[$i]];
             
 
-            $order = new Order;
-            $order->user_id = $user_id;
-            $order->order_address = $order_address;
-            $order->shipping = $shipping;
-            if($user_range){
-                $order->user_range = $user_range;
-            }
-            $order->total = $total;
-            $order->shop_id = $kq[$i];
-            $order->status = 'Chờ duyệt';
-            $order->order_detail = json_encode($order_detail);
-            if ($note) {
-                $order->note = $note;
-            }
-            $order->created_at = $time;
+        //     $order = new Order;
+        //     $order->user_id = $user_id;
+        //     $order->order_address = $order_address;
+        //     $order->shipping = $shipping;
+        //     if($user_range){
+        //         $order->user_range = $user_range;
+        //     }
+        //     $order->total = $total;
+        //     $order->shop_id = $kq[$i];
+        //     $order->status = 'Chờ duyệt';
+        //     $order->order_detail = json_encode($order_detail);
+        //     if ($note) {
+        //         $order->note = $note;
+        //     }
+        //     $order->created_at = $time;
 
-            $order->save();
+        //     $order->save();
             
-        }
+        // }
 
-        if ($order) {
-            return response()->json(['success' => 'Thanh toán thành công!']);  
-        }
-        else{
-            return response()->json(['error' => 'Thanh toán bị lỗi']);
-        }
-        
+        // if ($order) {
+        //     return response()->json(['success' => 'Thanh toán thành công!']);  
+        // }
+        // else{
+        //     return response()->json(['error' => 'Thanh toán bị lỗi']);
+        // }
+        return $shipping;
     }
 
     public function unactiveOrder(Request $request){
