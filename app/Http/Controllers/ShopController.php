@@ -398,8 +398,9 @@ class ShopController extends Controller
 
             for ($i=0; $i < count($id); $i++) { 
                 $pro = Product_detail::where('prodetail_id',$id[$i])->first();
+                $price = $pro->price;
                 $pro->percent = $percent;
-                $pro->discount_price = $pro->price - ($pro->price * ($percent / 100));
+                $pro->discount_price = $price - ($price * ($percent / 100));
                 $pro->status_discount = 1;
                 $pro->created_at = str_replace('T',' ',$from_day);
                 $pro->updated_at = str_replace('T',' ',$to_day);
