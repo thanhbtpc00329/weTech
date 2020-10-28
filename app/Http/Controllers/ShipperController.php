@@ -142,4 +142,18 @@ class ShipperController extends Controller
         return response()->json($ship);
     }
 
+
+    public function confirmOrderShipper(Request $request)
+    {
+        $shipper_receive = $request->shipper_receive;
+
+        $ship = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shipper_receive','=',$shipper_receive)
+                ->where('orders.status','=','Đang giao')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.status','orders.shipping','orders.user_range','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.order_detail','users.name','users.username','users.email','users.gender','users.address','users.phone_number','users.avatar','users.birth_day')
+                ->get();
+        return response()->json($ship);
+    }
+
 }

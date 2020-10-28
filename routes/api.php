@@ -190,6 +190,7 @@ Route::post('/detail-shipper','ShipperController@detailShipper');// Thông tin s
 Route::post('/shipper-insert-order','ShipperController@shipperInsertOrder');// đã nhập kho order
 Route::post('/check-order-shipper','ShipperController@checkOrderShipper');// Đã nhập kho
 Route::post('/take-order','ShipperController@takeOrder');// Đơn hàng đang lấy 
+Route::post('/confirm-order-shipper','ShipperController@confirmOrderShipper');// Đơn hàng đang giao
 Route::post('/get-order','ShipperController@getOrder');// Đang giao order
 Route::post('/accept-order','ShipperController@acceptOrder');//Đã giao order
 Route::post('/update-shipper','ShipperController@updateShipper');
