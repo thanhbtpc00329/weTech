@@ -84,21 +84,10 @@ class OrderController extends Controller
         $time = now()->timezone('Asia/Ho_Chi_Minh');
 
         $cart = Cart::where('user_id',$user_id)->delete();
-        // $cart_detail = Cart_detail::where('cart_id',$cart)->get();
-        // $cart_detail->delete();
-        // $money = array();
-        // $tong = 0;
+        
         for ($i=0; $i < count($group); $i++) { 
             $order_detail = $group[$kq[$i]];
-            // $tong = 0;
-            // $money = array();
-            // for ($j=0; $j < count($order_detail); $j++) { 
-            //     $tinh = $order_detail[$j]->price * $order_detail[$j]->quantity;
-            //     array_push($money,$tinh);
-            // }
-            // foreach ($money as $value) {
-            //     $tong += $value;
-            // }
+            
 
             $order = new Order;
             $order->user_id = $user_id;
@@ -126,6 +115,7 @@ class OrderController extends Controller
         else{
             return response()->json(['error' => 'Thanh toán bị lỗi']);
         }
+        
     }
 
     public function unactiveOrder(Request $request){

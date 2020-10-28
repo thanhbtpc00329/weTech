@@ -328,6 +328,49 @@ class AdminController extends Controller
             return response()->json(['error' => 'Thất bại']);
         }
     }
+
+
+    // Search 
+    public function searchUnactiveProduct(Request $request)
+    {
+        $keywords = $request->keywords;
+
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.product_name','like','%'.$keywords.'%')
+            ->where('product_detail.status_confirm','=',0)
+            ->groupBy('product_detail.product_id')
+            ->paginate(5);
+        return response()->json($product);
+    }
+
+
+    public function searchActiveProduct(Request $request)
+    {
+        $keywords = $request->keywords;
+
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.product_name','like','%'.$keywords.'%')
+            ->where('product_detail.status_confirm','=',1)
+            ->groupBy('product_detail.product_id')
+            ->paginate(5);
+        return response()->json($product);
+    }
+
+
+    public function searchOrderAdmin(Request $request)
+    {
+        $keywords = $request->keywords;
+
+        $product = Order::where('order_address','like','%'.$keywords.'%')
+                ->paginate(5);
+        return response()->json($product);
+    }    
         
     
 
