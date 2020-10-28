@@ -390,20 +390,9 @@ class ShopController extends Controller
         $from_day = $request->from_day;
         $to_day = $request->to_day;
         $percent = $request->percent;
-        $product_id = $request->product_id;
-
-        if($product_id){
-            $pro = Product_detail::where('product_id',$product_id)->update([
-                'status_discount' => 1,
-                'percent' => $percent,
-                'discount_price' => $pro->price - ($pro->price * ($percent / 100)),
-                'created_at' => str_replace('T',' ',$from_day),
-                'updated_at' => str_replace('T',' ',$to_day)
-            ]);
-        }
-        else{
-            $prodetail_id = $request->prodetail_id;
-            $id = json_decode($prodetail_id);
+        $prodetail_id = $request->prodetail_id;
+            
+        $id = json_decode($prodetail_id);
 
             for ($i=0; $i < count($id); $i++) { 
                 $pro = Product_detail::where('prodetail_id',$id[$i])->first();
@@ -414,9 +403,6 @@ class ShopController extends Controller
                 $pro->updated_at = str_replace('T',' ',$to_day);
                 $pro->save();
             }
-        }
-
-        
 
         if ($pro) {
             return response()->json(['success' => 'Thành công!']);  
