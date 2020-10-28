@@ -128,4 +128,18 @@ class ShipperController extends Controller
                 ->get();
         return response()->json($ship);
     }
+
+    public function takeOrder(Request $request)
+    {
+        $shipper_deliver = $request->shipper_deliver;
+
+        $ship = DB::table('orders')
+                ->join('shops','shops.shop_id','=','orders.shop_id')
+                ->where('orders.status','=','Đang lấy hàng')
+                ->where('orders.shipper_deliver',$shipper_deliver)
+                ->select('orders.id','orders.user_id','orders.order_address','orders.status','orders.shipping','orders.user_range','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.order_detail','shops.shop_name','shops.shop_address','shops.location','shops.shop_range','shops.phone_number')
+                ->get();
+        return response()->json($ship);
+    }
+
 }
