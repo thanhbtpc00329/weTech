@@ -393,8 +393,9 @@ class ShopController extends Controller
         $to_day = $request->to_day;
         $percent = $request->percent;
         $prodetail_id = $request->prodetail_id;
-            
-        $id = json_decode($prodetail_id);
+        $pp = ltrim($prodetail_id,"'");
+        $kk = rtrim($pp,"'");
+        $id = json_decode($kk);
 
             for ($i=0; $i < count($id); $i++) { 
                 $pro = Product_detail::where('prodetail_id',$id[$i])->first();

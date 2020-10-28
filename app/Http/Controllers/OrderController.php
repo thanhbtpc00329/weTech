@@ -64,6 +64,9 @@ class OrderController extends Controller
         $user_id = $request->user_id;
         $order_address = $request->order_address;
         $shipping = $request->shipping;
+        $pp = ltrim($shipping,"'");
+        $kk = rtrim($pp,"'");
+        $uu = json_decode($kk);
         $total = $request->total;
         $add = $request->order_detail;
         $user_range = $request->user_range;
@@ -115,7 +118,7 @@ class OrderController extends Controller
         // else{
         //     return response()->json(['error' => 'Thanh toán bị lỗi']);
         // }
-        return $shipping;
+        return $uu;
     }
 
     public function unactiveOrder(Request $request){
