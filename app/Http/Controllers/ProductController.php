@@ -671,27 +671,39 @@ class ProductController extends Controller
         // $tt = str_replace('T',' ',$kq);
         // $oo = now()->timezone('Asia/Ho_Chi_Minh');
         
-            $sp = Product_detail::where('prodetail_id',$id1)->first();
-                date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $now = time();
-            // From time
-        if($sp->created_at){
-            $ftime = $sp->created_at;
-            $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
-            $ftime_stamp = mktime($ftime['hour'],$ftime['minute'],$ftime['second'],$ftime['month'],$ftime['day'],$ftime['year']);
-            // To time
-            $ttime = $sp->updated_at;
-            $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
-            $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
-            if($now >= $ftime_stamp && $now <= $ttime_stamp){
-                $sp->status_discount = 1;
-                $sp->save();
-            }else{
-                $sp->status_discount = 0;
-                $sp->save();
-            }
-        }
+        //     $sp = Product_detail::where('prodetail_id',$id1)->first();
+        //         date_default_timezone_set('Asia/Ho_Chi_Minh');
+        //     $now = time();
+        //     // From time
+        // if($sp->created_at){
+        //     $ftime = $sp->created_at;
+        //     $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
+        //     $ftime_stamp = mktime($ftime['hour'],$ftime['minute'],$ftime['second'],$ftime['month'],$ftime['day'],$ftime['year']);
+        //     // To time
+        //     $ttime = $sp->updated_at;
+        //     $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
+        //     $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
+        //     if($now >= $ftime_stamp && $now <= $ttime_stamp){
+        //         $sp->status_discount = 1;
+        //         $sp->save();
+        //     }else{
+        //         $sp->status_discount = 0;
+        //         $sp->save();
+        //     }
+        // }
         
+
+        $keywords = $request->username;
+
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.product_name','like','%'.$keywords.'%')
+            ->where('product_detail.status_confirm','=',1)
+            ->groupBy('product_detail.product_id')
+            ->paginate(5);
+        return response()->json($product); 
 
 
 

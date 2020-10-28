@@ -147,7 +147,7 @@ Route::post('/range-shop','ShopController@rangeShop');// Lấy thông tin shop �
 Route::post('/active-discount', 'ShopController@activeDiscount');//Lấy sp khuyến mãi
 Route::post('/unactive-discount', 'ShopController@unactiveDiscount');//Lấy sp ko khuyến mãi
 Route::post('/discount','ShopController@discount');// Tạo khuyến mãi sp
-
+ 
 
 // Comment
 Route::post('/check-comment','CommentController@checkComment');// Xem người đó có mua hàng chưa để có thể comment
@@ -187,7 +187,8 @@ Route::post('/delete-wishlist','WishlistController@deleteWishlist');// Xóa wish
 Route::post('show-order', 'ShipperController@showOrder');// Lấy order shipper chưa nhận
 Route::post('/shipper','ShipperController@showShipper');// Tài khoản shipper
 Route::post('/detail-shipper','ShipperController@detailShipper');// Thông tin shipper
-Route::post('shipper-insert-order','ShipperController@shipperInsertOrder');// đã nhập kho order
+Route::post('/shipper-insert-order','ShipperController@shipperInsertOrder');// đã nhập kho order
+Route::post('/check-order-shipper','ShipperController@checkOrderShipper');// Đã nhập kho
 Route::post('/get-order','ShipperController@getOrder');// Đang giao order
 Route::post('/accept-order','ShipperController@acceptOrder');//Đã giao order
 Route::post('/update-shipper','ShipperController@updateShipper');
@@ -214,6 +215,9 @@ Route::post('unactive-product-admin', 'AdminController@unactiveProductAdmin');//
 Route::post('active-product-admin', 'AdminController@activeProductAdmin');// Lấy sản phẩm đã duyệt
 Route::post('block-product-admin', 'AdminController@blockProductAdmin');// Chặn sản phẩm lỗi
 Route::post('confirm-product-admin', 'AdminController@confirmProductAdmin');// Duyệt sản phẩm shop đăng
+Route::post('/search-unactive-product', 'AdminController@searchUnactiveProduct');// Tìm kiếm sản phẩm chưa duyệt
+Route::post('/search-active-product', 'AdminController@searchActiveProduct');// Tìm kiếm sản phẩm đã duyệt
+Route::post('/search-order-admin', 'AdminController@searchOrderAdmin');// Tìm kiếm order admin 
 
 
 

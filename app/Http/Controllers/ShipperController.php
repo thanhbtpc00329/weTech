@@ -39,6 +39,23 @@ class ShipperController extends Controller
 
         $order = Order::find($id);
         $order->shipper_deliver = $shipper_deliver;
+        $order->status = 'Đang lấy hàng';
+        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $order->save();
+        if ($order) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Lỗi']);
+        }
+    }
+
+
+    public function checkOrderShipper(Request $request){
+        $id = $request->id; 
+
+        $order = Order::find($id);
         $order->status = 'Đã nhập kho';
         $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
