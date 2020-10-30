@@ -418,6 +418,24 @@ class ProductController extends Controller
         }
     }
 
+    public function prodetailShop(Request $request)
+    {
+        $prodetail_id = $request->prodetail_id;
+
+        $pro = DB::table('product_detail')
+                ->join('products','products.product_id','=','product_detail.product_id')
+                ->where('product_detail.prodetail_id','=',$prodetail_id)
+                ->get();
+        return response()->json($pro);
+    }
+
+    public function imageDetailShop(Request $request){
+        $prodetail_id = $request->prodetail_id;
+
+        $img = Product_image::where('prodetail_id',$prodetail_id)->get();
+        return response()->json($img);
+    }
+
 
     public function addDetail(Request $request){
         $ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

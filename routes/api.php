@@ -63,6 +63,8 @@ Route::post('/detail-image','ProductController@detailImage');// Lấy sp theo id
 Route::post('/update-product','ProductController@updateProduct');// Update sp
 
 Route::post('/delete-product','ProductController@deleteProduct');// Xóa sp
+Route::post('/prodetail-shop', 'ProductController@prodetailShop');// chi tiết sp
+Route::post('/image-detail-shop', 'ProductController@imageDetailShop');// chi tiết hình ảnh shop
 
 
 // Category
@@ -147,6 +149,7 @@ Route::post('/range-shop','ShopController@rangeShop');// Lấy thông tin shop �
 Route::post('/active-discount', 'ShopController@activeDiscount');//Lấy sp khuyến mãi
 Route::post('/unactive-discount', 'ShopController@unactiveDiscount');//Lấy sp ko khuyến mãi
 Route::post('/discount','ShopController@discount');// Tạo khuyến mãi sp
+
  
 
 // Comment

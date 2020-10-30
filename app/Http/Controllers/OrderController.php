@@ -70,6 +70,7 @@ class OrderController extends Controller
         $total = $request->total;
         $add = $request->order_detail;
         $user_range = $request->user_range;
+        $weight = $request->weight_order;
         $note = $request->note;
         // $tt = ltrim($add,"'");
         // $rr = rtrim($tt,"'");
@@ -95,6 +96,14 @@ class OrderController extends Controller
         //     $order = new Order;
         //     $order->user_id = $user_id;
         //     $order->order_address = $order_address;
+        if($weight){
+            if ($uu[$i]->shop_id == $kq[$i]) {
+                if ($weight < 5) {
+                    $order->shipping = ($uu[$i]->shop_range + $user_range) * 2;
+                }else if($weight > 5 && $weight > 10)
+                
+            }
+        }
         //     $order->shipping = $shipping;
         //     if($user_range){
         //         $order->user_range = $user_range;
