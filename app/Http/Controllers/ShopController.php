@@ -367,6 +367,7 @@ class ShopController extends Controller
                 ->groupBy('product_detail.product_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',1)
+                ->where('product_detail.status_confirm','=',1)
                 ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.price','product_image.image')
                 ->paginate(5);
         return response()->json($pro);
@@ -381,6 +382,7 @@ class ShopController extends Controller
                 ->groupBy('product_detail.product_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',0)
+                ->where('product_detail.status_confirm','=',1)
                 ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.price','product_image.image')
                 ->get();
         return response()->json($pro);
