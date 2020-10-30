@@ -24,6 +24,11 @@ Route::post('/login','UserController@login');// Login user
 Route::post('/login-member','UserController@loginMember'); // Login admin
 
 
+
+
+
+
+
 // User
 Route::post('/user-unactive','UserController@showUnactiveUser');// Lấy tài khoản user chưa duyệt
 Route::post('/user-active','UserController@showActiveUser');// Lấy tài khoản user đã duyệt
@@ -31,6 +36,11 @@ Route::post('/active-account','UserController@activeAccount');// Duyệt tài kh
 Route::post('/unactive-account','UserController@unactiveAccount');// Vô hiệu hóa tài khoản người dùng
 Route::post('/update-account','UserController@updateAccount');// Update tài khoản
 Route::post('/upload-avatar', 'UserController@uploadAvatar');// Update avatar
+
+
+
+
+
 
 
 // Product
@@ -41,11 +51,6 @@ Route::post('/product-type','ProductController@productType');// Lấy sp theo ca
 Route::post('/product-cate','ProductController@productCate');//Lấy sp theo danh mục con
 
 Route::post('/product-category','ProductController@productCategory');//Lấy sp theo danh mục cha
-
-Route::post('/search-cate','ProductController@searchCate');//Tìm kiếm sp theo danh mục con
-Route::post('/search-category','ProductController@searchCategory');//Tìm kiếm sp theo danh mục cha
-
-Route::post('/search-product','ProductController@searchProduct');// Tìm kiếm sp
 
 Route::post('/product-shop','ProductController@productShop');// Lấy chi tiết sp theo shop
 Route::post('/detail-product-shop','ProductController@detailProductShop');// Lấy chi tiết sp theo shop
@@ -67,6 +72,25 @@ Route::post('/prodetail-shop', 'ProductController@prodetailShop');// chi tiết 
 Route::post('/image-detail-shop', 'ProductController@imageDetailShop');// chi tiết hình ảnh shop
 
 
+
+
+
+
+
+// Search
+Route::post('/search-cate','ProductController@searchCate');//Tìm kiếm sp theo danh mục con
+Route::post('/search-category','ProductController@searchCategory');//Tìm kiếm sp theo danh mục cha
+
+Route::post('/search-product','ProductController@searchProduct');// Tìm kiếm sp
+
+
+
+
+
+
+
+
+
 // Category
 Route::post('/cate','CategoryController@showCate');// Show all danh mục theo cha
 Route::post('/cate-active-admin','CategoryController@showCateActive');// Show all danh mục active
@@ -76,6 +100,13 @@ Route::post('/cate-product','CategoryController@cateProduct');//Lấy danh mục
 Route::post('/add-cate', 'CategoryController@addCate');// Thêm danh mục con
 Route::post('/update-cate', 'CategoryController@updateCate');// Update cate
 Route::post('/delete-cate', 'CategoryController@deleteCate');// Xóa cate
+
+
+
+
+
+
+
 
 
 // Banner
@@ -88,9 +119,19 @@ Route::post('/delete-banner', 'BannerController@deleteBanner');// Xóa banner
 
 
 
+
+
+
+
+
 //Cart
 Route::post('/get-cart','CartController@getCart');
 Route::post('/add-cart','CartController@addCart');
+
+
+
+
+
 
 
 
@@ -112,6 +153,14 @@ Route::post('return-order','OrderController@returnOrder');// Lấy order đã tr
 Route::post('/order-shipper', 'OrderController@orderShipper');// Lấy order đã nhập kho theo id shipper
 Route::post('/receive-shipper', 'OrderController@receiveShipper');// Lấy order đang giao theo id shipper
 Route::post('/get-order-receive', 'OrderController@getOrderReceive');// Lấy order đã nhập kho
+
+
+
+
+
+
+
+
 
 // Shop
 Route::post('/shop-active','ShopController@accountShopActive');// Lấy tài khoản shop đã duyệt
@@ -152,6 +201,12 @@ Route::post('/discount','ShopController@discount');// Tạo khuyến mãi sp
 
  
 
+
+
+
+
+
+
 // Comment
 Route::post('/check-comment','CommentController@checkComment');// Xem người đó có mua hàng chưa để có thể comment
 Route::post('/comment','CommentController@showComment');// Show all comment
@@ -167,6 +222,11 @@ Route::post('/active-comment','CommentController@activeComment');// Duyệt comm
 Route::post('/delete-comment','CommentController@deleteComment');// Xóa comment
 
 
+
+
+
+
+
 // Contact
 Route::post('/unactive-contact','ContactController@showUnactiveContact');// Show all contact chưa trả lời
 Route::post('/active-contact','ContactController@showActiveContact');// Show all contact đã trả lời
@@ -177,6 +237,11 @@ Route::post('/delete-contact','ContactController@deleteContact');// Xóa contact
 
 
 
+
+
+
+
+
 // Wishlist
 Route::post('/wishlist','WishlistController@showWishlist');// Show all wishlist
 Route::post('/detail-wishlist','WishlistController@detailWishlist');// Chi tiết wishlist
@@ -184,6 +249,11 @@ Route::post('/add-wishlist','WishlistController@addWishlist');// Tạo wishlist
 Route::post('/get-wishlist','WishlistController@getWishlist');// Lấy wishlist
 Route::post('/cart','WishlistController@cart');// Thêm vào giỏ hàng
 Route::post('/delete-wishlist','WishlistController@deleteWishlist');// Xóa wishlist
+
+
+
+
+
 
 
 // Shipper
@@ -200,6 +270,11 @@ Route::post('/update-shipper','ShipperController@updateShipper');
 Route::post('/delete-shipper','ShipperController@deleteShipper');
 Route::post('/warehouse', 'ShipperController@warehouse');// Kho hàng giao
 Route::post('/insert-warehouse', 'ShipperController@insertWarehouse');// Kho hàng nhận
+
+
+
+
+
 
 
 // Admin
@@ -223,6 +298,10 @@ Route::post('confirm-product-admin', 'AdminController@confirmProductAdmin');// D
 Route::post('/search-unactive-product', 'AdminController@searchUnactiveProduct');// Tìm kiếm sản phẩm chưa duyệt
 Route::post('/search-active-product', 'AdminController@searchActiveProduct');// Tìm kiếm sản phẩm đã duyệt
 Route::post('/search-order-admin', 'AdminController@searchOrderAdmin');// Tìm kiếm order admin 
+
+
+
+
 
 
 
