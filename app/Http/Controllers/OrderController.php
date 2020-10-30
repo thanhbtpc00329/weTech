@@ -72,62 +72,67 @@ class OrderController extends Controller
         $user_range = $request->user_range;
         $weight = $request->weight_order;
         $note = $request->note;
-        // $tt = ltrim($add,"'");
-        // $rr = rtrim($tt,"'");
-        // $arr = json_decode($rr);
-        // $kq = array();
-        // for ($i=0; $i < count($arr); $i++) { 
-        //     $re = $arr[$i]->shop_id;
-        //     if (in_array($re,$kq) == false) {
-        //         array_push($kq,$re);
-        //     }
-        // }
-        // foreach ($arr as $value) {
-        //     $group[$value->shop_id][] = $value;       
-        // }
-        // $time = now()->timezone('Asia/Ho_Chi_Minh');
-
-        // $cart = Cart::where('user_id',$user_id)->delete();
-        
-        // for ($i=0; $i < count($group); $i++) { 
-        //     $order_detail = $group[$kq[$i]];
-            
-
-        //     $order = new Order;
-        //     $order->user_id = $user_id;
-        //     $order->order_address = $order_address;
-        if($weight){
-            if ($uu[$i]->shop_id == $kq[$i]) {
-                if ($weight < 5) {
-                    $order->shipping = ($uu[$i]->shop_range + $user_range) * 2;
-                }else if($weight > 5 && $weight > 10)
-                
+        $tt = ltrim($add,"'");
+        $rr = rtrim($tt,"'");
+        $arr = json_decode($rr);
+        $kq = array();
+        for ($i=0; $i < count($arr); $i++) { 
+            $re = $arr[$i]->shop_id;
+            if (in_array($re,$kq) == false) {
+                array_push($kq,$re);
             }
         }
-        //     $order->shipping = $shipping;
-        //     if($user_range){
-        //         $order->user_range = $user_range;
-        //     }
-        //     $order->total = $total;
-        //     $order->shop_id = $kq[$i];
-        //     $order->status = 'Chờ duyệt';
-        //     $order->order_detail = json_encode($order_detail);
-        //     if ($note) {
-        //         $order->note = $note;
-        //     }
-        //     $order->created_at = $time;
+        foreach ($arr as $value) {
+            $group[$value->shop_id][] = $value;       
+        }
+        $time = now()->timezone('Asia/Ho_Chi_Minh');
 
-        //     $order->save();
+        $cart = Cart::where('user_id',$user_id)->delete();
+        
+        for ($i=0; $i < count($group); $i++) { 
+            $order_detail = $group[$kq[$i]];
             
-        // }
 
-        // if ($order) {
-        //     return response()->json(['success' => 'Thanh toán thành công!']);  
-        // }
-        // else{
-        //     return response()->json(['error' => 'Thanh toán bị lỗi']);
-        // }
-        return $uu;
+            $order = new Order;
+            $order->user_id = $user_id;
+            $order->order_address = $order_address;
+            if($weight){
+                if ($uu[$i]->shop_id == $kq[$i]) {
+                    if ($weight < 5) {
+                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 2;
+                    }else if($weight > 5 && $weight > 10){
+                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 4;
+                    }else{
+                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 8;
+                    }
+                }
+            }else{
+                $order->shipping = 0;
+            }
+        
+            if($user_range){
+                $order->user_range = $user_range;
+            }
+            $order->total = $total;
+            $order->shop_id = $kq[$i];
+            $order->status = 'Chờ duyệt';
+            $order->order_detail = json_encode($order_detail);
+            if ($note) {
+                $order->note = $note;
+            }
+            $order->created_at = $time;
+
+            $order->save();
+            
+        }
+
+        if ($order) {
+            return response()->json(['success' => 'Thanh toán thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thanh toán bị lỗi']);
+        }
+        
     }
 
     public function unactiveOrder(Request $request){
