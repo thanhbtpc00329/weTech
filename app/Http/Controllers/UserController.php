@@ -74,6 +74,9 @@ class UserController extends Controller
     }
 
 
+    
+
+
     public function loginMember(Request $request){
         $name = $request->username;
         $pass = $request->password;

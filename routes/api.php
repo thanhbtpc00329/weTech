@@ -310,5 +310,9 @@ Route::post('/bill','AdminController@showBill');
 Route::post('/add-bill','AdminController@addBill');
 
 
-Route::post('/test','ProductController@test');
+
+
+
+
+Route::get('/test','ProductController@test');
 
