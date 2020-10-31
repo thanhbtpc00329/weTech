@@ -693,7 +693,7 @@ class ProductController extends Controller
     }
 
 
-    public function test(Request $request){
+    public function test(){
         // $id = $request->username;
         // // tính total theo shop -> duyệt đơn hàng
         // // $or = Order::find($id);
@@ -731,19 +731,8 @@ class ProductController extends Controller
         // }
         
 
-        $keywords = $request->username;
-
-        $product = DB::table('products')
-            ->join('product_detail','product_detail.product_id','=','products.product_id')
-            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
-            ->join('shops','shops.shop_id','=','products.shop_id')
-            ->where('products.product_name','like','%'.$keywords.'%')
-            ->where('product_detail.status_confirm','=',1)
-            ->groupBy('product_detail.product_id')
-            ->paginate(5);
+        $product = Product::all();
         return response()->json($product); 
-
-
 
     }
 
