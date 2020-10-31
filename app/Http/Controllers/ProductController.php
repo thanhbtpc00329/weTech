@@ -182,8 +182,8 @@ class ProductController extends Controller
         $str2 = str_replace(array('[[',']]','],['),array('[',']',','),$str1);
         $str3 = json_decode($str2);
         $str4 = array();
-        for ($i=0; $i < 15; $i++) { 
-            array_push($str4,$str3[$i]);
+        for ($j=0; $j < 15; $j++) { 
+            array_push($str4,$str3[$j]);
         }
         return response()->json($str4);
     }
