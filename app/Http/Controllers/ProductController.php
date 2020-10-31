@@ -443,6 +443,7 @@ class ProductController extends Controller
 
         $pro = DB::table('product_detail')
                 ->join('products','products.product_id','=','product_detail.product_id')
+                ->join('categories','categories.cate_id','=','products.cate_id')
                 ->where('product_detail.prodetail_id','=',$prodetail_id)
                 ->get();
         return response()->json($pro);
