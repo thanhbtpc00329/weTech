@@ -420,7 +420,11 @@ class ShopController extends Controller
 
 
     // Count sp theo shop
-    public function 
+    public function countProductShop(Request $request){
+        $shop_id = $request->shop_id;
+
+    
+    }
 
 
 }
