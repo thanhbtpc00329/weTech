@@ -46,6 +46,7 @@ Route::post('/upload-avatar', 'UserController@uploadAvatar');// Update avatar
 // Product
 
 Route::post('/product','ProductController@showProduct');// Lấy sp
+Route::post('/product-user','ProductController@showProductUser');// Lấy sp web
 Route::post('/product-type','ProductController@productType');// Lấy sp theo cate_id
 
 Route::post('/product-cate','ProductController@productCate');//Lấy sp theo danh mục con
