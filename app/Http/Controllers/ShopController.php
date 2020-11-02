@@ -227,8 +227,6 @@ class ShopController extends Controller
     public function activeOrderShop(Request $request){
         $shop_id = $request->shop_id;
 
-        $shop_id = $request->shop_id;
-
         $order = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
                 ->where('orders.shop_id',$shop_id)
