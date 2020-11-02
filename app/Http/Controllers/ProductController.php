@@ -675,7 +675,7 @@ class ProductController extends Controller
             }
         }
 
-        if ($pro_img) {
+        if ($pro) {
             return response()->json(['success' => 'Thêm sản phẩm thành công!']);  
         }
         else{
