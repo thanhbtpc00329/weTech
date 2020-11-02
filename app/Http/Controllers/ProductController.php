@@ -584,6 +584,9 @@ class ProductController extends Controller
 
 
     public function updateProduct(Request $request){
+        $product_id = $request->product_id;
+        $introduction = $request->introduction;
+        $description = $request->description;
         $prodetail_id = $request->prodetail_id;
         $price = $request->price;
         $color = $request->color;
@@ -607,6 +610,11 @@ class ProductController extends Controller
         $to_day = $request->to_day;
 
         $timedt = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $prod = Product::where('product_id',$product_id)->first();
+        $prod->introduction = $introduction;
+        $prod->description = $description;
+        $prod->save();
 
         $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
         $pro->price = $price;
