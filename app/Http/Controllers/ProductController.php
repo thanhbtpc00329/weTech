@@ -654,7 +654,7 @@ class ProductController extends Controller
             }
         }
 
-        $sp = Product_detail::where('prodetail_id',$id1)->first();
+        $sp = Product_detail::where('prodetail_id',$prodetail_id)->first();
                 date_default_timezone_set('Asia/Ho_Chi_Minh');
             $now = time();
         if($sp->created_at){
