@@ -70,6 +70,7 @@ Route::post('/update-product','ProductController@updateProduct');// Update sp
 Route::post('/delete-product','ProductController@deleteProduct');// Xóa sp
 Route::post('/prodetail-shop', 'ProductController@prodetailShop');// chi tiết sp
 Route::post('/image-detail-shop', 'ProductController@imageDetailShop');// chi tiết hình ảnh shop
+Route::post('/product-discount', 'ProductController@productDiscount');// Lấy sp khuyến mãi
 
 
 

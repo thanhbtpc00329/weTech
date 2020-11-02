@@ -189,6 +189,20 @@ class ProductController extends Controller
     }
 
 
+    public function productDiscount(Request $request){
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->groupBy('product_detail.product_id')
+            ->where('product_detail.status_confirm','=',1)
+            ->where('product_detail.status_discount','=',1)
+            ->paginate(12);
+
+        return response()->json($product);
+    }
+
+
     public function productShop(Request $request){
         $shop_id = $request->shop_id;
 
