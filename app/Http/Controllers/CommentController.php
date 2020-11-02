@@ -49,6 +49,18 @@ class CommentController extends Controller
         return response()->json($cmt);
     }
 
+    public function countComment(Request $request){
+        $product_id = $request->product_id;
+
+        $cmt = DB::table('comments')
+                ->where('comments.product_id','=',$product_id)
+                ->where('comments.status','=',1)
+                ->count();
+        return $cmt;
+    }
+
+
+
     public function unactiveCommentAdmin(Request $request){
 
         $cmt = DB::table('comments')

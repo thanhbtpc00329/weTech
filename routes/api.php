@@ -215,6 +215,8 @@ Route::post('/comment','CommentController@showComment');// Show all comment
 Route::post('/detail-comment','CommentController@detailComment');// Lấy detail comment
 Route::post('/get-comment','CommentController@getComment');// Lấy comment theo sp
 
+Route::post('/count-comment','CommentController@countComment');// Đếm comment theo sp
+
 Route::post('/unactive-comment-admin','CommentController@unactiveCommentAdmin');// Lấy comment chưa duyệt
 
 Route::post('/active-comment-admin','CommentController@activeCommentAdmin');// Lấy comment đã duyệt
