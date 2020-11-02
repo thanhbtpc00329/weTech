@@ -110,6 +110,7 @@ Route::post('/delete-cate', 'CategoryController@deleteCate');// Xóa cate
 
 
 
+
 // Banner
 Route::post('show-banner', 'BannerController@banner');// Lấy banner lên trang chủ
 Route::post('/banner','BannerController@showBanner');// Show all banner
@@ -299,6 +300,18 @@ Route::post('confirm-product-admin', 'AdminController@confirmProductAdmin');// D
 Route::post('/search-unactive-product', 'AdminController@searchUnactiveProduct');// Tìm kiếm sản phẩm chưa duyệt
 Route::post('/search-active-product', 'AdminController@searchActiveProduct');// Tìm kiếm sản phẩm đã duyệt
 Route::post('/search-order-admin', 'AdminController@searchOrderAdmin');// Tìm kiếm order admin 
+
+
+
+
+
+
+
+
+// Count
+Route::post('/sach','CategoryController@book');
+Route::post('/thoi-trang', 'CategoryController@fashion');
+
 
 
 

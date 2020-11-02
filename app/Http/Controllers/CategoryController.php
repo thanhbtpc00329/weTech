@@ -101,5 +101,31 @@ class CategoryController extends Controller
     }
 
 
+    // Count sản phẩm theo danh mục lớn
+    public function book()
+    {
+        $cate = Category::where('category','Sách')->get();
+        $kq = array();
+        for ($i=0; $i < count($cate); $i++) { 
+            $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.cate_id',$cate[$i]->cate_id)
+            ->where('product_detail.status_confirm','=',1)
+            ->groupBy('product_detail.product_id')
+            ->get();
+            if(count($product) > 0){
+                array_push($kq,$product);
+            }
+        }
+        $str1 = json_encode($kq);
+        $str2 = str_replace(array('[[',']]','],['),array('[',']',','),$str1);
+        $str3 = json_decode($str2);
+        return count($str3);
+    }
+
+
+
 
 }
