@@ -12,9 +12,7 @@ class CategoryController extends Controller
 {
     //Category
     public function category(){
-        $cate = DB::table('categories')
-                ->groupBy('category')
-                ->where('status','=',1)
+        $cate = Category::where('status','=',1)
                 ->get();
         return response()->json($cate);
     }
