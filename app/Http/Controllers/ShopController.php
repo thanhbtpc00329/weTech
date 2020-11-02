@@ -421,7 +421,12 @@ class ShopController extends Controller
     public function countProductShop(Request $request){
         $shop_id = $request->shop_id;
 
-    
+        $product = DB::table('product_detail')
+            ->join('products','product_detail.product_id','=','products.product_id')
+            ->where('products.shop_id','=',$shop_id)
+            ->where('product_detail.status_confirm','=',1)
+            ->count();
+        return $product;
     }
 
 
