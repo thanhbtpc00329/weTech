@@ -646,7 +646,7 @@ class ProductController extends Controller
                 $bt = ltrim($arr[$i],'"');
                 $bp = rtrim($bt,'"');
                 $pro_img = new Product_image;
-                $pro_img->prodetail_id = $id1;
+                $pro_img->prodetail_id = $prodetail_id;
                 $pro_img->image = $bp;
                 $pro_img->created_at = $timedt;
                 $pro_img->save();
