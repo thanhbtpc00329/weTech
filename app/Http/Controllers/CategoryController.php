@@ -122,7 +122,8 @@ class CategoryController extends Controller
         $str1 = json_encode($kq);
         $str2 = str_replace(array('[[',']]','],['),array('[',']',','),$str1);
         $str3 = json_decode($str2);
-        return count($str3);
+        $dem = count($str3);
+        return $dem;
     }
 
 
