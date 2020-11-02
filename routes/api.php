@@ -309,8 +309,6 @@ Route::post('/search-order-admin', 'AdminController@searchOrderAdmin');// Tìm k
 
 
 // Count
-Route::post('/sach','CategoryController@book');
-Route::post('/thoi-trang', 'CategoryController@fashion');
 
 
 

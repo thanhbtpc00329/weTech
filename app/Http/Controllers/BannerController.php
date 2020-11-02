@@ -21,7 +21,6 @@ class BannerController extends Controller
 
 	public function addBanner(Request $request){
 		$image = $request->file('image');
-        $status = $request->status;
         if ($image) {
             //get name image
             $filename =$request->file('image');
@@ -35,7 +34,7 @@ class BannerController extends Controller
 
         $banner = new Banner;
         $banner->image = Cloudder::show('banners/'. $cut, ['width'=>$width,'height'=>$height]);
-        $banner->status = $status;
+        $banner->status = 0;
         $banner->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $banner->save();
         if ($banner) {
