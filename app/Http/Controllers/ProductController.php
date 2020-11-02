@@ -606,7 +606,7 @@ class ProductController extends Controller
         $from_day = $request->from_day;
         $to_day = $request->to_day;
 
-
+        $timedt = now()->timezone('Asia/Ho_Chi_Minh');
 
         $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
         $pro->price = $price;
