@@ -143,14 +143,17 @@ class UserController extends Controller
         $account->save();
         if(isset($shop_name) || isset($tax)){
             $shop = Shop::where('user_id',$user_id)->first();
-            return $shop;        }
+            $shop->shop_name = $shop_name;
+            $shop->tax = $tax;
+            $shop->save();
+        }
 
-        // if ($shop) {
-        //     return response()->json(['success' => 'Cập nhật tài khoản thành công!']);  
-        // }
-        // else{
-        //     return response()->json(['error' => 'Cập nhật tài khoản thất bại']);
-        // }
+        if ($shop) {
+            return response()->json(['success' => 'Cập nhật tài khoản thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Cập nhật tài khoản thất bại']);
+        }
 
     }
 
