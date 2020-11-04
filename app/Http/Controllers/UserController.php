@@ -150,7 +150,7 @@ class UserController extends Controller
             $shop->save();
         }
 
-        if ($shop) {
+        if ($account) {
             return response()->json(['success' => 'Cập nhật tài khoản thành công!']);  
         }
         else{
