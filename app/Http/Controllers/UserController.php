@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Shipper;
+use App\Shop;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use Response,File;
@@ -119,7 +120,8 @@ class UserController extends Controller
         $address = $request->address;
         $birth_day = $request->birth_day;
         $phone_number = $request->phone_number;
-        $status = $request->status;
+        $shop_name = $request->shop_name;
+        $tax = $request->tax;
         
         
 
@@ -139,13 +141,16 @@ class UserController extends Controller
         $account->phone_number=$phone_number;        
         $account->updated_at = now()->timezone('Asia/Ho_Chi_Minh');       
         $account->save();
+        if(isset($shop_name) || isset($tax)){
+            $shop = Shop::where('user_id',$user_id)->first();
+            return $shop;        }
 
-        if ($account) {
-            return response()->json(['success' => 'Cập nhật tài khoản thành công!']);  
-        }
-        else{
-            return response()->json(['error' => 'Cập nhật tài khoản thất bại']);
-        }
+        // if ($shop) {
+        //     return response()->json(['success' => 'Cập nhật tài khoản thành công!']);  
+        // }
+        // else{
+        //     return response()->json(['error' => 'Cập nhật tài khoản thất bại']);
+        // }
 
     }
 
