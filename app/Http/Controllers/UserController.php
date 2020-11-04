@@ -144,7 +144,9 @@ class UserController extends Controller
         if(isset($shop_name) || isset($tax)){
             $shop = Shop::where('user_id',$user_id)->first();
             $shop->shop_name = $shop_name;
-            $shop->tax = $tax;
+            if($tax){
+                $shop->tax = $tax;
+            }
             $shop->save();
         }
 
