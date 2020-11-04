@@ -56,7 +56,7 @@ class ShipperController extends Controller
         $id = $request->id; 
 
         $order = Order::find($id);
-        $order->status = 'Đã lấy hàng';
+        $order->status = 'Đã nhập kho';
         $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $order->save();
@@ -74,7 +74,7 @@ class ShipperController extends Controller
         $id = $request->id; 
 
         $order = Order::find($id);
-        $order->status = 'Đã nhập kho';
+        $order->status = 'Đã lấy hàng';
         $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $order->save();
