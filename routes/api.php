@@ -268,6 +268,7 @@ Route::post('/shipper','ShipperController@showShipper');// Tài khoản shipper
 Route::post('/detail-shipper','ShipperController@detailShipper');// Thông tin shipper
 Route::post('/shipper-insert-order','ShipperController@shipperInsertOrder');// đã nhập kho order
 Route::post('/check-order-shipper','ShipperController@checkOrderShipper');// Đã nhập kho
+Route::post('/create-order-shipper','ShipperController@checkOrderShipper');// Đã lấy hàng
 Route::post('/take-order','ShipperController@takeOrder');// Đơn hàng đang lấy 
 Route::post('/confirm-order-shipper','ShipperController@confirmOrderShipper');// Đơn hàng đang giao
 Route::post('/get-order','ShipperController@getOrder');// Đang giao order

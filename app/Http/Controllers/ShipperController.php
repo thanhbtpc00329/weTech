@@ -56,6 +56,24 @@ class ShipperController extends Controller
         $id = $request->id; 
 
         $order = Order::find($id);
+        $order->status = 'Đã lấy hàng';
+        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $order->save();
+        if ($order) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Lỗi']);
+        }
+    }
+
+
+
+    public function createWarehouse(Request $request){
+        $id = $request->id; 
+
+        $order = Order::find($id);
         $order->status = 'Đã nhập kho';
         $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
@@ -67,6 +85,8 @@ class ShipperController extends Controller
             return response()->json(['error' => 'Lỗi']);
         }
     }
+
+
 
 
     public function getOrder(Request $request){
