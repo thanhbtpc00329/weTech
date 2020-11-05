@@ -342,6 +342,23 @@ class ProductController extends Controller
         return Cloudder::show('products/'. $cut, ['width'=>$width,'height'=>$height]);
     }
 
+
+    public function updateProductImage(Request $request){
+        $id = $request->id;
+        $image = $request->image;
+
+        $pro = Product_image::find($id);
+        $pro->image = $image;
+        $pro->save();
+
+        if ($pro) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }
+    }
+
     
     public function addProduct(Request $request){
         $ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
