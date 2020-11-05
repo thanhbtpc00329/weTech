@@ -141,7 +141,7 @@ class ShipperController extends Controller
 
         $ship = DB::table('orders')
                 ->join('shops','shops.shop_id','=','orders.shop_id')
-                ->where('orders.status','=','Đã đóng gói')
+                ->where('orders.status','=','Đã lấy hàng')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.status','orders.shipping','orders.user_range','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.order_detail','shops.shop_name','shops.shop_address','shops.location','shops.shop_range','shops.phone_number')
                 ->get();
         return response()->json($ship);
@@ -154,7 +154,7 @@ class ShipperController extends Controller
         $ship = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
                 ->join('shops','shops.shop_id','=','orders.shop_id')
-                ->where('orders.status','=','Đã đóng gói')
+                ->where('orders.status','=','Đã nhập kho')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.status','orders.shipping','orders.user_range','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.order_detail','shops.shop_name','shops.shop_address','shops.location','shops.shop_range','shops.phone_number')
                 ->get();
         return response()->json($ship);
