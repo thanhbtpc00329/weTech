@@ -342,7 +342,7 @@ class AdminController extends Controller
             ->where('products.product_name','like','%'.$keywords.'%')
             ->where('product_detail.status_confirm','=',0)
             ->groupBy('product_detail.product_id')
-            ->paginate(5);
+            ->paginate(10);
         return response()->json($product);
     }
 
@@ -358,7 +358,7 @@ class AdminController extends Controller
             ->where('products.product_name','like','%'.$keywords.'%')
             ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
-            ->paginate(5);
+            ->paginate(10);
         return response()->json($product);
     }
 
@@ -368,7 +368,7 @@ class AdminController extends Controller
         $keywords = $request->keywords;
 
         $product = Order::where('order_address','like','%'.$keywords.'%')
-                ->paginate(5);
+                ->paginate(10);
         return response()->json($product);
     }    
         
