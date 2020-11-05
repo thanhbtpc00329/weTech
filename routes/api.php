@@ -305,6 +305,8 @@ Route::post('/confirm-order-admin','AdminController@confirmOrderAdmin');// Lấy
 Route::post('/finish-order-admin','AdminController@finishOrderAdmin');// Lấy đơn hàng đã giao
 Route::post('/cancel-order-admin','AdminController@cancelOrderAdmin');// Lấy đơn hàng đã hủy
 Route::post('/return-order-admin','AdminController@returnOrderAdmin');// Lấy đơn hàng đã hủy
+Route::post('/final-order-admin','AdminController@finalOrderAdmin');// Lấy đơn hàng đã hoàn thành
+
 Route::post('unactive-product-admin', 'AdminController@unactiveProductAdmin');// Lấy sản phẩm chờ duyệt
 Route::post('active-product-admin', 'AdminController@activeProductAdmin');// Lấy sản phẩm đã duyệt
 Route::post('block-product-admin', 'AdminController@blockProductAdmin');// Chặn sản phẩm lỗi

@@ -28,18 +28,18 @@ class AdminController extends Controller
         $check->status = 'Hoàn thành';
         $check->save();
         $ship1 = Shipper::where('shipper_id',$shipper_deliver)->first();
-        $order1 = Shipper::where('shipper_id',$shipper_deliver)->update(['order_quantity' => $ship1->order_quantity + 1,'salary'=>$ship1->salary + 2000]);
+        $order1 = Shipper::where('shipper_id',$shipper_deliver)->update(['order_quantity' => $ship1->order_quantity + 0.5,'salary'=>$ship1->salary + 2000]);
 
         $ship2 = Shipper::where('shipper_id',$shipper_receive)->first();
-        $order2 = Shipper::where('shipper_id',$shipper_receive)->update(['order_quantity' => $ship2->order_quantity + 1,'salary'=>$ship2->salary + 3000]);
+        $order2 = Shipper::where('shipper_id',$shipper_receive)->update(['order_quantity' => $ship2->order_quantity + 0.5,'salary'=>$ship2->salary + 2000]);
 
-        if ($ship1->order_quantity > 99) {
+        if ($ship1->order_quantity > 299) {
             $ship = Shipper::where('shipper_id',$shipper_deliver)->update([
             'status' => 1,
             'updated_at' => now()->timezone('Asia/Ho_Chi_Minh'),
             ]);
         }
-        if($ship2->order_quantity > 99){
+        if($ship2->order_quantity > 299){
             $ship = Shipper::where('shipper_id',$shipper_receive)->update([
             'status' => 1,
             'updated_at' => now()->timezone('Asia/Ho_Chi_Minh'),
@@ -279,6 +279,13 @@ class AdminController extends Controller
     public function returnOrderAdmin(Request $request){
 
         $order = Order::where('status','Trả hàng')->orderBy('created_at','DESC')->paginate(10);
+        return response()->json($order);
+    }
+
+
+    public function finalOrderAdmin(Request $request){
+
+        $order = Order::where('status','Hoàn thành')->orderBy('created_at','DESC')->paginate(10);
         return response()->json($order);
     }
 
