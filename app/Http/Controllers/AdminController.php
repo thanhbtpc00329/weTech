@@ -20,17 +20,27 @@ class AdminController extends Controller
 {
     // Order
     public function adminCheck(Request $request){
-        $shipper_id = $request->shipper_id; 
+        $shipper_deliver = $request->shipper_deliver; 
+        $shipper_receive = $request->shipper_receive;
         $id = $request->id;
 
-        $ship = Shipper::where('shipper_id',$shipper_id)->first();
         $check = Order::find($id);
         $check->status = 'Hoàn thành';
         $check->save();
-        $order = Shipper::where('shipper_id',$shipper_id)->update(['order_quantity' => $ship->order_quantity + 1]);
-        if ($ship->order_quantity > 19) {
-            $ship = Shipper::where('shipper_id',$shipper_id)->update([
-            'salary' => 4000000,
+        $ship1 = Shipper::where('shipper_id',$shipper_deliver)->first();
+        $order1 = Shipper::where('shipper_id',$shipper_deliver)->update(['order_quantity' => $ship1->order_quantity + 1,'salary'=>$ship1->salary + 2000]);
+
+        $ship2 = Shipper::where('shipper_id',$shipper_receive)->first();
+        $order2 = Shipper::where('shipper_id',$shipper_receive)->update(['order_quantity' => $ship2->order_quantity + 1,'salary'=>$ship2->salary + 3000]);
+
+        if ($ship1->order_quantity > 99) {
+            $ship = Shipper::where('shipper_id',$shipper_deliver)->update([
+            'status' => 1,
+            'updated_at' => now()->timezone('Asia/Ho_Chi_Minh'),
+            ]);
+        }
+        if($ship2->order_quantity > 99){
+            $ship = Shipper::where('shipper_id',$shipper_receive)->update([
             'status' => 1,
             'updated_at' => now()->timezone('Asia/Ho_Chi_Minh'),
             ]);
