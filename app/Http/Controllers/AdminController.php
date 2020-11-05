@@ -36,12 +36,14 @@ class AdminController extends Controller
         if ($ship1->order_quantity > 299) {
             $ship = Shipper::where('shipper_id',$shipper_deliver)->update([
             'status' => 1,
+            'salary' => $ship1->salary + 4000000,
             'updated_at' => now()->timezone('Asia/Ho_Chi_Minh'),
             ]);
         }
         if($ship2->order_quantity > 299){
             $ship = Shipper::where('shipper_id',$shipper_receive)->update([
             'status' => 1,
+            'salary' => $ship2->salary + 4000000,
             'updated_at' => now()->timezone('Asia/Ho_Chi_Minh'),
             ]);
         }
