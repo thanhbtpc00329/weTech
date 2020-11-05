@@ -252,6 +252,24 @@ class ShopController extends Controller
     }
 
 
+    public function toWarehouse(Request $request){
+        $shop_id = $request->shop_id;
+
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.shop_id',$shop_id)
+                ->where('orders.status','Đang lấy hàng')
+                ->orWhere('orders.status','Đã lấy hàng')
+                ->orWhere('orders.status','Đã lấy hàng')
+                ->orWhere('orders.status','Đã nhập kho')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->paginate(5);
+        return response()->json($order); 
+
+    }
+
+
     public function confirmOrderShop(Request $request){
         
         $shop_id = $request->shop_id;
