@@ -33,14 +33,14 @@ class AdminController extends Controller
         $ship2 = Shipper::where('shipper_id',$shipper_receive)->first();
         $order2 = Shipper::where('shipper_id',$shipper_receive)->update(['order_quantity' => $ship2->order_quantity + 0.5,'salary'=>$ship2->salary + 2000]);
 
-        if ($ship1->order_quantity > 299) {
+        if ($ship1->order_quantity == 300) {
             $ship = Shipper::where('shipper_id',$shipper_deliver)->update([
             'status' => 1,
             'salary' => $ship1->salary + 4000000,
             'updated_at' => now()->timezone('Asia/Ho_Chi_Minh'),
             ]);
         }
-        if($ship2->order_quantity > 299){
+        if($ship2->order_quantity == 300){
             $ship = Shipper::where('shipper_id',$shipper_receive)->update([
             'status' => 1,
             'salary' => $ship2->salary + 4000000,
