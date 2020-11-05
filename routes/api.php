@@ -267,7 +267,7 @@ Route::post('show-order', 'ShipperController@showOrder');// Lấy order shipper 
 Route::post('/shipper','ShipperController@showShipper');// Tài khoản shipper
 Route::post('/detail-shipper','ShipperController@detailShipper');// Thông tin shipper
 Route::post('/shipper-insert-order','ShipperController@shipperInsertOrder');// đã nhập kho order
-Route::post('/create-warehouse','ShipperController@createWarehouse');// Đã lấy hàng
+Route::post('/create-order-shipper','ShipperController@createOrderShipper');// Đã lấy hàng
 Route::post('/check-order-shipper','ShipperController@checkOrderShipper');// Đã nhập kho
 Route::post('/take-order','ShipperController@takeOrder');// Đơn hàng đang lấy 
 Route::post('/confirm-order-shipper','ShipperController@confirmOrderShipper');// Đơn hàng đang giao
@@ -276,6 +276,7 @@ Route::post('/accept-order','ShipperController@acceptOrder');//Đã giao order
 Route::post('/update-shipper','ShipperController@updateShipper');
 Route::post('/delete-shipper','ShipperController@deleteShipper');
 Route::post('/warehouse', 'ShipperController@warehouse');// Kho hàng giao
+Route::post('/create-warehouse','ShipperController@createWarehouse');//Đơn hàng Đã lấy hàng
 Route::post('/insert-warehouse', 'ShipperController@insertWarehouse');// Kho hàng nhận
 
 

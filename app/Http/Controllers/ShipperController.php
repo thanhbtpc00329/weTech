@@ -70,7 +70,7 @@ class ShipperController extends Controller
 
 
 
-    public function createWarehouse(Request $request){
+    public function createOrderShipper(Request $request){
         $id = $request->id; 
 
         $order = Order::find($id);
@@ -136,15 +136,26 @@ class ShipperController extends Controller
         return response()->json($ship);
     }
 
+     public function createWarehouse(Request $request)
+    {
+
+        $ship = DB::table('orders')
+                ->join('shops','shops.shop_id','=','orders.shop_id')
+                ->where('orders.status','=','Đã đóng gói')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.status','orders.shipping','orders.user_range','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.order_detail','shops.shop_name','shops.shop_address','shops.location','shops.shop_range','shops.phone_number')
+                ->get();
+        return response()->json($ship);
+    }
+
     public function warehouse(Request $request)
     {
         $keywords = $request->keywords;
 
         $ship = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
-                ->where('orders.order_address','like','%'.$keywords.'%')
-                ->where('orders.status','=','Đã nhập kho')
-                ->select('orders.id','orders.user_id','orders.order_address','orders.status','orders.shipping','orders.user_range','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.order_detail','users.name','users.username','users.email','users.gender','users.address','users.phone_number','users.avatar','users.birth_day')
+                ->join('shops','shops.shop_id','=','orders.shop_id')
+                ->where('orders.status','=','Đã đóng gói')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.status','orders.shipping','orders.user_range','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.order_detail','shops.shop_name','shops.shop_address','shops.location','shops.shop_range','shops.phone_number')
                 ->get();
         return response()->json($ship);
     }
