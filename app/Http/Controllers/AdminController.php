@@ -46,7 +46,7 @@ class AdminController extends Controller
             ]);
         }
         
-        if ($order) {
+        if ($order2) {
             return response()->json(['success' => 'Thành công!']);  
         }
         else{
