@@ -258,9 +258,8 @@ class ShopController extends Controller
         $order = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
                 ->where('orders.shop_id','=',$shop_id)
-                ->orWhere(function($query) {
-                    $query->where('orders.shop_id','=',$shop_id)
-                          ->orWhere('orders.status','=','Đang lấy hàng')
+                ->where(function($query) {
+                    $query->orWhere('orders.status','=','Đang lấy hàng')
                           ->orWhere('orders.status','=','Đã lấy hàng')
                           ->orWhere('orders.status','=','Đã lấy hàng')
                           ->orWhere('orders.status','=','Đã nhập kho');
