@@ -87,6 +87,11 @@ class ShopController extends Controller
         $phone_number = $request->phone_number;
         $tax = $request->tax;
 
+        $img = User::where('user_id',$user_id)->first();
+        $img->avatar ='https://res.cloudinary.com/dtvapimtn/image/upload/v1604655912/users/cd68867179e387bddef2_m4luzo.jpg';
+        $img->save();
+
+
         $shop = new Shop;
         $shop->shop_name = $shop_name;
         $shop->user_id = $user_id;
@@ -96,6 +101,7 @@ class ShopController extends Controller
         $shop->shop_range = $shop_range;
         $shop->phone_number = $phone_number;
         $shop->tax = $tax;
+        $shop->background = 'https://res.cloudinary.com/dtvapimtn/image/upload/v1604657857/backgrounds/background_skzncs.jpg';
         $shop->status = '0';
         $shop->created_at = now()->timezone('Asia/Ho_Chi_Minh');
 

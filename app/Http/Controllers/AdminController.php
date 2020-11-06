@@ -148,6 +148,15 @@ class AdminController extends Controller
             list($width, $height) = getimagesize($filename);         
             $account->avatar = Cloudder::show('users/'. $cut1, ['width'=>$width,'height'=>$height]); 
 
+        }else{
+            if($role == 'Shipper'){
+                $account->avatar ='https://res.cloudinary.com/dtvapimtn/image/upload/v1604656545/users/61662ae2df70212e7861_fpdmex.jpg';
+            }else if($role == 'Member'){
+                $account->avatar ='https://res.cloudinary.com/dtvapimtn/image/upload/v1604655912/users/cd68867179e387bddef2_m4luzo.jpg';
+            }
+            else{
+                $account->avatar ='https://res.cloudinary.com/dtvapimtn/image/upload/v1604655911/users/207874618bf375ad2ce2_hwnepe.jpg';
+            }
         }
 
         $account->status=1;

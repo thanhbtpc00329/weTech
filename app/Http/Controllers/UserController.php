@@ -42,6 +42,7 @@ class UserController extends Controller
         $account->address=$address;
         $account->birth_day=$birth_day;
         $account->phone_number=$phone_number;
+        $account->avatar ='https://res.cloudinary.com/dtvapimtn/image/upload/v1604655911/users/207874618bf375ad2ce2_hwnepe.jpg';
         $account->status=1;
         $account->role='User';
         $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
