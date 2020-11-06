@@ -390,6 +390,23 @@ class AdminController extends Controller
                 ->paginate(10);
         return response()->json($product);
     }    
+
+
+
+
+
+
+
+    // Thống kê
+    public function statistic(){
+        
+        $date = '2020-11-06 14:51:00';
+        $now = now()->timezone('Asia/Ho_Chi_Minh');
+
+        $kq = $now - $date;
+
+        return $kq;
+    }
         
     
 

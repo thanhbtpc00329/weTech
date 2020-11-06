@@ -322,7 +322,9 @@ Route::post('/search-order-admin', 'AdminController@searchOrderAdmin');// Tìm k
 
 
 
-// Count
+// Thống kê
+
+Route::post('/statistic', 'AdminController@statistic');
 
 
 
