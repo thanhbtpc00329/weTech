@@ -14,6 +14,7 @@ use Response,File;
 use App\User;
 use DB;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 
 class AdminController extends Controller
@@ -399,13 +400,11 @@ class AdminController extends Controller
 
     // Thống kê
     public function statistic(){
-        
-        $date = '2020-11-06 14:51:00';
-        $now = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $kq = $now - $date;
-
-        return $kq;
+        $time = now()->timezone('Asia/Ho_Chi_Minh');
+        $user = User::whereMonth(
+            'created_at', '=', Carbon::now()->subMonth()->month
+        )->get();
+        return $user;
     }
         
     
