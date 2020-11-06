@@ -229,8 +229,8 @@ class ShopController extends Controller
 
         $order = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
-                ->where('orders.shop_id',$shop_id)
-                ->where('orders.status','Đã duyệt')
+                ->where('orders.shop_id','=',$shop_id)
+                ->where('orders.status','=','Đã duyệt')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
                 ->paginate(5);
@@ -276,8 +276,8 @@ class ShopController extends Controller
 
         $order = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
-                ->where('orders.shop_id',$shop_id)
-                ->where('orders.status','Đang giao')
+                ->where('orders.shop_id','=',$shop_id)
+                ->where('orders.status','=','Đang giao')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
                 ->paginate(5);
@@ -290,8 +290,8 @@ class ShopController extends Controller
 
         $order = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
-                ->where('orders.shop_id',$shop_id)
-                ->where('orders.status','Đã giao')
+                ->where('orders.shop_id','=',$shop_id)
+                ->where('orders.status','=','Đã giao')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
                 ->paginate(5);
@@ -304,8 +304,8 @@ class ShopController extends Controller
 
         $order = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
-                ->where('orders.shop_id',$shop_id)
-                ->where('orders.status','Đã hủy')
+                ->where('orders.shop_id','=',$shop_id)
+                ->where('orders.status','=','Đã hủy')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
                 ->paginate(5);
@@ -318,8 +318,8 @@ class ShopController extends Controller
 
         $order = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
-                ->where('orders.shop_id',$shop_id)
-                ->where('orders.status','Trả hàng')
+                ->where('orders.shop_id','=',$shop_id)
+                ->where('orders.status','=','Trả hàng')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
                 ->paginate(5);
@@ -332,8 +332,8 @@ class ShopController extends Controller
 
         $order = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
-                ->where('orders.shop_id',$shop_id)
-                ->where('orders.status','Đã nhập kho')
+                ->where('orders.shop_id','=',$shop_id)
+                ->where('orders.status','=','Đã nhập kho')
                 ->orderBy('orders.created_at','DESC')
                 ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
                 ->paginate(5);
