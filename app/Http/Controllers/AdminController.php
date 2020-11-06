@@ -9,6 +9,7 @@ use App\Bill;
 use App\Order;
 use App\Shipper;
 use App\Product;
+use App\Comment;
 use App\Product_detail;
 use Response,File;
 use App\User;
