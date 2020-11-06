@@ -73,6 +73,9 @@ Route::post('/prodetail-shop', 'ProductController@prodetailShop');// chi tiết 
 Route::post('/image-detail-shop', 'ProductController@imageDetailShop');// chi tiết hình ảnh shop
 Route::post('/product-discount', 'ProductController@productDiscount');// Lấy sp khuyến mãi
 
+Route::post('/update-product-image','ProductController@updateProductImage');// Update hình ảnh sp
+
+
 
 
 
