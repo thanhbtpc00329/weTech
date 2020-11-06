@@ -401,10 +401,29 @@ class AdminController extends Controller
     // Thống kê
     public function statistic(){
         $time = now()->timezone('Asia/Ho_Chi_Minh');
+
         $user = User::whereMonth(
             'created_at', '=', Carbon::now()->subMonth()->month
-        )->get();
-        return $user;
+        )->count();
+
+        $order = Order::whereMonth(
+            'created_at', '=', Carbon::now()->subMonth()->month
+        )->where('status','Hoàn thành')->count();
+
+        $comment = Comment::whereMonth(
+            'created_at', '=', Carbon::now()->subMonth()->month
+        )->count();
+
+        $pro = Product::whereMonth(
+            'created_at', '=', Carbon::now()->subMonth()->month
+        )->count();
+
+        $ship = Shipper::whereMonth(
+            'created_at', '=', Carbon::now()->subMonth()->month
+        )->orderBy('salary','DESC')->take(5);
+
+        return response()->json(['user'=>$user,'order'=>$order,'comment'=>$comment,'product'=>$pro,'shipper'=>$ship]);
+
     }
         
     
