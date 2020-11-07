@@ -428,11 +428,11 @@ class AdminController extends Controller
             'created_at', '=', Carbon::now()->subMonth()->month
         )->count();
 
-        $ship = Shipper::whereMonth(
-            'created_at', '=', Carbon::now()->subMonth()->month
-        )->orderBy('salary','DESC')->limit(5);
-
-        return $ship;
+        $ship = DB::table('shippers')
+                ->join('users','users.user_id','=','shippers.user_id')
+                ->whereMonth('shippers.created_at', '=', Carbon::now()->subMonth()->month)
+                ->orderBy('salary','DESC')->take(5)->get();
+        return response()->json(['user'=>$user,'order'=>$order,'comment'=>$comment,'product'=>$pro,'shipper'=>$ship]);
 
     }
         
