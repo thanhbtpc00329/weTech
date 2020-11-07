@@ -504,7 +504,7 @@ class ProductController extends Controller
                 ->join('products','products.product_id','=','product_detail.product_id')
                 ->join('categories','categories.cate_id','=','products.cate_id')
                 ->where('product_detail.prodetail_id','=',$prodetail_id)
-                ->select('products.product_id','product_detail.prodetail_id','products.price','products.product_name','products.brand','products.cate_id','products.introduction',DB::table('product_detail'),'products.description')
+                ->select('products.product_id','product_detail.prodetail_id','products.price','product_detail.color','product_detail.quantity','product_detail.size','product_detail.status_discount','product_detail.status_confirm','product_detail.percent','product_detail.discount_price','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','products.product_name','products.brand','products.cate_id','products.introduction','products.shop_id','product_detail.created_at','product_detail.updated_at')
                 ->get();
         return response()->json($pro);
     }
