@@ -456,4 +456,22 @@ class ShopController extends Controller
     }
 
 
+    public function searchProductShop(Request $request)
+    {
+        $keywords = $request->keywords;
+        $shop_id = $request->shop_id;
+
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            ->where('products.product_name','like','%'.$keywords.'%')
+            ->where('product_detail.status_confirm','=',1)
+            ->where('products.shop_id',$shop_id)
+            ->groupBy('product_detail.product_id')
+            ->paginate(10);
+        return response()->json($product);
+    }
+
+
 }

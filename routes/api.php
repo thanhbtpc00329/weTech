@@ -204,7 +204,8 @@ Route::post('/range-shop','ShopController@rangeShop');// Lấy thông tin shop �
 Route::post('/active-discount', 'ShopController@activeDiscount');//Lấy sp khuyến mãi
 Route::post('/unactive-discount', 'ShopController@unactiveDiscount');//Lấy sp ko khuyến mãi
 Route::post('/discount','ShopController@discount');// Tạo khuyến mãi sp
-Route::post('to-warehouse','ShopController@toWarehouse');// Nhập kho
+Route::post('/to-warehouse','ShopController@toWarehouse');// Nhập kho
+Route::post('/search-shop', 'ShopController@searchProductShop');// Tìm sp theo shop
 
 
 
