@@ -504,6 +504,7 @@ class ProductController extends Controller
                 ->join('products','products.product_id','=','product_detail.product_id')
                 ->join('categories','categories.cate_id','=','products.cate_id')
                 ->where('product_detail.prodetail_id','=',$prodetail_id)
+                ->select('products.product_id','product_detail')
                 ->get();
         return response()->json($pro);
     }
