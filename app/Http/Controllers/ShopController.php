@@ -467,7 +467,7 @@ class ShopController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.product_name','like','%'.$keywords.'%')
             ->where('product_detail.status_confirm','=',1)
-            ->where('products.shop_id',$shop_id)
+            ->where('products.shop_id','=',$shop_id)
             ->groupBy('product_detail.product_id')
             ->paginate(10);
         return response()->json($product);
