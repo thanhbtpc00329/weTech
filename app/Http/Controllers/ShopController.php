@@ -474,4 +474,14 @@ class ShopController extends Controller
     }
 
 
+    public function searchOrderShop(Request $request)
+    {
+        $keywords = $request->keywords;
+        $shop_id = $request->shop_id;
+
+        $product = Order::where('order_address','like','%'.$keywords.'%')->where('shop_id',$shop_id)->paginate(10);
+        return response()->json($product);
+    } 
+
+
 }
