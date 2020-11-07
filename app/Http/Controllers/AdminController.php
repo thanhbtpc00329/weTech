@@ -432,7 +432,7 @@ class AdminController extends Controller
             'created_at', '=', Carbon::now()->subMonth()->month
         )->orderBy('salary','DESC')->take(5);
 
-        return response()->json(['user'=>$user,'order'=>$order,'comment'=>$comment,'product'=>$pro,'shipper'=>$ship]);
+        return $ship;
 
     }
         
