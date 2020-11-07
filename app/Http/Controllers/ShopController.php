@@ -469,7 +469,7 @@ class ShopController extends Controller
             ->where('product_detail.status_confirm','=',1)
             ->where('products.shop_id','=',$shop_id)
             ->groupBy('product_detail.product_id')
-            ->paginate(10);
+            ->paginate(5);
         return response()->json($product);
     }
 
