@@ -430,7 +430,7 @@ class AdminController extends Controller
 
         $ship = Shipper::whereMonth(
             'created_at', '=', Carbon::now()->subMonth()->month
-        )->orderBy('salary','DESC')->take(5);
+        )->orderBy('salary','DESC')->limit(5);
 
         return response()->json(['user'=>$user,'order'=>$order,'comment'=>$comment,'product'=>$pro,'shipper'=>$ship]);
 
