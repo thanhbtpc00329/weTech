@@ -181,6 +181,8 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.product_name','like','%'.$keywords.'%')
+            ->orWhere('products.introduction','like','%'.$keywords.'%')
+            ->orWhere('products.description','like','%'.$keywords.'%')
             ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
             ->get();
