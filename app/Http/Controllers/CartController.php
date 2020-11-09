@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cart;
 use App\Cart_detail;
+use App\Product_detail;
 use DB;
 use Response;
 
@@ -58,6 +59,10 @@ class CartController extends Controller
         $cart_detail->cart_quantity = $cart_quantity;
         $cart_detail->created_at = $time;
         $cart_detail->save();
+
+        $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
+        $pro->quantity = ($pro->quantity - $cart_quantity);
+        $pro->save();
 
         if ($cart_detail) {
             return response()->json(['success' => 'Thêm sản phẩm vào giỏ hàng thành công!']);  
