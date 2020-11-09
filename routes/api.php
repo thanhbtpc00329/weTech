@@ -133,6 +133,7 @@ Route::post('/delete-banner', 'BannerController@deleteBanner');// Xóa banner
 //Cart
 Route::post('/get-cart','CartController@getCart');
 Route::post('/add-cart','CartController@addCart');
+Route::post('/update-cart', 'CartController@updateCart');
 
 
 

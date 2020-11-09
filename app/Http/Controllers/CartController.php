@@ -74,4 +74,26 @@ class CartController extends Controller
  	}
 
 
+    public function updateCart(Request $request){
+        $id = $request->id;
+        $cart_quantity = $request->cart_quantity;
+
+        $cart = Cart_detail::where('id',$id)->first();
+        if($cart_quantity == 0){
+            $cart->delete();
+        }else{
+            $cart->cart_quantity = $cart_quantity;
+            $cart->save();
+        }
+
+        if ($cart) {
+            return response()->json(['success' => 'Cập nhật giỏ hàng thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Cập nhật giỏ hàng thất bại']);
+        }
+
+    }
+
+
 }
