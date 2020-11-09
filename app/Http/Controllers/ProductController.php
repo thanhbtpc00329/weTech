@@ -288,7 +288,7 @@ class ProductController extends Controller
             ->join('products','products.product_id','=','product_detail.product_id')
             ->join('product_image','product_detail.prodetail_id','=','product_image.prodetail_id')
             ->groupby('product_image.prodetail_id')
-            ->where('product_id',$id)
+            ->where('product_id','=',$id)
             ->where('product_detail.status_confirm','=',1)
             ->get();
             $da = json_decode($detail);
