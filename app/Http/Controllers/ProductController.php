@@ -284,8 +284,7 @@ class ProductController extends Controller
     public function detailInfo(Request $request){
         $id = $request->id;
 
-        $detail = DB::table('products')
-            ->join('product_detail','products.product_id','=','product_detail.product_id')
+        $detail = DB::table('product_detail')
             ->join('product_image','product_detail.prodetail_id','=','product_image.prodetail_id')
             ->groupby('product_image.prodetail_id')
             ->where('product_id','=',$id)
