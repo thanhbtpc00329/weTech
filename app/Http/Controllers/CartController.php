@@ -78,7 +78,7 @@ class CartController extends Controller
         $id = $request->id;
         $cart_quantity = $request->cart_quantity;
 
-        $cart = Cart_detail::where('id',$id)->first();
+        $cart = Cart_detail::where('cart_detail_id',$id)->first();
         if($cart_quantity == 0){
             $cart->delete();
         }else{
