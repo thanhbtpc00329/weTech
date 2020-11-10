@@ -34,8 +34,6 @@ class CartController extends Controller
 
  	public function addCart(Request $request){
 
-        $prod = Product_detail::where('prodetail_id',$prodetail_id)->first();
-        if($prod->quantity >= 1){
      		$ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 $ch1len = strlen($ch1);
                 $rd = '';
@@ -48,6 +46,9 @@ class CartController extends Controller
             $user_id = $request->user_id;
             $shop_id = $request->shop_id;
             $cart_quantity = $request->cart_quantity;
+            
+            $prod = Product_detail::where('prodetail_id',$prodetail_id)->first();
+        if($prod->quantity >= 1){
             $cart = new Cart;
             $cart->cart_id = $id;
             $cart->user_id = $user_id;
