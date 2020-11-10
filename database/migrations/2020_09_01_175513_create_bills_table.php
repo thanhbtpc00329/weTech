@@ -21,7 +21,7 @@ class CreateBillsTable extends Migration
             $table->boolean('status');
             $table->timestamps();
 
-            $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
+            $table->foreign('prodetail_id')->references('prodetail_id')->on('product_detail')->onDelete('cascade');
             $table->foreign('shop_id')->references('shop_id')->on('shops')->onDelete('cascade');
         });
     }

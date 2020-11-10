@@ -49,13 +49,27 @@ class AdminController extends Controller
             'updated_at' => now()->timezone('Asia/Ho_Chi_Minh'),
             ]);
         }
-        
-        if ($order2) {
+
+        $bill = $request->bill;
+        $kq =json_decode($bill);
+
+        for ($i=0; $i < count($kq); $i++) { 
+            $bill = new Bill;
+            $bill->prodetail_id = $kq[$i]->prodetail_id;
+            $bill->sale_quantity = $$kq[$i]->cart_quantity;
+            $bill->shop_id = $kq[$i]->shop_id;
+            $bill->status = 1;
+            $bill->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+
+            $bill->save();
+        }
+        if ($bill) {
             return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            return response()->json(['error' => 'Lỗi']);
+            return response()->json(['error' => 'Thất bại']);
         }
+        
     }
 
 
@@ -80,29 +94,6 @@ class AdminController extends Controller
     // Bill
     public function showBill(){
         return Bill::paginate(10);
-    }
-
-    public function addBill(Request $request){
-        $product_id = $request->product_id;
-        $sale_quantity = $request->sale_quantity;
-        $shop_id = $request->shop_id;
-        $status = $request->status;
-
-        $bill = new Bill;
-
-        $bill->product_id = $product_id;
-        $bill->sale_quantity = $sale_quantity;
-        $bill->shop_id = $shop_id;
-        $bill->status = $status;
-        $bill->created_at = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $bill->save();
-        if ($bill) {
-            return response()->json(['success' => 'Thành công!']);  
-        }
-        else{
-            return response()->json(['error' => 'Thất bại']);
-        }
     }
 
 
