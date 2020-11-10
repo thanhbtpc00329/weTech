@@ -79,13 +79,14 @@ class CartController extends Controller
 
 
     public function updateCart(Request $request){
-        $prod = Product_detail::where('prodetail_id',$prodetail_id)->first();
-        if($prod->quantity >= 1){
-            $id = $request->id;
-            $cart_quantity = $request->cart_quantity;
-            $cart_id = $request->cart_id;
 
-            $cart = Cart_detail::where('cart_detail_id',$id)->first();
+        $id = $request->id;
+        $cart_quantity = $request->cart_quantity;
+        $cart_id = $request->cart_id;
+
+        $cart = Cart_detail::where('cart_detail_id',$id)->first();
+        $prod = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
+        if($prod->quantity >= $cart_quantity){
             if($cart){
                 if($cart_quantity == 0){
                     $cart->delete();

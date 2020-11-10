@@ -44,6 +44,7 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->groupBy('product_detail.product_id')
             ->where('product_detail.status_confirm','=',1)
+            ->where('product_detail.quantity','>=',1)
             ->paginate(20);
         
         return response()->json($product);
@@ -72,6 +73,7 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->groupBy('product_detail.product_id')
             ->where('product_detail.status_confirm','=',1)
+            ->where('product_detail.quantity','>=',1)
             ->paginate(18);
         
         return response()->json($product);
