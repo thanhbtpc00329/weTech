@@ -202,6 +202,13 @@ class UserController extends Controller
     }
 
 
+    public function showDeleteUser(){
+        $user = User::where('role','User')->where('status',2)->paginate(10);
+        return response()->json($user);
+    }
+
+
+
     public function activeAccount(Request $request){
         $user_id = $request->user_id;
 

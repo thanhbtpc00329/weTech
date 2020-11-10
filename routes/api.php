@@ -32,6 +32,7 @@ Route::post('/login-member','UserController@loginMember'); // Login admin
 // User
 Route::post('/user-unactive','UserController@showUnactiveUser');// Lấy tài khoản user chưa duyệt
 Route::post('/user-active','UserController@showActiveUser');// Lấy tài khoản user đã duyệt
+Route::post('/user-delete','UserController@showDeleteUser');// Lấy tài khoản user đã xóa
 Route::post('/active-account','UserController@activeAccount');// Duyệt tài khoản người dùng
 Route::post('/unactive-account','UserController@unactiveAccount');// Vô hiệu hóa tài khoản người dùng
 Route::post('/update-account','UserController@updateAccount');// Update tài khoản

@@ -234,7 +234,7 @@ class AdminController extends Controller
     public function deleteUser(Request $request){
         $id = $request->id;
 
-        $user = User::where('user_id','=',$id)->delete();
+        $user = User::where('user_id',$id)->update(['status' => 2]);
 
         if ($user) {
             return response()->json(['success' => 'Xóa tài khoản thành công!']);  
