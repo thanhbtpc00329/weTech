@@ -33,36 +33,40 @@ class CartController extends Controller
 
 
  	public function addCart(Request $request){
- 		$ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $ch1len = strlen($ch1);
-            $rd = '';
-            for ($i = 0; $i < 2; $i++) {
-                $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
-            }
-        $id = 'Cart_'.$rd;
-        $time = now()->timezone('Asia/Ho_Chi_Minh');
-        $prodetail_id = $request->prodetail_id;
-        $user_id = $request->user_id;
-        $shop_id = $request->shop_id;
-        $cart_quantity = $request->cart_quantity;
-        $cart = new Cart;
-        $cart->cart_id = $id;
-        $cart->user_id = $user_id;
-        $cart->created_at = $time;
 
-        $cart->save();
+        $prod = Product_detail::where('prodetail_id',$prodetail_id)->first();
+        if($prod->quantity >= 1){
+     		$ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                $ch1len = strlen($ch1);
+                $rd = '';
+                for ($i = 0; $i < 2; $i++) {
+                    $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
+                }
+            $id = 'Cart_'.$rd;
+            $time = now()->timezone('Asia/Ho_Chi_Minh');
+            $prodetail_id = $request->prodetail_id;
+            $user_id = $request->user_id;
+            $shop_id = $request->shop_id;
+            $cart_quantity = $request->cart_quantity;
+            $cart = new Cart;
+            $cart->cart_id = $id;
+            $cart->user_id = $user_id;
+            $cart->created_at = $time;
 
-        $cart_detail = new Cart_detail;
-        $cart_detail->cart_id = $id;
-        $cart_detail->prodetail_id = $prodetail_id;
-        $cart_detail->shop_id = $shop_id;
-        $cart_detail->cart_quantity = $cart_quantity;
-        $cart_detail->created_at = $time;
-        $cart_detail->save();
+            $cart->save();
 
-        $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
-        $pro->quantity = ($pro->quantity - $cart_quantity);
-        $pro->save();
+            $cart_detail = new Cart_detail;
+            $cart_detail->cart_id = $id;
+            $cart_detail->prodetail_id = $prodetail_id;
+            $cart_detail->shop_id = $shop_id;
+            $cart_detail->cart_quantity = $cart_quantity;
+            $cart_detail->created_at = $time;
+            $cart_detail->save();
+
+            $pro = Product_detail::where('prodetail_id',$prodetail_id)->first();
+            $pro->quantity = ($pro->quantity - $cart_quantity);
+            $pro->save();
+        }
 
         if ($cart_detail) {
             return response()->json(['success' => 'Thêm sản phẩm vào giỏ hàng thành công!']);  
@@ -75,26 +79,29 @@ class CartController extends Controller
 
 
     public function updateCart(Request $request){
-        $id = $request->id;
-        $cart_quantity = $request->cart_quantity;
-        $cart_id = $request->cart_id;
+        $prod = Product_detail::where('prodetail_id',$prodetail_id)->first();
+        if($prod->quantity >= 1){
+            $id = $request->id;
+            $cart_quantity = $request->cart_quantity;
+            $cart_id = $request->cart_id;
 
-        $cart = Cart_detail::where('cart_detail_id',$id)->first();
-        if($cart){
-            if($cart_quantity == 0){
-                $cart->delete();
+            $cart = Cart_detail::where('cart_detail_id',$id)->first();
+            if($cart){
+                if($cart_quantity == 0){
+                    $cart->delete();
+                }else{
+                    $cart->cart_quantity = $cart_quantity;
+                    $cart->save();
+                    $pro = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
+                    $pro->quantity = ($pro->quantity - $cart_quantity);
+                    $pro->save();
+                }
             }else{
-                $cart->cart_quantity = $cart_quantity;
-                $cart->save();
+                $cart = Cart::where('cart_id',$cart_id)->delete();
                 $pro = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
-                $pro->quantity = ($pro->quantity - $cart_quantity);
+                $pro->quantity = ($pro->quantity + $cart_quantity);
                 $pro->save();
             }
-        }else{
-            $cart = Cart::where('cart_id',$cart_id)->delete();
-            $pro = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
-            $pro->quantity = ($pro->quantity + $cart_quantity);
-            $pro->save();
         }
 
         if ($cart) {
