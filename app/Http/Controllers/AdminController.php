@@ -84,14 +84,14 @@ class AdminController extends Controller
 
     public function addBill(Request $request){
         $product_id = $request->product_id;
-        $sale_amount = $request->sale_amount;
+        $sale_quantity = $request->sale_quantity;
         $shop_id = $request->shop_id;
         $status = $request->status;
 
         $bill = new Bill;
 
         $bill->product_id = $product_id;
-        $bill->sale_amount = $sale_amount;
+        $bill->sale_quantity = $sale_quantity;
         $bill->shop_id = $shop_id;
         $bill->status = $status;
         $bill->created_at = now()->timezone('Asia/Ho_Chi_Minh');
