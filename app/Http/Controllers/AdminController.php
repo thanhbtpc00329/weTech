@@ -56,7 +56,7 @@ class AdminController extends Controller
         for ($i=0; $i < count($kq); $i++) { 
             $bill = new Bill;
             $bill->prodetail_id = $kq[$i]->prodetail_id;
-            $bill->sale_quantity = $$kq[$i]->cart_quantity;
+            $bill->sale_quantity = $kq[$i]->cart_quantity;
             $bill->shop_id = $kq[$i]->shop_id;
             $bill->status = 1;
             $bill->created_at = now()->timezone('Asia/Ho_Chi_Minh');
