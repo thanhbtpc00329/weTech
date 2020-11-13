@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Shipper;
 use App\User;
 use App\Order;
+use App\Notification_shipper;
 use DB;
 
 class ShipperController extends Controller
@@ -187,6 +188,46 @@ class ShipperController extends Controller
                 ->select('orders.id','orders.user_id','orders.order_address','orders.status','orders.shipping','orders.user_range','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.order_detail','users.name','users.username','users.email','users.gender','users.address','users.phone_number','users.avatar','users.birth_day')
                 ->get();
         return response()->json($ship);
+    }
+
+
+
+
+
+    // Notification
+    public function addNotificationShipper(Request $request){
+        $order_id = $request->order_id;
+        $message = $request->message;
+        $type = $request->type;
+
+        $tb = new Notification_shipper;
+        $tb->order_id = $order_id;
+        $tb->message = $message;
+        $tb->type = $type;
+        $order->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $tb->save();
+        
+        if ($tb) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }
+    }
+
+
+    public function deleteNotificationShipper(Request $request){
+        $id = $request->id;
+
+        $tb = Notification_shipper::find($id);
+        $tb->delete();
+        
+        if ($tb) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }
     }
 
 }

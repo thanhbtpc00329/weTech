@@ -210,6 +210,10 @@ Route::post('/to-warehouse','ShopController@toWarehouse');// Nhập kho
 Route::post('/search-shop', 'ShopController@searchProductShop');// Tìm sp theo shop
 Route::post('/search-order-shop', 'ShopController@searchOrderShop');// Tìm order theo shop
 
+Route::post('/add-tb', 'ShopController@addNotification');// Add tb
+Route::post('/delete-tb', 'ShopController@deleteNotification');// Xóa tb
+
+
 
 
 Route::post('/count-product-shop','ShopController@countProductShop');// Đếm sp theo shop
@@ -291,6 +295,9 @@ Route::post('/delete-shipper','ShipperController@deleteShipper');
 Route::post('/warehouse', 'ShipperController@warehouse');// Kho hàng giao
 Route::post('/create-warehouse','ShipperController@createWarehouse');//Đơn hàng Đã lấy hàng
 Route::post('/insert-warehouse', 'ShipperController@insertWarehouse');// Kho hàng nhận
+Route::post('/add-tb-shipper', 'ShipperController@addNotificationShipper');// Add tb shipper
+Route::post('/delete-tb-shipper', 'ShipperController@deleteNotificationShipper');// Xóa tb shipper
+
 
 
 

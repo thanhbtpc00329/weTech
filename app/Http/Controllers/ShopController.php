@@ -7,6 +7,7 @@ use App\User;
 use App\Shop;
 use App\Order;
 use App\Product_detail;
+use App\Notification;
 use DB; 
 
 
@@ -492,6 +493,47 @@ class ShopController extends Controller
         $product = Order::where('order_address','like','%'.$keywords.'%')->where('shop_id',$shop_id)->where('status','Chờ duyệt')->paginate(5);
         return response()->json($product);
     } 
+
+
+
+
+
+
+
+    // Notification
+    public function addNotification(Request $request){
+        $order_id = $request->order_id;
+        $message = $request->message;
+        $type = $request->type;
+
+        $tb = new Notification;
+        $tb->order_id = $order_id;
+        $tb->message = $message;
+        $tb->type = $type;
+        $order->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $tb->save();
+        
+        if ($tb) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }
+    }
+
+    public function deleteNotification(Request $request){
+        $id = $request->id;
+
+        $tb = Notification::find($id);
+        $tb->delete();
+        
+        if ($tb) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }
+    }
 
 
 }
