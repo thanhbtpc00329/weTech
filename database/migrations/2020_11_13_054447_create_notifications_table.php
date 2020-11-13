@@ -15,7 +15,7 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id')->unsigned();
+            $table->bigInteger('order_id')->unsigned();
             $table->string('message');
             $table->boolean('type');
 

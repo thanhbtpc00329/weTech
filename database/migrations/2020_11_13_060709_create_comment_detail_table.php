@@ -15,8 +15,9 @@ class CreateCommentDetailTable extends Migration
     {
         Schema::create('comment_detail', function (Blueprint $table) {
             $table->id();
-            $table->integer('cmt_id')->unsigned();
-            $table->string('shop_id');
+            $table->bigInteger('cmt_id')->unsigned();
+            $table->integer('shop_id')->length(10)->unsigned();
+
             $table->text('content');
             $table->string('product_id');
             $table->boolean('status'); 

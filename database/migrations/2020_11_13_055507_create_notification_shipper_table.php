@@ -15,7 +15,7 @@ class CreateNotificationShipperTable extends Migration
     {
         Schema::create('notification_shipper', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id')->unsigned();
+            $table->bigInteger('order_id')->unsigned();
             $table->string('message');
             $table->boolean('type');
 
