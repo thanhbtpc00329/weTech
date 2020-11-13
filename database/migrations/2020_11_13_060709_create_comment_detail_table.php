@@ -23,8 +23,8 @@ class CreateCommentDetailTable extends Migration
             $table->timestamps();
 
 
-            $table->foreign('cmt_id')->references('id')->on('comments')->onDelete('cascade');
             $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
+            $table->foreign('cmt_id')->references('id')->on('comments')->onDelete('cascade');
             $table->foreign('shop_id')->references('shop_id')->on('shops')->onDelete('cascade');
         });
     }
