@@ -15,10 +15,10 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->string('product_id');
+            $table->string('prodetail_id');
             $table->integer('sale_quantity')->length(10)->unsigned();
             $table->integer('shop_id')->length(10)->unsigned();
-            $table->boolean('status');
+            $table->boolean('status')->nullable();
             $table->timestamps();
 
             $table->foreign('prodetail_id')->references('prodetail_id')->on('product_detail')->onDelete('cascade');
