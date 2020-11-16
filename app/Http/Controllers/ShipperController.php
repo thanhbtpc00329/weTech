@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Shipper;
 use App\User;
 use App\Order;
-use App\Notification_shipper;
+use App\Notification_shiper;
 use DB;
 
 class ShipperController extends Controller
@@ -200,7 +200,7 @@ class ShipperController extends Controller
         $message = $request->message;
         $type = $request->type;
 
-        $tb = new Notification_shipper;
+        $tb = new Notification_shiper;
         $tb->order_id = $order_id;
         $tb->message = $message;
         $tb->type = $type;
@@ -219,7 +219,7 @@ class ShipperController extends Controller
     public function deleteNotificationShipper(Request $request){
         $id = $request->id;
 
-        $tb = Notification_shipper::find($id);
+        $tb = Notification_shiper::find($id);
         $tb->delete();
         
         if ($tb) {
