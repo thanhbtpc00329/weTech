@@ -510,7 +510,7 @@ class ShopController extends Controller
         $tb->order_id = $order_id;
         $tb->message = $message;
         $tb->type = $type;
-        $order->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $tb->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $tb->save();
         
         if ($tb) {
