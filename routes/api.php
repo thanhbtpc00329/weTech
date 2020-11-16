@@ -212,6 +212,8 @@ Route::post('/search-order-shop', 'ShopController@searchOrderShop');// Tìm orde
 
 Route::post('/add-tb', 'ShopController@addNotification');// Add tb
 Route::post('/delete-tb', 'ShopController@deleteNotification');// Xóa tb
+Route::post('/tb', 'ShopController@notification');// Lấy tb
+
 
 
 
@@ -297,7 +299,7 @@ Route::post('/create-warehouse','ShipperController@createWarehouse');//Đơn hà
 Route::post('/insert-warehouse', 'ShipperController@insertWarehouse');// Kho hàng nhận
 Route::post('/add-tb-shipper', 'ShipperController@addNotificationShipper');// Add tb shipper
 Route::post('/delete-tb-shipper', 'ShipperController@deleteNotificationShipper');// Xóa tb shipper
-
+Route::post('/tb-shipper', 'ShipperController@notificationShipper');// Lấy tb shipper
 
 
 

@@ -536,4 +536,11 @@ class ShopController extends Controller
     }
 
 
+    public function notification(Request $request){
+        $tb = Notification::all();
+
+        return response()->json($tb);
+    }
+
+
 }

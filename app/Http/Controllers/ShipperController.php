@@ -230,4 +230,11 @@ class ShipperController extends Controller
         }
     }
 
+
+    public function notificationShipper(Request $request){
+        $tb = Notification_shiper::all();
+
+        return response()->json($tb);
+    }
+
 }
