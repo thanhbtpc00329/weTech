@@ -59,6 +59,7 @@ class ProductController extends Controller
             ->where('products.cate_id',$cate_id)
             ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
+            ->orderByRaw('RAND()')
             ->get();
         return response()->json($product);
     }
