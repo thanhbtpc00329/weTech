@@ -427,6 +427,7 @@ class AdminController extends Controller
                 ->whereMonth('shippers.created_at', '=', Carbon::now()->subMonth()->month)
                 ->orderBy('salary','DESC')->take(5)->get();
         return response()->json(['user'=>$user,'order'=>$order,'comment'=>$comment,'product'=>$pro,'shipper'=>$ship,'total'=>$total]);
+        
 
     }
         
