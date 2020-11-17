@@ -401,7 +401,22 @@ class AdminController extends Controller
 
     // Thống kê
     public function statistic(){
-        $time = now()->timezone('Asia/Ho_Chi_Minh');
+        // $time = Shop::all();
+        $total = DB::table('orders')
+                ->join('shops','orders.shop_id','=','shops.shop_id')
+                ->sum('orders.total')
+                ->get();
+        // $kk = array();
+        
+        // for ($j=0; $j < count($total); $j++) { 
+        //     if(array_search($total[$j]->shop_id,$kk)){
+                
+        //     }else{
+        //         array_push($kk,$total[$j]);
+        //     }
+        // } 
+            
+        
 
         $user = User::whereMonth(
             'created_at', '=', Carbon::now()->subMonth()->month
@@ -423,7 +438,8 @@ class AdminController extends Controller
                 ->join('users','users.user_id','=','shippers.user_id')
                 ->whereMonth('shippers.created_at', '=', Carbon::now()->subMonth()->month)
                 ->orderBy('salary','DESC')->take(5)->get();
-        return response()->json(['user'=>$user,'order'=>$order,'comment'=>$comment,'product'=>$pro,'shipper'=>$ship]);
+        // return response()->json(['user'=>$user,'order'=>$order,'comment'=>$comment,'product'=>$pro,'shipper'=>$ship]);
+        return $total[0]->shop_id;
 
     }
         
