@@ -390,7 +390,7 @@ class ShopController extends Controller
         $pro = DB::table('product_detail')
             ->join('products','products.product_id','=','product_detail.product_id')
             ->where('products.shop_id','=',$shop_id)
-            ->select('product_detail.created_at','product_detail.updated_at')
+            ->select('product_detail.prodetail_id','product_detail.created_at','product_detail.updated_at')
             ->get();
             date_default_timezone_set('Asia/Ho_Chi_Minh');
             $now = time();
@@ -423,7 +423,7 @@ class ShopController extends Controller
         $pro = DB::table('product_detail')
             ->join('products','products.product_id','=','product_detail.product_id')
             ->where('products.shop_id','=',$shop_id)
-            ->select('product_detail.created_at','product_detail.updated_at')
+            ->select('product_detail.prodetail_id','product_detail.created_at','product_detail.updated_at')
             ->get();
             date_default_timezone_set('Asia/Ho_Chi_Minh');
             $now = time();
