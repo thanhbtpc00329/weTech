@@ -388,7 +388,7 @@ class ShopController extends Controller
         $shop_id = $request->shop_id;
 
         $pro = DB::table('product_detail')
-            ->join('products','products.product_id','=','product_detail.prodetail_id')
+            ->join('products','products.product_id','=','product_detail.product_id')
             ->where('products.shop_id','=',$shop_id)
             ->select('product_detail.created_at','product_detail.updated_at')
             ->get();
@@ -421,7 +421,7 @@ class ShopController extends Controller
         $shop_id = $request->shop_id;
 
         $pro = DB::table('product_detail')
-            ->join('products','products.product_id','=','product_detail.prodetail_id')
+            ->join('products','products.product_id','=','product_detail.product_id')
             ->where('products.shop_id','=',$shop_id)
             ->select('product_detail.created_at','product_detail.updated_at')
             ->get();
