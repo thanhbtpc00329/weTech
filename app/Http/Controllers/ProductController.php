@@ -23,21 +23,6 @@ class ProductController extends Controller
     // Product
     public function showProduct()
     {
-        
-        // $pro = DB::table('product_detail')->get();
-        //     date_default_timezone_set('Asia/Ho_Chi_Minh');
-        //     $now = time();
-        
-        // for ($i=0; $i < count($pro); $i++) { 
-        //     // To time
-        //     $ttime = $pro[$i]->updated_at;
-        //     $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
-        //     $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
-        //     if($now >= $ttime_stamp){
-        //         $prod = Product_detail::where('prodetail_id',$pro[$i]->prodetail_id)->update(['status_discount' => 0]);
-        //     }
-        // }
-
         $product = DB::table('products')
             ->join('product_detail','product_detail.product_id','=','products.product_id')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')

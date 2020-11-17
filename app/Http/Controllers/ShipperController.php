@@ -8,6 +8,7 @@ use App\User;
 use App\Order;
 use App\Notification_shiper;
 use DB;
+use Carbon\Carbon;
 
 class ShipperController extends Controller
 {
@@ -41,7 +42,6 @@ class ShipperController extends Controller
         $order = Order::find($id);
         $order->shipper_deliver = $shipper_deliver;
         $order->status = 'Đang lấy hàng';
-        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $order->save();
         if ($order) {
@@ -58,8 +58,7 @@ class ShipperController extends Controller
 
         $order = Order::find($id);
         $order->status = 'Đã nhập kho';
-        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
-
+        $order->updated_at = Carbon::now()->addDay(3);
         $order->save();
         if ($order) {
             return response()->json(['success' => 'Thành công!']);  
@@ -76,7 +75,6 @@ class ShipperController extends Controller
 
         $order = Order::find($id);
         $order->status = 'Đã lấy hàng';
-        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $order->save();
         if ($order) {
@@ -97,7 +95,6 @@ class ShipperController extends Controller
         $order = Order::find($id);
         $order->shipper_receive = $shipper_receive;
         $order->status = 'Đang giao';
-        $order->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $order->save();
         if ($order) {
