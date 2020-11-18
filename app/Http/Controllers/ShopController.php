@@ -8,7 +8,11 @@ use App\Shop;
 use App\Order;
 use App\Product_detail;
 use App\Notification;
+use App\Comment;
+use App\Comment_detail;
 use DB; 
+use Carbon\Carbon;
+use App\Statistic;
 
 
 class ShopController extends Controller
@@ -219,6 +223,31 @@ class ShopController extends Controller
     }
 
     public function unactiveOrderShop(Request $request){
+        $now = Carbon::now()->format('Y-m-d');
+        $ldom = Carbon::now()->endOfMonth()->toDateString();
+        if($now == $ldom){
+            $m = Carbon::now()->month;
+            $y = Carbon::now()->year;
+
+            $total = DB::table('orders')
+                ->join('shops','orders.shop_id','=','shops.shop_id')
+                ->selectRaw('orders.shop_id,sum(total) as total')
+                ->groupBy('orders.shop_id')
+                ->where('orders.shop_id','=',329)
+                ->whereMonth('orders.created_at', '=', Carbon::now()->month)
+                ->get();
+            $h = now()->timezone('Asia/Ho_Chi_Minh')->format('H:i:s');
+            $time = $y.'-'.$m.'-01 '.$h;
+            $add = new Statistic;
+            $add->month = $m;
+            $add->year = $y;
+            $add->sta_total = $total[0]->total;
+            $add->shop_id = $total[0]->shop_id;
+            $add->created_at = $time;
+            $add->updated_at = $now;
+            $add->save();
+        }
+        
         $shop_id = $request->shop_id;
 
         $order = DB::table('orders')
@@ -576,6 +605,56 @@ class ShopController extends Controller
         $tb = Notification::all();
 
         return response()->json($tb);
+    }
+
+
+
+
+    // Comment
+    public function commentShop(Request $request){
+        $shop_id = $request->shop_id;
+
+        $cmt = DB::table('comments')
+                ->join('products','products.product_id','=','comments.product_id')
+                ->join('shops','shops.shop_id','=','products.shop_id')
+                ->join('users','users.user_id','=','comments.user_id')
+                ->where('products.shop_id','=',$shop_id)
+                ->where('comments.status','=',1)
+                ->get();
+
+        return response()->json($cmt);
+    }
+
+    public function unactiveCommentShop(Request $request){
+        
+        $shop_id = $request->shop_id;
+
+        $cmt = DB::table('comments')
+                ->join('products','products.product_id','=','comments.product_id')
+                ->join('users','users.user_id','=','comments.user_id')
+                ->where('products.shop_id','=',$shop_id)
+                ->where('comments.status','=',1)
+                ->where('comments.is_reply','=',0)
+                ->get();
+
+        return response()->json($cmt);
+    }
+
+
+    public function activeCommentShop(Request $request){
+        $shop_id = $request->shop_id;
+
+        $cmt = DB::table('comments')
+                ->join('products','products.product_id','=','comments.product_id')
+                ->join('shops','shops.shop_id','=','products.shop_id')
+                ->join('users','users.user_id','=','comments.user_id')
+                ->join('comment_detail','comment_detail.cmt_id','=','comments.id')
+                ->where('products.shop_id','=',$shop_id)
+                ->where('comments.status','=',1)
+                ->where('comments.is_reply','=',1)
+                ->get();
+
+        return response()->json($cmt);
     }
 
 

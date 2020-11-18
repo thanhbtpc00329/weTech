@@ -19,7 +19,8 @@ class CreateCommentsTable extends Migration
             $table->text('content');
             $table->string('product_id');
             $table->integer('rating')->length(10);
-            $table->boolean('status'); 
+            $table->boolean('status');
+            $table->boolean('is_reply')->nullable();
             $table->timestamps();
 
             $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');

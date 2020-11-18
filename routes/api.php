@@ -209,6 +209,10 @@ Route::post('/discount','ShopController@discount');// Tạo khuyến mãi sp
 Route::post('/to-warehouse','ShopController@toWarehouse');// Nhập kho
 Route::post('/search-shop', 'ShopController@searchProductShop');// Tìm sp theo shop
 Route::post('/search-order-shop', 'ShopController@searchOrderShop');// Tìm order theo shop
+Route::post('/comment-shop', 'ShopController@commentShop');// Lấy comment theo shop
+Route::post('/active-comment-shop', 'ShopController@activeCommentShop');// Lấy comment đã trả lời theo shop
+
+Route::post('/unactive-comment-shop', 'ShopController@unactiveCommentShop');// Lấy comment chưa trả lời theo shop
 
 Route::post('/add-tb', 'ShopController@addNotification');// Add tb
 Route::post('/delete-tb', 'ShopController@deleteNotification');// Xóa tb
