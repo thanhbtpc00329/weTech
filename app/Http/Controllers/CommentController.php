@@ -109,6 +109,7 @@ class CommentController extends Controller
         $comment->product_id = $product_id;
         $comment->rating = $rating;
         $comment->status = 0;
+        $comment->is_reply = 0;
         $comment->created_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $comment->save();

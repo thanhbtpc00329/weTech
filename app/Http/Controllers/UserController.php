@@ -76,6 +76,10 @@ class UserController extends Controller
     }
 
 
+
+    public function loginSocial(Request $request){
+        
+    }
     
 
 

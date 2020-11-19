@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register','UserController@register');// Register user
 Route::post('/login','UserController@login');// Login user
 Route::post('/login-member','UserController@loginMember'); // Login admin
+Route::post('/login-social','UserController@loginSocial'); // Login social
 
 
 
