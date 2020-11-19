@@ -224,22 +224,6 @@ class ProductController extends Controller
     public function showDetail(Request $request){
         $id = $request->id;
 
-
-        $pro = Product_detail::where('product_id',$id)->get();
-            date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $now = time();
-        
-        for ($i=0; $i < count($pro); $i++) { 
-            // To time
-            $ttime = $pro[$i]->updated_at;
-            $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
-            $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
-            if($now >= $ttime_stamp){
-                $prod = Product_detail::where('prodetail_id',$pro[$i]->prodetail_id)->update(['status_discount' => 0]);
-            }
-        }
-
-
         $detail = DB::table('products')
             ->join('categories','categories.cate_id','=','products.cate_id')
             ->join('product_detail','product_detail.product_id','=','products.product_id')
@@ -281,6 +265,20 @@ class ProductController extends Controller
             ->where('product_id','=',$id)
             ->where('product_detail.status_confirm','=',1)
             ->get();
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $now = time();
+        
+        for ($i=0; $i < count($detail); $i++) { 
+            // To time
+            $ttime = $detail[$i]->updated_at;
+            $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
+            $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
+            if($now >= $ttime_stamp){
+                $prod = Product_detail::where('prodetail_id',$detail[$i]->prodetail_id)->update(['status_discount' => 0]);
+            }
+        }
+
+        
             $da = json_decode($detail);
             
             $arr = Schema::getColumnListing('product_detail');
