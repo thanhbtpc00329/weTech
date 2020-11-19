@@ -405,28 +405,23 @@ class AdminController extends Controller
                 ->join('shops','orders.shop_id','=','shops.shop_id')
                 ->selectRaw('orders.shop_id,shops.shop_name,sum(total) as total')
                 ->groupBy('orders.shop_id')
-                ->get();
-        $user = User::whereMonth(
-            'created_at', '=', Carbon::now()->subMonth()->month
-        )->count();
-
-        $order = Order::whereMonth(
-            'created_at', '=', Carbon::now()->subMonth()->month
-        )->where('status','Hoàn thành')->count();
-
-        $comment = Comment::whereMonth(
-            'created_at', '=', Carbon::now()->subMonth()->month
-        )->count();
-
-        $pro = Product::whereMonth(
-            'created_at', '=', Carbon::now()->subMonth()->month
-        )->count();
-
-        $ship = DB::table('shippers')
+                ->paginate(5);
+        $user = User::where('role','=','User')->where('status','=',1)->count();
+        $salary_ship = DB::table('shippers')
                 ->join('users','users.user_id','=','shippers.user_id')
                 ->whereMonth('shippers.created_at', '=', Carbon::now()->subMonth()->month)
                 ->orderBy('salary','DESC')->take(5)->get();
-        return response()->json(['user'=>$user,'order'=>$order,'comment'=>$comment,'product'=>$pro,'shipper'=>$ship,'total'=>$total]);
+        $shop = Shop::where('status',1)->count();
+        $shipper = Shipper::count();
+        $comment = Comment::where('is_reply',0)->count();
+        $pro = DB::table('bills')
+            ->join('product_detail','product_detail.prodetail_id','=','bills.prodetail_id')
+            ->join('products','products.product_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','bills.shop_id')
+            ->orderBy('bills.sale_quantity','DESC')
+            ->take(5)
+            ->get();
+        return response()->json(['user'=>$user,'salary_ship'=>$salary_ship,'total'=>$total,'shop'=>$shop,'shipper'=>$shipper,'comment'=>$comment,'product'=>$pro]);
                
         
 
