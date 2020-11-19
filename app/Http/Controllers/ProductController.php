@@ -154,8 +154,7 @@ class ProductController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.product_name','like','%'.$keywords.'%')
-            ->orWhere('products.introduction','like','%'.$keywords.'%')
-            ->orWhere('products.description','like','%'.$keywords.'%')
+            ->orWhere('products.tag','like','%'.$keywords.'%')
             ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
             ->get();
@@ -750,55 +749,7 @@ class ProductController extends Controller
         else{
             return response()->json(['error' => 'Xóa sản phẩm thất bại']);
         }        
-    }
-
-
-    public function test(){
-        // $id = $request->username;
-        // // tính total theo shop -> duyệt đơn hàng
-        // // $or = Order::find($id);
-        // // $tong = 0;
-        // // $arr = json_decode($or->order_detail);
-        // // for ($i=0; $i < count($arr); $i++) { 
-        // //     $tong += $arr[$i]->price * $arr[$i]->cart_quantity;
-        // // }
-        // // return $arr;
-        // $shop = Shop::where('shop_id',$id)->first();
-        //$fofrmat = now()->timezone('Asia/Ho_Chi_Minh')->format('Y\-m\-d\ h:i A');
-        // $kq = "2020-10-20T13:06";
-        // $tt = str_replace('T',' ',$kq);
-        // $oo = now()->timezone('Asia/Ho_Chi_Minh');
-        
-        //     $sp = Product_detail::where('prodetail_id',$id1)->first();
-        //         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        //     $now = time();
-        //     // From time
-        // if($sp->created_at){
-        //     $ftime = $sp->created_at;
-        //     $ftime = date_parse_from_format('Y-m-d H:i:s', $ftime);
-        //     $ftime_stamp = mktime($ftime['hour'],$ftime['minute'],$ftime['second'],$ftime['month'],$ftime['day'],$ftime['year']);
-        //     // To time
-        //     $ttime = $sp->updated_at;
-        //     $ttime = date_parse_from_format('Y-m-d H:i:s', $ttime);
-        //     $ttime_stamp = mktime($ttime['hour'],$ttime['minute'],$ttime['second'],$ttime['month'],$ttime['day'],$ttime['year']);
-        //     if($now >= $ftime_stamp && $now <= $ttime_stamp){
-        //         $sp->status_discount = 1;
-        //         $sp->save();
-        //     }else{
-        //         $sp->status_discount = 0;
-        //         $sp->save();
-        //     }
-        // }
-        
-
-        $product = Product::all();
-        return response()->json($product); 
-
-    }
-
-
-
-    
+    }  
     
 }
 

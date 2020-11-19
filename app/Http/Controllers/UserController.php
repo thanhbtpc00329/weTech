@@ -78,7 +78,37 @@ class UserController extends Controller
 
 
     public function loginSocial(Request $request){
-        
+    	$name = $request->name;
+        $username = substr($name,0,strpos($name,'@'));
+        $email = $request->email;
+        $avatar = $request->avatar;
+
+        $check = User::where('email',$email)->where('username',$username)->where('social','Google')->orWhere('social','Facebook')->first();
+        if(count($check) > 0 && $check->social == 'Google'){
+        	$user = User::where('user_id',$check->user_id)->first();
+        	return response()->json($user);
+        }else{
+	        $ch1 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	        $ch1len = strlen($ch1);
+	        $rd = '';
+	        for ($i = 0; $i < 4; $i++) {
+	            $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
+	        }
+	        $id = abs(crc32($rd));
+
+	        $account = new User;
+	        $account->user_id = $id;
+	        $account->name=$name;
+	        $account->username=$username;
+	        $account->email=$email;
+	        $account->password=123456;
+	        $account->social = 'Google';
+	        $account->avatar =$avatar;
+	        $account->status=1;
+	        $account->role='User';
+	        $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
+	        $account->save();
+	    }
     }
     
 
