@@ -270,7 +270,7 @@ class ProductController extends Controller
         
         for ($i=0; $i < count($detail); $i++) { 
             // To time
-            $ttime_stamp = strtotime($pro[$i]->updated_at);
+            $ttime_stamp = strtotime($detail[$i]->updated_at);
             if($now >= $ttime_stamp){
                 $prod = Product_detail::where('prodetail_id',$detail[$i]->prodetail_id)->update(['status_discount' => 0]);
             }
