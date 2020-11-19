@@ -479,6 +479,7 @@ class ShopController extends Controller
     }
 
 
+
     public function discount(Request $request)
     {
         $from_day = $request->from_day;

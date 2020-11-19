@@ -13,6 +13,7 @@ use App\Comment;
 use App\Product_detail;
 use Response,File;
 use App\User;
+use App\Contact;
 use DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -413,15 +414,15 @@ class AdminController extends Controller
                 ->orderBy('salary','DESC')->take(5)->get();
         $shop = Shop::where('status',1)->count();
         $shipper = Shipper::count();
-        $comment = Comment::where('is_reply',0)->count();
+        $contact = Contact::where('status',0)->count();
         $pro = DB::table('bills')
             ->join('product_detail','product_detail.prodetail_id','=','bills.prodetail_id')
-            ->join('products','products.product_id','=','product_detail.prodetail_id')
+            ->join('products','products.product_id','=','product_detail.product_id')
             ->join('shops','shops.shop_id','=','bills.shop_id')
             ->orderBy('bills.sale_quantity','DESC')
             ->take(5)
             ->get();
-        return response()->json(['user'=>$user,'salary_ship'=>$salary_ship,'total'=>$total,'shop'=>$shop,'shipper'=>$shipper,'comment'=>$comment,'product'=>$pro]);
+        return response()->json(['user'=>$user,'salary_ship'=>$salary_ship,'total'=>$total,'shop'=>$shop,'shipper'=>$shipper,'contact'=>$contact,'product'=>$pro]);
                
         
 
