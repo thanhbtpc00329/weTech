@@ -657,5 +657,29 @@ class ShopController extends Controller
         return response()->json($cmt);
     }
 
+    public function replyComment(Request $request){
+        $id = $request->id;
+        $shop_id = $request->shop_id;
+        $product_id = $request->product_id;
+        $content = $request->content;
+
+
+        $cmt = new Comment_detail;
+        $cmt->cmt_id = $id;
+        $cmt->shop_id = $shop_id;
+        $cmt->content = $content;
+        $cmt->product_id = $product_id;
+        $cmt->status = 1;
+        $cmt->created_at = now()->timezone('Asia/Ho_Chi_Minh');
+        $cmt->save();
+
+        if ($cmt) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }
+    }
+
 
 }

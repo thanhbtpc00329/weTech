@@ -49,6 +49,20 @@ class CommentController extends Controller
         return response()->json($cmt);
     }
 
+
+
+    public function getCommentShop(Request $request){
+        $id = $request->id;
+
+        $cmt = DB::table('comment_detail')
+                ->join('shops','shops.shop_id','=','comment_detail.shop_id')
+                ->where('comment_detail.cmt_id','=',$id)
+                ->where('comment_detail.status','=',1)
+                ->get();
+        return response()->json($cmt);
+    }
+
+
     public function countComment(Request $request){
         $product_id = $request->product_id;
 

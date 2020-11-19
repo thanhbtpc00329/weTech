@@ -213,6 +213,8 @@ Route::post('/comment-shop', 'ShopController@commentShop');// Lấy comment theo
 Route::post('/active-comment-shop', 'ShopController@activeCommentShop');// Lấy comment đã trả lời theo shop
 
 Route::post('/unactive-comment-shop', 'ShopController@unactiveCommentShop');// Lấy comment chưa trả lời theo shop
+Route::post('/reply-comment', 'ShopController@replyComment');// Trả lời comment của shop
+
 
 Route::post('/add-tb', 'ShopController@addNotification');// Add tb
 Route::post('/delete-tb', 'ShopController@deleteNotification');// Xóa tb
@@ -239,6 +241,7 @@ Route::post('/check-comment','CommentController@checkComment');// Xem người �
 Route::post('/comment','CommentController@showComment');// Show all comment
 Route::post('/detail-comment','CommentController@detailComment');// Lấy detail comment
 Route::post('/get-comment','CommentController@getComment');// Lấy comment theo sp
+Route::post('/get-comment-shop','CommentController@getCommentShop');// Lấy comment của shop theo sp
 
 Route::post('/count-comment','CommentController@countComment');// Đếm comment theo sp
 
