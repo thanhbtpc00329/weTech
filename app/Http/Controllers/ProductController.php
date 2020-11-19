@@ -259,23 +259,28 @@ class ProductController extends Controller
     public function detailInfo(Request $request){
         $id = $request->id;
 
+        $pro = DB::table('product_detail')
+            ->join('products','products.product_id','=','product_detail.product_id')
+            ->where('products.product_id','=',$id)
+            ->select('product_detail.prodetail_id','product_detail.created_at','product_detail.updated_at')
+            ->get();
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $now = time();
+        
+        for ($i=0; $i < count($pro); $i++) { 
+            // To time
+            $ttime_stamp = strtotime($pro[$i]->updated_at);
+            if($now >= $ttime_stamp){
+                $prod = Product_detail::where('prodetail_id',$pro[$i]->prodetail_id)->update(['status_discount' => 0]);
+            }
+        }
+
         $detail = DB::table('product_detail')
             ->join('product_image','product_detail.prodetail_id','=','product_image.prodetail_id')
             ->groupby('product_image.prodetail_id')
             ->where('product_id','=',$id)
             ->where('product_detail.status_confirm','=',1)
             ->get();
-            date_default_timezone_set('Asia/Ho_Chi_Minh');
-            $now = time();
-        
-        for ($i=0; $i < count($detail); $i++) { 
-            // To time
-            $ttime_stamp = strtotime($detail[$i]->updated_at);
-            if($now >= $ttime_stamp){
-                $prod = Product_detail::where('prodetail_id',$detail[$i]->prodetail_id)->update(['status_discount' => 0]);
-            }
-        }
-
         
             $da = json_decode($detail);
             
