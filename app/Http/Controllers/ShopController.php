@@ -620,7 +620,7 @@ class ShopController extends Controller
                 ->groupby('product_detail.product_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('comments.status','=',1)
-                ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','shops.shop_id')
+                ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','shops.shop_id','users.avatar')
                 ->paginate(5);
 
         return response()->json($cmt);
@@ -639,7 +639,7 @@ class ShopController extends Controller
                 ->where('comments.status','=',1)
                 ->where('comments.is_reply','=',0)
                 ->groupBy('product_detail.product_id')
-                ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','shops.shop_id')
+                ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','shops.shop_id','users.avatar')
                 ->paginate(5);
 
         return response()->json($cmt);
@@ -660,7 +660,7 @@ class ShopController extends Controller
                 ->where('comments.status','=',1)
                 ->where('comments.is_reply','=',1)
                 ->groupBy('product_detail.product_id')
-                ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','shops.shop_id')
+                ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','shops.shop_id','users.avatar')
                 ->paginate(5);
 
         return response()->json($cmt);
