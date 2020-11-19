@@ -613,11 +613,14 @@ class ShopController extends Controller
 
         $cmt = DB::table('comments')
                 ->join('products','products.product_id','=','comments.product_id')
+                ->join('product_detail','product_detail.product_id','=','products.product_id')
+                ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
                 ->join('shops','shops.shop_id','=','products.shop_id')
                 ->join('users','users.user_id','=','comments.user_id')
+                ->groupby('product_image.prodetail_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('comments.status','=',1)
-                ->get();
+                ->paginate(5);
 
         return response()->json($cmt);
     }
@@ -628,11 +631,14 @@ class ShopController extends Controller
 
         $cmt = DB::table('comments')
                 ->join('products','products.product_id','=','comments.product_id')
+                ->join('product_detail','product_detail.product_id','=','products.product_id')
+                ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
                 ->join('users','users.user_id','=','comments.user_id')
+                ->groupby('product_image.prodetail_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('comments.status','=',1)
                 ->where('comments.is_reply','=',0)
-                ->get();
+                ->paginate(5);
 
         return response()->json($cmt);
     }
@@ -644,12 +650,15 @@ class ShopController extends Controller
         $cmt = DB::table('comments')
                 ->join('products','products.product_id','=','comments.product_id')
                 ->join('shops','shops.shop_id','=','products.shop_id')
+                ->join('product_detail','product_detail.product_id','=','products.product_id')
+                ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
                 ->join('users','users.user_id','=','comments.user_id')
                 ->join('comment_detail','comment_detail.cmt_id','=','comments.id')
+                ->groupby('product_image.prodetail_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('comments.status','=',1)
                 ->where('comments.is_reply','=',1)
-                ->get();
+                ->paginate(5);
 
         return response()->json($cmt);
     }
