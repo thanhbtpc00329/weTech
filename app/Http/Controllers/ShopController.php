@@ -682,7 +682,9 @@ class ShopController extends Controller
         $cmt->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $cmt->save();
 
-        if ($cmt) {
+        $com = Comment::where('id',$id)->update(['is_reply'=>1]);
+
+        if ($com) {
             return response()->json(['success' => 'Thành công!']);  
         }
         else{
