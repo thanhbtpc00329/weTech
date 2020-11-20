@@ -24,7 +24,7 @@ class CartController extends Controller
 				->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             	->groupby('product_image.prodetail_id')
 				->where('carts.user_id','=',$user_id)
-				->select('carts.cart_id','cart_detail.id','products.product_id','products.product_name','products.introduction','products.description','products.tag','products.brand','product_detail.prodetail_id','product_detail.price','product_detail.color','cart_detail.cart_quantity','product_detail.size','product_detail.discount_price','product_detail.status_discount','product_image.image','shops.shop_id','shops.shop_name','shops.shop_address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
+				->select('carts.cart_id','cart_detail.cart_detail_id','products.product_id','products.product_name','products.introduction','products.description','products.tag','products.brand','product_detail.prodetail_id','product_detail.price','product_detail.color','cart_detail.cart_quantity','product_detail.size','product_detail.discount_price','product_detail.status_discount','product_image.image','shops.shop_id','shops.shop_name','shops.shop_address','shops.phone_number','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','product_detail.system','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.resolution','product_detail.memory','users.avatar')
 				->get();
 
 		
