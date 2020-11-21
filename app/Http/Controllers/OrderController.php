@@ -121,12 +121,13 @@ class OrderController extends Controller
             
         }
 
-        if ($order) {
-            return response()->json(['success' => 'Thanh toán thành công!']);  
-        }
-        else{
-            return response()->json(['error' => 'Thanh toán bị lỗi']);
-        }
+        // if ($order) {
+        //     return response()->json(['success' => 'Thanh toán thành công!']);  
+        // }
+        // else{
+        //     return response()->json(['error' => 'Thanh toán bị lỗi']);
+        // }
+        return $ship_price / count($group);
         
     }
 
