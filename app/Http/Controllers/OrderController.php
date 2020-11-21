@@ -98,9 +98,7 @@ class OrderController extends Controller
             $order->user_id = $user_id;
             $order->order_address = $order_address;
             if($weight){
-                if ($uu[$i]->shop_id == $kq[$i]) {
-                    $order->shipping = $ship_price / count($group); 
-                }
+                $order->shipping = $ship_price / count($group); 
             }else{
                 $order->shipping = 0;
             }
