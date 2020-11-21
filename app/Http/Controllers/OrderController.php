@@ -72,6 +72,7 @@ class OrderController extends Controller
         $user_range = $request->user_range;
         $weight = $request->weight_order;
         $note = $request->note;
+        $ship_price = $request->ship_price;
         $tt = ltrim($add,"'");
         $rr = rtrim($tt,"'");
         $arr = json_decode($rr);
@@ -98,7 +99,7 @@ class OrderController extends Controller
             $order->order_address = $order_address;
             if($weight){
                 if ($uu[$i]->shop_id == $kq[$i]) {
-                    $order->shipping = $shipping / $i; 
+                    $order->shipping = $ship_price / $i; 
                 }
             }else{
                 $order->shipping = 0;
