@@ -76,6 +76,7 @@ Route::post('/image-detail-shop', 'ProductController@imageDetailShop');// chi ti
 Route::post('/product-discount', 'ProductController@productDiscount');// Lấy sp khuyến mãi
 
 Route::post('/update-product-image','ProductController@updateProductImage');// Update hình ảnh sp
+Route::post('search-all','ProductController@searchAll');// Tìm kiếm theo điều kiện
 
 
 

@@ -750,6 +750,27 @@ class ProductController extends Controller
             return response()->json(['error' => 'Xóa sản phẩm thất bại']);
         }        
     }  
+
+    public function searchAll(Request $request){
+        $brand = $request->brand;
+        $price1 = $request->price1;
+        $price2 = $request->price2;
+
+        $product = DB::table('products')
+            ->join('product_detail','product_detail.product_id','=','products.product_id')
+            ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+            ->join('shops','shops.shop_id','=','products.shop_id')
+            
+            ->where('products.brand','=',$brand)
+            ->whereBetween('product_detail.price',[$price1,$price2])
+            ->orWhere('products.tag','=',$brand)
+            ->whereBetween('product_detail.price',[$price1,$price2])
+            ->where('product_detail.status_confirm','=',1)
+            ->groupBy('product_detail.product_id')
+            ->get();
+        return response()->json($product);
+
+    }
     
 }
 
