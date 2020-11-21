@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use DB;
 use Response,File;
 use Cloudder;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 
 class UserController extends Controller
 {
@@ -268,6 +270,39 @@ class UserController extends Controller
         else{
             return response()->json(['error' => 'Vô hiệu hóa tài khoản thất bại']);
         }
+    }
+
+
+    public function forgetPassword(Request $request){
+        $email = $request->email;
+
+        $check = User::where('email',$email)->first();
+
+        if($check){
+            $ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $ch1len = strlen($ch1);
+            $rd = '';
+            for ($i = 0; $i < 4; $i++) {
+                $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
+            }
+            $name = $check->name;
+            $password = $rd;
+                Mail::send(array(),array(), function ($message) use ($request,$name,$password) {
+                $message->from('thanhbtpc00329@fpt.edu.vn', 'weTech');
+                $message->sender('thanhbtpc00329@fpt.edu.vn', 'weTech');
+                $message->to($request->email,$name);
+                $message->subject('Mail quên mật khẩu của '.$name);
+                $message->setBody('Password reset: <b/>'.$password.'<b/>','text/html');
+                $message->priority(1);
+            });
+            $check->password = $password;
+            $check->save();
+            return response()->json(['success' => 'Thành công!']);    
+        }else{
+            return response()->json(['error'=>'Sai email hoặc email chưa được đăng ký']);
+        }
+        
+
     }
 
 
