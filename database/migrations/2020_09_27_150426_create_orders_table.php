@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('order_address');
-            $table->text('shipping');
+            $table->integer('shipping');
             $table->string('user_range')->nullable();
             $table->integer('total')->length(10)->unsigned();
             $table->integer('shop_id')->length(10)->unsigned();
