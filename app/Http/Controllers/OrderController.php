@@ -99,13 +99,13 @@ class OrderController extends Controller
             if($weight){
                 if ($uu[$i]->shop_id == $kq[$i]) {
                     if ($weight < 5) {
-                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 2;
+                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 1;
                     }else if($weight > 5 && $weight < 10){
-                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 4;
+                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 2;
                     }else if($weight > 10 && $weight < 15){
-                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 8;
+                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 3;
                     }else{
-                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 15;
+                        $order->shipping = ($uu[$i]->shop_range + $user_range) * 4;
                     }
                 }
             }else{
