@@ -429,7 +429,7 @@ class AdminController extends Controller
             ->orderBy('bills.sale_quantity','DESC')
             ->take(5)
             ->get();
-        return response()->json(['user'=>$user,'salary_ship'=>$salary_ship,'total'=>$total,'shop'=>$shop,'shipper'=>$shipper,'contact'=>$contact,'product'=>$pro,'money'=>$money]);
+        return response()->json(['user'=>$user,'salary_ship'=>$salary_ship,'total'=>$total,'shop'=>$shop,'shipper'=>$shipper,'contact'=>$contact,'money'=>$money,'product'=>$pro]);
 
     }
         
