@@ -80,11 +80,11 @@ class UserController extends Controller
 
 
     public function loginSocial(Request $request){
-    	$name = $request->Ad;
+    	$name = $request->name;
         $username = substr($name,0,strpos($name,'@'));
-        $email = $request->cu;
-        $avatar = $request->hK;
-        $id = $request->NT;
+        $email = $request->email;
+        $avatar = $request->avatar;
+        $id = $request->id;
 
         $check = User::where('email',$email)->where('username',$username)->where('social','Google')->orWhere('social','Facebook')->first();
         if($check){
