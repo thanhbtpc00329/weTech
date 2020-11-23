@@ -407,6 +407,13 @@ class AdminController extends Controller
                 ->selectRaw('orders.shop_id,shops.shop_name,sum(total) as total')
                 ->groupBy('orders.shop_id')
                 ->paginate(5);
+        $money = DB::table('orders')
+                ->join('shops','orders.shop_id','=','shops.shop_id')
+                ->join('statistic','shops.shop_id','=','statistic.shop_id')
+                ->selectRaw('orders.shop_id,shops.shop_name,statistic.sta_total,statistic.month,statistic.year,sum(shipping) as shipping')
+                ->whereMonth('orders.created_at', '=', Carbon::now()->subMonth()->month)
+                ->groupBy('orders.shop_id')
+                ->get();
         $user = User::where('role','=','User')->where('status','=',1)->count();
         $salary_ship = DB::table('shippers')
                 ->join('users','users.user_id','=','shippers.user_id')
@@ -422,9 +429,7 @@ class AdminController extends Controller
             ->orderBy('bills.sale_quantity','DESC')
             ->take(5)
             ->get();
-        return response()->json(['user'=>$user,'salary_ship'=>$salary_ship,'total'=>$total,'shop'=>$shop,'shipper'=>$shipper,'contact'=>$contact,'product'=>$pro]);
-               
-        
+        return response()->json(['user'=>$user,'salary_ship'=>$salary_ship,'total'=>$total,'shop'=>$shop,'shipper'=>$shipper,'contact'=>$contact,'product'=>$pro,'money'=>$money]);
 
     }
         
