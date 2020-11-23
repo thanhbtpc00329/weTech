@@ -87,7 +87,7 @@ class UserController extends Controller
         $id = $request->NT;
 
         $check = User::where('email',$email)->where('username',$username)->where('social','Google')->orWhere('social','Facebook')->first();
-        if(count($check) > 0 && $check->social == 'Google'){
+        if($check){
         	$user = User::where('user_id',$check->user_id)->first();
         	return response()->json($user);
         }else{
