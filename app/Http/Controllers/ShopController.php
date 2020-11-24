@@ -114,7 +114,7 @@ class ShopController extends Controller
             $shop->save();
         }
         
-        if ($shop) {
+        if (isset($shop)) {
             return response()->json(['success' => 'Đăng ký thành viên thành công!']);  
         }
         else{
