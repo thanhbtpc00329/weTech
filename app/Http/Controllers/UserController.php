@@ -83,14 +83,7 @@ class UserController extends Controller
     	$name = $request->name;
         $email = $request->email;
         $avatar = $request->avatar;
-
-        $ch1 = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $ch1len = strlen($ch1);
-        $rd = '';
-        for ($i = 0; $i < 4; $i++) {
-            $rd .= $ch1[rand(0, $ch1len - 1)].rand(0,9).rand(0,9);
-        }
-        $id = abs(crc32($rd));
+        $id = $request->id;
 
         $check = User::where('email',$email)->where('username',$username)->where('social','Google')->orWhere('social','Facebook')->first();
         if($check){
