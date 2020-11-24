@@ -85,7 +85,7 @@ class UserController extends Controller
         $avatar = $request->avatar;
         $id = $request->id;
 
-        $check = User::where('email',$email)->where('username',$username)->where('social','Google')->orWhere('social','Facebook')->first();
+        $check = User::where('email',$email)->where('social','Google')->orWhere('social','Facebook')->first();
         if($check){
         	$user = User::where('user_id',$check->user_id)->first();
         	return response()->json($user);
