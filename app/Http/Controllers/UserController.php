@@ -93,13 +93,13 @@ class UserController extends Controller
 	        $account = new User;
 	        $account->user_id = $id;
 	        $account->name=$name;
-	        $account->username=substr($name,0,strpos($name,'@'));
+	        $account->username = substr($name,0,strpos($name,'@'));
 	        $account->email=$email;
-	        $account->password=123456;
+	        $account->password = 123456;
 	        $account->social = 'Google';
-	        $account->avatar =$avatar;
-	        $account->status=1;
-	        $account->role='User';
+	        $account->avatar = $avatar;
+	        $account->status = 1;
+	        $account->role = 'User';
 	        $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
 	        $account->save();
 	    }
