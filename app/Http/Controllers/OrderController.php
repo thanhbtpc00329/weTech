@@ -122,7 +122,7 @@ class OrderController extends Controller
         }
         if (isset($order) && isset($payment)) {
             if($payment == 'Momo'){
-                $response = \MoMoAIO::purchase([
+                $response = MoMoAIO::purchase([
                     'amount' => $total,
                     'returnUrl' => 'https://website-tmdt.herokuapp.com/',
                     'notifyUrl' => 'https://website-tmdt.herokuapp.com/',
