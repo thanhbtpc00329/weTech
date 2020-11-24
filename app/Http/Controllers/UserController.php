@@ -268,7 +268,7 @@ class UserController extends Controller
     public function forgetPassword(Request $request){
         $email = $request->email;
 
-        $check = User::where('email',$email)->first();
+        $check = User::where('email',$email)->where('social',null)->first();
 
         if($check){
             $ch1 = '01234567890123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
