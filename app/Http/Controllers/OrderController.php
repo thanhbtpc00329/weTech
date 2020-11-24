@@ -73,6 +73,7 @@ class OrderController extends Controller
         $weight = $request->weight_order;
         $note = $request->note;
         $ship_price = $request->ship_price;
+        $payment = $request->payment;
         $tt = ltrim($add,"'");
         $rr = rtrim($tt,"'");
         $arr = json_decode($rr);
@@ -118,9 +119,39 @@ class OrderController extends Controller
             $order->save();
             
         }
+        if (isset($order) && isset($payment)) {
+            if($payment == 'Momo'){
+                $response = \MoMoAIO::purchase([
+                    'amount' => $total,
+                    'returnUrl' => 'https://website-tmdt.herokuapp.com/',
+                    'notifyUrl' => 'https://website-tmdt.herokuapp.com/',
+                    'orderId' => time(),
+                    'requestId' => time(),
+                ])->send();
 
-        if ($order) {
-            return response()->json(['success' => 'Thanh toán thành công!']);  
+                if ($response->isRedirect()) {
+                    $redirectUrl = $response->getRedirectUrl();
+                    return response()->json(['success' => 'Thanh toán thành công!','link'=> $redirectUrl]);
+                }
+            }
+            else{
+                $response = \VNPay::purchase([
+                    'vnp_TxnRef' => time(),
+                    'vnp_OrderType' => 100000,
+                    'vnp_OrderInfo' => time(),
+                    'vnp_IpAddr' => '127.0.0.1',
+                    'vnp_Amount' => $total,
+                    'vnp_ReturnUrl' => 'https://website-tmdt.herokuapp.com/',
+                ])->send();
+
+                if ($response->isRedirect()) {
+                    $redirectUrl = $response->getRedirectUrl();
+                    return response()->json(['success' => 'Thanh toán thành công!','link'=> $redirectUrl]);
+                }
+            }  
+        }
+        else if(isset($order)){
+            return response()->json(['success' => 'Thanh toán thành công!']);
         }
         else{
             return response()->json(['error' => 'Thanh toán bị lỗi']);
