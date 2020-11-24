@@ -134,7 +134,7 @@ class OrderController extends Controller
                     return response()->json(['success' => 'Thanh toán thành công!','link'=> $redirectUrl]);
                 }
             }
-            else{
+            else if($payment == 'VNPay'){
                 $response = \VNPay::purchase([
                     'vnp_TxnRef' => time(),
                     'vnp_OrderType' => 100000,
@@ -149,6 +149,9 @@ class OrderController extends Controller
                     return response()->json(['success' => 'Thanh toán thành công!','link'=> $redirectUrl]);
                 }
             }  
+            else{
+                return response()->json(['success' => 'Thanh toán thành công!']);
+            }
         }
         else if(isset($order)){
             return response()->json(['success' => 'Thanh toán thành công!']);
