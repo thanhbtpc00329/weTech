@@ -61,97 +61,99 @@ class OrderController extends Controller
     
     
     public function addOrder(Request $request){
-        $user_id = $request->user_id;
-        $order_address = $request->order_address;
-        $shipping = $request->shipping;
-        $pp = ltrim($shipping,"'");
-        $kk = rtrim($pp,"'");
-        $uu = json_decode($kk);
-        $total = $request->total;
-        $add = $request->order_detail;
-        $user_range = $request->user_range;
-        $weight = $request->weight_order;
-        $note = $request->note;
-        $ship_price = $request->ship_price;
+        // $user_id = $request->user_id;
+        // $order_address = $request->order_address;
+        // $shipping = $request->shipping;
+        // $pp = ltrim($shipping,"'");
+        // $kk = rtrim($pp,"'");
+        // $uu = json_decode($kk);
+        // $total = $request->total;
+        // $add = $request->order_detail;
+        // $user_range = $request->user_range;
+        // $weight = $request->weight_order;
+        // $note = $request->note;
+        // $ship_price = $request->ship_price;
         $payment = $request->payment;
-        $tt = ltrim($add,"'");
-        $rr = rtrim($tt,"'");
-        $arr = json_decode($rr);
-        $kq = array();
-        for ($i=0; $i < count($arr); $i++) { 
-            $re = $arr[$i]->shop_id;
-            if (in_array($re,$kq) == false) {
-                array_push($kq,$re);
-            }
-        }
-        foreach ($arr as $value) {
-            $group[$value->shop_id][] = $value;       
-        }
-        $time = now()->timezone('Asia/Ho_Chi_Minh');
+        // $tt = ltrim($add,"'");
+        // $rr = rtrim($tt,"'");
+        // $arr = json_decode($rr);
+        // $kq = array();
+        // for ($i=0; $i < count($arr); $i++) { 
+        //     $re = $arr[$i]->shop_id;
+        //     if (in_array($re,$kq) == false) {
+        //         array_push($kq,$re);
+        //     }
+        // }
+        // foreach ($arr as $value) {
+        //     $group[$value->shop_id][] = $value;       
+        // }
+        // $time = now()->timezone('Asia/Ho_Chi_Minh');
 
-        $cart = Cart::where('user_id',$user_id)->delete();
+        // $cart = Cart::where('user_id',$user_id)->delete();
         
-        for ($i=0; $i < count($group); $i++) { 
-            $order_detail = $group[$kq[$i]];
+        // for ($i=0; $i < count($group); $i++) { 
+        //     $order_detail = $group[$kq[$i]];
             
 
-            $order = new Order;
-            $order->user_id = $user_id;
-            $order->order_address = $order_address;
-            if($weight){
-                $order->shipping = ($ship_price / count($group)); 
-            }else{
-                $order->shipping = 0;
-            }
+        //     $order = new Order;
+        //     $order->user_id = $user_id;
+        //     $order->order_address = $order_address;
+        //     if($weight){
+        //         $order->shipping = ($ship_price / count($group)); 
+        //     }else{
+        //         $order->shipping = 0;
+        //     }
         
-            if($user_range){
-                $order->user_range = $user_range;
-            }
-            $order->total = $total;
-            $order->shop_id = $kq[$i];
-            $order->status = 'Chờ duyệt';
-            $order->order_detail = json_encode($order_detail);
-            if ($note) {
-                $order->note = $note;
-            }
-            $order->created_at = $time;
+        //     if($user_range){
+        //         $order->user_range = $user_range;
+        //     }
+        //     $order->total = $total;
+        //     $order->shop_id = $kq[$i];
+        //     $order->status = 'Chờ duyệt';
+        //     $order->order_detail = json_encode($order_detail);
+        //     if ($note) {
+        //         $order->note = $note;
+        //     }
+        //     $order->created_at = $time;
 
-            $order->save();
+        //     $order->save();
             
-        }
+        // }
+        $order = 1;
         if (isset($order) && isset($payment)) {
-            if($payment == 'Momo'){
-                $response = \MoMoAIO::purchase([
-                    'amount' => $total,
-                    'returnUrl' => 'https://website-tmdt.herokuapp.com/',
-                    'notifyUrl' => 'https://website-tmdt.herokuapp.com/',
-                    'orderId' => time(),
-                    'requestId' => time(),
-                ])->send();
+            return $payment;
+            // if($payment == 'Momo'){
+            //     $response = \MoMoAIO::purchase([
+            //         'amount' => $total,
+            //         'returnUrl' => 'https://website-tmdt.herokuapp.com/',
+            //         'notifyUrl' => 'https://website-tmdt.herokuapp.com/',
+            //         'orderId' => time(),
+            //         'requestId' => time(),
+            //     ])->send();
 
-                if ($response->isRedirect()) {
-                    $redirectUrl = $response->getRedirectUrl();
-                    return response()->json(['success' => 'Thanh toán thành công!','link'=> $redirectUrl]);
-                }
-            }
-            else if($payment == 'VNPay'){
-                $response = \VNPay::purchase([
-                    'vnp_TxnRef' => time(),
-                    'vnp_OrderType' => 100000,
-                    'vnp_OrderInfo' => time(),
-                    'vnp_IpAddr' => '127.0.0.1',
-                    'vnp_Amount' => $total,
-                    'vnp_ReturnUrl' => 'https://website-tmdt.herokuapp.com/',
-                ])->send();
+            //     if ($response->isRedirect()) {
+            //         $redirectUrl = $response->getRedirectUrl();
+            //         return response()->json(['success' => 'Thanh toán thành công!','link'=> $redirectUrl]);
+            //     }
+            // }
+            // else if($payment == 'VNPay'){
+            //     $response = \VNPay::purchase([
+            //         'vnp_TxnRef' => time(),
+            //         'vnp_OrderType' => 100000,
+            //         'vnp_OrderInfo' => time(),
+            //         'vnp_IpAddr' => '127.0.0.1',
+            //         'vnp_Amount' => $total,
+            //         'vnp_ReturnUrl' => 'https://website-tmdt.herokuapp.com/',
+            //     ])->send();
 
-                if ($response->isRedirect()) {
-                    $redirectUrl = $response->getRedirectUrl();
-                    return response()->json(['success' => 'Thanh toán thành công!','link'=> $redirectUrl]);
-                }
-            }  
-            else{
-                return response()->json(['success' => 'Thanh toán thành công!']);
-            }
+            //     if ($response->isRedirect()) {
+            //         $redirectUrl = $response->getRedirectUrl();
+            //         return response()->json(['success' => 'Thanh toán thành công!','link'=> $redirectUrl]);
+            //     }
+            // }  
+            // else{
+            //     return response()->json(['success' => 'Thanh toán thành công!']);
+            // }
         }
         else if(isset($order)){
             return response()->json(['success' => 'Thanh toán thành công!']);
