@@ -289,7 +289,7 @@ class UserController extends Controller
             });
             $check->password = $password;
             $check->save();
-            return response()->json(['success' => 'Thành công!']);    
+            return response()->json(['success' => 'Vui lòng check mail!']);    
         }else{
             return response()->json(['error'=>'Sai email hoặc email chưa được đăng ký']);
         }
