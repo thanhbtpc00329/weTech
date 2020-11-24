@@ -439,7 +439,7 @@ class ShopController extends Controller
                 ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',1)
                 ->where('product_detail.status_confirm','=',1)
-                ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.price','product_image.image')
+                ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.price','product_image.image','product_detail.percent','product_detail.discount_price')
                 ->paginate(5);
         return response()->json($prod2);
     }
