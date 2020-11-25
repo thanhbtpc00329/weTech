@@ -231,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'GuzzleHttp' => \GuzzleHttp\Client::class
     ],
 
 ];
