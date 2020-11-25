@@ -83,7 +83,7 @@ class UserController extends Controller
     	$name = $request->name;
         $email = $request->email;
         $avatar = $request->avatar;
-        $id = $request->id;
+        $id = $request->user_id;
 
         $check = User::where('email',$email)->where('social','Google')->orWhere('social','Facebook')->first();
         if($check){
