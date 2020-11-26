@@ -303,8 +303,9 @@ class AdminController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('users','users.user_id','=','shops.user_id')
-            ->groupby('product_image.prodetail_id')
-            ->orderby('products.created_at','products.updated_at','DESC')
+            ->groupBy('product_image.prodetail_id')
+            ->orderBy('products.created_at','desc')
+            ->orderBy('products.updated_at','desc')
             ->where('product_detail.status_confirm','=',0)
             ->paginate(10);
             
@@ -318,8 +319,9 @@ class AdminController extends Controller
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('users','users.user_id','=','shops.user_id')
-            ->groupby('product_image.prodetail_id')
-            ->orderby('products.created_at','products.updated_at','ASC')
+            ->groupBy('product_image.prodetail_id')
+            ->orderBy('products.created_at','asc')
+            ->orderBy('products.updated_at','asc')
             ->where('product_detail.status_confirm','=',1)
             ->paginate(10);
             
