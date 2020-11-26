@@ -435,10 +435,11 @@ class ShopController extends Controller
         $prod2 = DB::table('products')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
+                ->groupBy('product_image.prodetail_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',1)
                 ->where('product_detail.status_confirm','=',1)
-                ->select('products.product_id','products.product_name','products.brand','products.cate_id','product_detail.price','product_image.image','product_detail.percent','product_detail.discount_price')
+                ->select('product_detail.prodetail_id','products.product_id','products.product_name','products.brand','products.cate_id','product_detail.price','product_image.image','product_detail.percent','product_detail.discount_price')
                 ->paginate(5);
         return response()->json($prod2);
     }
