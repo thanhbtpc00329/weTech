@@ -304,6 +304,7 @@ class AdminController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('users','users.user_id','=','shops.user_id')
             ->groupby('product_image.prodetail_id')
+            ->orderby('products.created_at','products.updated_at','DESC')
             ->where('product_detail.status_confirm','=',0)
             ->paginate(10);
             
@@ -318,6 +319,7 @@ class AdminController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('users','users.user_id','=','shops.user_id')
             ->groupby('product_image.prodetail_id')
+            ->orderby('products.created_at','products.updated_at','ASC')
             ->where('product_detail.status_confirm','=',1)
             ->paginate(10);
             
