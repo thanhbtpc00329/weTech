@@ -410,7 +410,7 @@ class AdminController extends Controller
         $money = DB::table('orders')
                 ->join('shops','orders.shop_id','=','shops.shop_id')
                 ->join('statistic','shops.shop_id','=','statistic.shop_id')
-                ->selectRaw('orders.shop_id,shops.shop_name,statistic.sta_total,statistic.month,statistic.year,sum(shipping) as shipping')
+                ->selectRaw('orders.shop_id,shops.shop_name,statistic.sta_total,statistic.month,statistic.year,sum(orders.shipping) as shipping')
                 ->whereMonth('orders.created_at', '=', Carbon::now()->subMonth()->month)
                 ->groupBy('orders.shop_id')
                 ->get();

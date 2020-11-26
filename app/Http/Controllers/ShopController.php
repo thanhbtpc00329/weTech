@@ -435,7 +435,6 @@ class ShopController extends Controller
         $prod2 = DB::table('products')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
-                ->groupBy('product_detail.product_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('product_detail.status_discount','=',1)
                 ->where('product_detail.status_confirm','=',1)
