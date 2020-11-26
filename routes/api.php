@@ -217,7 +217,7 @@ Route::post('/active-comment-shop', 'ShopController@activeCommentShop');// Lấy
 
 Route::post('/unactive-comment-shop', 'ShopController@unactiveCommentShop');// Lấy comment chưa trả lời theo shop
 Route::post('/reply-comment', 'ShopController@replyComment');// Trả lời comment của shop
-
+Route::post('statistic-shop', 'ShopController@statisticShop');// Thống kê shop
 
 Route::post('/add-tb', 'ShopController@addNotification');// Add tb
 Route::post('/delete-tb', 'ShopController@deleteNotification');// Xóa tb

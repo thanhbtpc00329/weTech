@@ -13,6 +13,7 @@ use App\Comment_detail;
 use DB; 
 use Carbon\Carbon;
 use App\Statistic;
+use App\Bill;
 
 
 class ShopController extends Controller
@@ -691,6 +692,25 @@ class ShopController extends Controller
         else{
             return response()->json(['error' => 'Thất bại']);
         }
+    }
+
+
+    // Thống kê
+
+    public function statisticShop (Request $request){
+        $shop_id = $request->shop_id;
+
+        $total = Statistic::where('shop_id',$shop_id)->get();
+        $pro = DB::table('products')
+                ->join('product_detail','products.product_id','=','product_detail.product_id')
+                ->where('products.shop_id','=',$shop_id)
+                ->count();
+        $sale = Bill::where('shop_id',$shop_id)->sum('sale_quantity');
+        $cmt = DB::table('comments')
+                ->join('comment_detail','comments.id','=','comment_detail.cmt_id')
+                ->where('comment_detail.shop_id','=',$shop_id)
+                ->count();
+        return response()->json(['total'=>$total,'product'=>$pro,'sale'=>$sale,'comment'=>$cmt]);
     }
 
 
