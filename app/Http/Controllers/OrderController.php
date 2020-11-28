@@ -116,7 +116,7 @@ class OrderController extends Controller
             $order->status = 'Chờ duyệt';
             $order->order_detail = json_encode($order_detail);
             if (isset($note) && isset($payment)) {
-                $order->note = '- Yêu cầu: ' .$note.'\n'.'- Đơn hàng đã được thanh toán bằng '.$payment;
+                $order->note = '- Yêu cầu: ' .$note.'. Đơn hàng đã được thanh toán bằng '.$payment;
             }else{
                 $order->note = $note;
             }
