@@ -121,7 +121,7 @@ class CommentController extends Controller
         }
     }
 
-    public function activeComment(Request $request){
+    public function unActiveComment(Request $request){
         $id = $request->id;  
 
         $comment = Comment::find($id);
