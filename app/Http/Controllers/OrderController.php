@@ -123,41 +123,7 @@ class OrderController extends Controller
             $order->save();
             
         }
-        if (isset($order) && isset($payment)) {
-            if($payment == 'Momo'){
-                $response = \MoMoAIO::purchase([
-                    'amount' => $total,
-                    'returnUrl' => 'https://website-tmdt.herokuapp.com/',
-                    'notifyUrl' => 'https://website-tmdt.herokuapp.com/',
-                    'orderId' => time(),
-                    'requestId' => time(),
-                ])->send();
-
-                if ($response->isRedirect()) {
-                    $redirectUrl = $response->getRedirectUrl();
-                    return response()->json($redirectUrl);
-                }
-            }
-            else if($payment == 'VNPay'){
-                $response = \VNPay::purchase([
-                    'vnp_TxnRef' => time(),
-                    'vnp_OrderType' => 100000,
-                    'vnp_OrderInfo' => time(),
-                    'vnp_IpAddr' => '127.0.0.1',
-                    'vnp_Amount' => $total,
-                    'vnp_ReturnUrl' => 'https://website-tmdt.herokuapp.com/',
-                ])->send();
-
-                if ($response->isRedirect()) {
-                    $redirectUrl = $response->getRedirectUrl();
-                    return response()->json($redirectUrl);
-                }
-            }  
-            else{
-                return response()->json(['success' => 'Thanh toán thành công!']);
-            }
-        }
-        else if(isset($order)){
+        if($order){
             return response()->json(['success' => 'Thanh toán thành công!']);
         }
         else{
