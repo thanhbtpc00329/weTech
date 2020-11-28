@@ -115,7 +115,9 @@ class OrderController extends Controller
             $order->shop_id = $kq[$i];
             $order->status = 'Chờ duyệt';
             $order->order_detail = json_encode($order_detail);
-            if ($note) {
+            if (isset($note) && isset($payment)) {
+                $order->note = '- Yêu cầu: ' .$note.'\n'.'- Đơn hàng đã được thanh toán bằng '.$payment;
+            }else{
                 $order->note = $note;
             }
             $order->created_at = $time;
