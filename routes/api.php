@@ -253,7 +253,7 @@ Route::post('/unactive-comment-admin','CommentController@unactiveCommentAdmin');
 Route::post('/active-comment-admin','CommentController@activeCommentAdmin');// Lấy comment đã duyệt
 
 Route::post('/add-comment','CommentController@addComment');// Thêm comment
-Route::post('/active-comment','CommentController@activeComment');// Duyệt comment
+Route::post('/unactive-comment','CommentController@activeComment');// Duyệt comment
 Route::post('/delete-comment','CommentController@deleteComment');// Xóa comment
 
 

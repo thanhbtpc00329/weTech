@@ -108,7 +108,7 @@ class CommentController extends Controller
         $comment->content = $content;
         $comment->product_id = $product_id;
         $comment->rating = $rating;
-        $comment->status = 0;
+        $comment->status = 1;
         $comment->is_reply = 0;
         $comment->created_at = now()->timezone('Asia/Ho_Chi_Minh');
 
@@ -125,7 +125,7 @@ class CommentController extends Controller
         $id = $request->id;  
 
         $comment = Comment::find($id);
-        $comment->status = 1;
+        $comment->status = 0;
         $comment->updated_at = now()->timezone('Asia/Ho_Chi_Minh');
 
         $comment->save();
