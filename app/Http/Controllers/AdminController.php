@@ -307,7 +307,7 @@ class AdminController extends Controller
             ->orderBy('products.created_at','desc')
             ->orderBy('products.updated_at','desc')
             ->where('product_detail.status_confirm','=',0)
-            ->select('shops.shop_name','products.product_name','product_detail.price','products.product_id','product_detail.prodetail_id','products.status')
+            ->select('shops.shop_name','products.product_name','product_detail.price','products.product_id','product_detail.prodetail_id','products.status','product_image.image')
             ->paginate(10);
             
             return response()->json($product);
@@ -324,7 +324,7 @@ class AdminController extends Controller
             ->orderBy('products.created_at','asc')
             ->orderBy('products.updated_at','asc')
             ->where('product_detail.status_confirm','=',1)
-            ->select('shops.shop_name','products.product_name','product_detail.price','products.product_id','product_detail.prodetail_id','products.status')
+            ->select('shops.shop_name','products.product_name','product_detail.price','products.product_id','product_detail.prodetail_id','products.status','product_image.image')
             ->paginate(10);
             
             return response()->json($product);
