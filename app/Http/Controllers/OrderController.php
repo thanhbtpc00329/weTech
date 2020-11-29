@@ -11,6 +11,7 @@ use App\Cart;
 use App\Cart_detail;
 use App\Shipper;
 use DB;
+use App\User;
 use GuzzleHttp;
 
 class OrderController extends Controller
@@ -78,6 +79,7 @@ class OrderController extends Controller
         $note = $request->note;
         $ship_price = $request->ship_price;
         $payment = $request->payment;
+        $phone = $request->phone;
         $tt = ltrim($add,"'");
         $rr = rtrim($tt,"'");
         $arr = json_decode($rr);
@@ -120,6 +122,11 @@ class OrderController extends Controller
             }else{
                 $order->note = $note;
             }
+
+            if($phone){
+                $check = User::where('user_id',$user_id)->update(['phone_number'=>$phone]);
+            }
+
             $order->created_at = $time;
 
             $order->save();
