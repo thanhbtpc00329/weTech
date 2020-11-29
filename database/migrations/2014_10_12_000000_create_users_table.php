@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->boolean('gender');
             $table->string('address');
             $table->date('birth_day');
-            $table->string('phone_number',20);
+            $table->string('phone_number',20)->unique();
             $table->text('avatar');
             $table->boolean('status');
             $table->string('role',50);
