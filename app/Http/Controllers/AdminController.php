@@ -160,7 +160,7 @@ class AdminController extends Controller
             $ship->user_id = $id;
             $ship->order_quantity = 0;
             $ship->salary = 0;
-            $ship->status = 0;
+            $ship->status = 1;
             $ship->created_at = now()->timezone('Asia/Ho_Chi_Minh');    
             $ship->save();
         }
@@ -307,6 +307,7 @@ class AdminController extends Controller
             ->orderBy('products.created_at','desc')
             ->orderBy('products.updated_at','desc')
             ->where('product_detail.status_confirm','=',0)
+            ->select('shops.shop_name','products.product_name','product_detail.price','products.product_id','product_detail.prodetail_id','products.status')
             ->paginate(10);
             
             return response()->json($product);
@@ -323,6 +324,7 @@ class AdminController extends Controller
             ->orderBy('products.created_at','asc')
             ->orderBy('products.updated_at','asc')
             ->where('product_detail.status_confirm','=',1)
+            ->select('shops.shop_name','products.product_name','product_detail.price','products.product_id','product_detail.prodetail_id','products.status')
             ->paginate(10);
             
             return response()->json($product);

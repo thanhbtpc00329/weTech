@@ -141,7 +141,7 @@ class ShopController extends Controller
         $shop_id = $request->shop_id;
         $user_id = $request->user_id;
         $shop = Shop::where('shop_id',$shop_id)->update(['status' => 2]);
-        $mem = User::where('user_id',$user_id)->update(['role' => 'User']);
+        $mem = User::where('user_id',$user_id)->update(['status' => 0]);
         if ($mem) {
             return response()->json(['success' => 'Chặn thành viên thành công!']);  
         }

@@ -20,11 +20,17 @@ class ShipperController extends Controller
     }
 
     public function detailShipper(){
-    	$ship = DB::table('shippers')
+    	$ship1 = DB::table('shippers')
     			->join('users','users.user_id','=','shippers.user_id')
                 ->where('users.role','=','Shipper')
+                ->where('shippers.status','=',1)
     			->paginate(10);
-    	return response()->json($ship);
+        $ship2 = DB::table('shippers')
+                ->join('users','users.user_id','=','shippers.user_id')
+                ->where('users.role','=','Shipper')
+                ->where('shippers.status','=',0)
+                ->paginate(10);
+    	return response()->json(['active'=>$ship1,'unactive'=>$ship2]);
     }
 
     // Order
@@ -232,6 +238,22 @@ class ShipperController extends Controller
         $tb = Notification_shiper::all();
 
         return response()->json($tb);
+    }
+
+
+    public function blockShipper(Request $request){
+        $shipper_id = $request->shipper_id;
+        $user_id = $request->user_id;
+
+        $ship = Shipper::where('shipper_id',$shipper_id)->update(['status' => 0]);
+        $mem = User::where('user_id',$user_id)->update(['status' => 0]);
+
+        if ($mem) {
+            return response()->json(['success' => 'Chặn shipper thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Chặn shipper thất bại']);
+        }
     }
 
 }

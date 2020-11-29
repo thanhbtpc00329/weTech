@@ -771,6 +771,21 @@ class ProductController extends Controller
         return response()->json($product);
 
     }
+
+
+    public function error(Request $request){
+        $product_id = $request->product_id;
+        $status = $request->status;
+
+        $check = Product::where('product_id',$product_id)->update(['status'=>$status]);
+
+        if ($pro) {
+            return response()->json(['success' => 'Thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Thất bại']);
+        }  
+    }
     
 }
 
