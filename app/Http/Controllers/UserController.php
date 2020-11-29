@@ -34,8 +34,6 @@ class UserController extends Controller
         $birth_day = $request->birth_day;
         $phone_number = $request->phone_number;
 
-        $check = User::where('username',$username)->orWhere('email',$email)->orWhere('phone_number',$phone_number)->first();
-
         $account = new User;
         $account->user_id = $id;
         $account->name=$name;
@@ -51,10 +49,7 @@ class UserController extends Controller
         $account->role='User';
         $account->created_at = now()->timezone('Asia/Ho_Chi_Minh');       
         $account->save();
-        if($check){
-            return response()->json(['error' => 'Thông tin tài khoản đã tồn tại!']);
-        }
-        else if ($account) {
+        if ($account) {
             return response()->json(['success' => 'Đăng ký tài khoản thành công!']);  
         }
         else{
