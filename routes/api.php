@@ -78,6 +78,7 @@ Route::post('/product-discount', 'ProductController@productDiscount');// Lấy s
 
 Route::post('/update-product-image','ProductController@updateProductImage');// Update hình ảnh sp
 Route::post('search-all','ProductController@searchAll');// Tìm kiếm theo điều kiện
+Route::post('/error','ProductController@error');//Báo lỗi sản phẩm
 
 
 
@@ -310,6 +311,7 @@ Route::post('/insert-warehouse', 'ShipperController@insertWarehouse');// Kho hà
 Route::post('/add-tb-shipper', 'ShipperController@addNotificationShipper');// Add tb shipper
 Route::post('/delete-tb-shipper', 'ShipperController@deleteNotificationShipper');// Xóa tb shipper
 Route::post('/tb-shipper', 'ShipperController@notificationShipper');// Lấy tb shipper
+Route::post('block-shipper', 'ShipperController@blockShipper');// Chặn shipper
 
 
 
