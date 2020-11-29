@@ -79,6 +79,7 @@ class CommentController extends Controller
 
         $cmt = DB::table('comments')
                 ->join('users','users.user_id','=','comments.user_id')
+                ->join('products','products.product_id','=','comments.product_id')
                 ->where('comments.status','=',0)
                 ->paginate(10);
         return response()->json($cmt);
@@ -89,6 +90,7 @@ class CommentController extends Controller
 
         $cmt = DB::table('comments')
                 ->join('users','users.user_id','=','comments.user_id')
+                ->join('products','products.product_id','=','comments.product_id')
                 ->where('comments.status','=',1)
                 ->paginate(10);
         return response()->json($cmt);
