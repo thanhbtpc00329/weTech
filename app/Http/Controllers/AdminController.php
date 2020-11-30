@@ -240,57 +240,102 @@ class AdminController extends Controller
     // Order
     public function unactiveOrderAdmin(Request $request){
 
-        $order = Order::where('status','Chờ duyệt')->orderBy('created_at','DESC')->paginate(10);
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.status','=','Chờ duyệt')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->paginate(10);
         return response()->json($order);
     }
 
     public function activeOrderAdmin(Request $request){
 
-        $order = Order::where('status','Đã duyệt')->orderBy('created_at','DESC')->paginate(10);
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.status','=','Đã duyệt')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->paginate(10);
         return response()->json($order);
     }
 
     public function updateOrderAdmin(Request $request){
 
-        $order = Order::where('status','Đã đóng gói')->orderBy('created_at','DESC')->paginate(10);
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.status','=','Đã đóng gói duyệt')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->paginate(10);
         return response()->json($order);
     }
 
     public function insertOrderAdmin(Request $request){
         
-        $order = Order::where('status','Đã nhập kho')->orderBy('created_at','DESC')->paginate(10);
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.status','=','Đã nhập kho')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->paginate(10);
         return response()->json($order);
     }
 
 
     public function confirmOrderAdmin(Request $request){
         
-        $order = Order::where('status','Đang giao')->orderBy('created_at','DESC')->paginate(10);
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.status','=','Đang giao')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->paginate(10);
         return response()->json($order);
     }
 
     public function finishOrderAdmin(Request $request){
 
-        $order = Order::where('status','Đã giao')->orderBy('created_at','DESC')->paginate(10);
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.status','=','Đã giao')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->paginate(10);
         return response()->json($order);
     }
 
     public function cancelOrderAdmin(Request $request){
 
-        $order = Order::where('status','Đã hủy')->orderBy('created_at','DESC')->paginate(10);
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.status','=','Đã hủy')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->paginate(10);
         return response()->json($order);
     }
 
     public function returnOrderAdmin(Request $request){
 
-        $order = Order::where('status','Trả hàng')->orderBy('created_at','DESC')->paginate(10);
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.status','=','Trả hàng')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->paginate(10);
         return response()->json($order);
     }
 
 
     public function finalOrderAdmin(Request $request){
 
-        $order = Order::where('status','Hoàn thành')->orderBy('created_at','DESC')->paginate(10);
+        $order = DB::table('orders')
+                ->join('users','users.user_id','=','orders.user_id')
+                ->where('orders.status','=','Hoàn thành')
+                ->orderBy('orders.created_at','DESC')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->paginate(10);
         return response()->json($order);
     }
 
@@ -306,7 +351,6 @@ class AdminController extends Controller
             ->groupBy('product_image.prodetail_id')
             ->orderBy('products.updated_at','asc')
             ->where('product_detail.status_confirm','=',0)
-            ->select('shops.shop_name','products.product_name','product_detail.price','products.product_id','product_detail.prodetail_id','products.status','product_image.image')
             ->paginate(10);
             
             return response()->json($product);
@@ -322,7 +366,6 @@ class AdminController extends Controller
             ->groupBy('product_image.prodetail_id')
             ->orderBy('products.updated_at','desc')
             ->where('product_detail.status_confirm','=',1)
-            ->select('shops.shop_name','products.product_name','product_detail.price','products.product_id','product_detail.prodetail_id','products.status','product_image.image')
             ->paginate(10);
             
             return response()->json($product);
