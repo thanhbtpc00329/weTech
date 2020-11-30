@@ -236,7 +236,9 @@ class ShopController extends Controller
     public function unactiveOrderShop(Request $request){
         $now = Carbon::now()->format('Y-m-d');
         $ldom = Carbon::now()->endOfMonth()->toDateString();
-        if($now == $ldom){
+        $shop_id = $request->shop_id;
+        $check = Statistic::where('shop_id',$shop_id)->where('updated_at',$now)->first();
+        if(($now == $ldom) && empty($check)){
             $m = Carbon::now()->month;
             $y = Carbon::now()->year;
 
@@ -244,7 +246,7 @@ class ShopController extends Controller
                 ->join('shops','orders.shop_id','=','shops.shop_id')
                 ->selectRaw('orders.shop_id,sum(total) as total')
                 ->groupBy('orders.shop_id')
-                ->where('orders.shop_id','=',329)
+                ->where('orders.shop_id','=',$shop_id)
                 ->whereMonth('orders.created_at', '=', Carbon::now()->month)
                 ->get();
             $h = now()->timezone('Asia/Ho_Chi_Minh')->format('H:i:s');
@@ -259,7 +261,7 @@ class ShopController extends Controller
             $add->save();
         }
         
-        $shop_id = $request->shop_id;
+        
 
         $order = DB::table('orders')
                 ->join('users','users.user_id','=','orders.user_id')
