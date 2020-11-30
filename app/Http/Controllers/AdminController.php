@@ -412,7 +412,6 @@ class AdminController extends Controller
         $total = DB::table('orders')
                 ->join('shops','orders.shop_id','=','shops.shop_id')
                 ->selectRaw('orders.shop_id,shops.shop_name,sum(total) as total')
-                ->where('orders.status','=','Đã giao')
                 ->groupBy('orders.shop_id')
                 ->paginate(5);
         $money = DB::table('orders')
