@@ -256,4 +256,20 @@ class ShipperController extends Controller
         }
     }
 
+
+    public function unblock(Request $request){
+        $shipper_id = $request->shipper_id;
+        $user_id = $request->user_id;
+
+        $ship = Shipper::where('shipper_id',$shipper_id)->update(['status' => 1]);
+        $mem = User::where('user_id',$user_id)->update(['status' => 1]);
+
+        if ($mem) {
+            return response()->json(['success' => 'Chặn shipper thành công!']);  
+        }
+        else{
+            return response()->json(['error' => 'Chặn shipper thất bại']);
+        } 
+    }
+
 }

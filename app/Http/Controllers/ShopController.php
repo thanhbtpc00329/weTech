@@ -126,9 +126,14 @@ class ShopController extends Controller
     public function activeShop(Request $request){
         $shop_id = $request->shop_id;
         $user_id = $request->user_id;
+
         $shop = Shop::where('shop_id',$shop_id)->update(['status' => 1]);
         $mem = User::where('user_id',$user_id)->update(['role' => 'Member']);
-        if ($mem) {
+        $pro = DB::table('products')
+                ->join('product_detail','product_detail.product_id','=','products.product_id')
+                ->where('products.shop_id','=',$shop_id)
+                ->update(['product_detail.status_confirm'=>1]);
+        if ($pro) {
             return response()->json(['success' => 'Kích hoạt thành viên thành công!']);  
         }
         else{
@@ -142,7 +147,11 @@ class ShopController extends Controller
         $user_id = $request->user_id;
         $shop = Shop::where('shop_id',$shop_id)->update(['status' => 2]);
         $mem = User::where('user_id',$user_id)->update(['status' => 0]);
-        if ($mem) {
+        $pro = DB::table('products')
+                ->join('product_detail','product_detail.product_id','=','products.product_id')
+                ->where('products.shop_id','=',$shop_id)
+                ->update(['product_detail.status_confirm'=>0]);
+        if ($pro) {
             return response()->json(['success' => 'Chặn thành viên thành công!']);  
         }
         else{
