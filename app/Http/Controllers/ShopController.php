@@ -150,7 +150,7 @@ class ShopController extends Controller
         $pro = DB::table('products')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->where('products.shop_id','=',$shop_id)
-                ->update(['product_detail.status_confirm'=>0]);
+                ->update(['product_detail.status_confirm'=>2]);
         if ($pro) {
             return response()->json(['success' => 'Chặn thành viên thành công!']);  
         }

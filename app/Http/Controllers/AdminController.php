@@ -304,8 +304,7 @@ class AdminController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('users','users.user_id','=','shops.user_id')
             ->groupBy('product_image.prodetail_id')
-            ->orderBy('products.created_at','desc')
-            ->orderBy('products.updated_at','desc')
+            ->orderBy('products.updated_at','asc')
             ->where('product_detail.status_confirm','=',0)
             ->select('shops.shop_name','products.product_name','product_detail.price','products.product_id','product_detail.prodetail_id','products.status','product_image.image')
             ->paginate(10);
@@ -321,8 +320,7 @@ class AdminController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->join('users','users.user_id','=','shops.user_id')
             ->groupBy('product_image.prodetail_id')
-            ->orderBy('products.created_at','asc')
-            ->orderBy('products.updated_at','asc')
+            ->orderBy('products.updated_at','desc')
             ->where('product_detail.status_confirm','=',1)
             ->select('shops.shop_name','products.product_name','product_detail.price','products.product_id','product_detail.prodetail_id','products.status','product_image.image')
             ->paginate(10);
@@ -332,10 +330,12 @@ class AdminController extends Controller
 
     public function blockProductAdmin(Request $request){
         $prodetail_id = $request->prodetail_id;
+        $product_id = $request->product_id;
 
         $product = Product_detail::where('prodetail_id',$prodetail_id)->update(['status_confirm'=>0]);
+        $pro = Product::where('product_id',$product_id)->update(['updated_at'=>now()->timezone('Asia/Ho_Chi_Minh')]);
             
-        if ($product) {
+        if ($pro) {
             return response()->json(['success' => 'Thành công!']);  
         }
         else{
@@ -346,9 +346,10 @@ class AdminController extends Controller
 
     public function confirmProductAdmin(Request $request){
         $prodetail_id = $request->prodetail_id;
+        $product_id = $request->product_id;
 
         $product = Product_detail::where('prodetail_id',$prodetail_id)->update(['status_confirm'=>1]);
-            
+        $pro = Product::where('product_id',$product_id)->update(['updated_at'=>now()->timezone('Asia/Ho_Chi_Minh')]);
         if ($product) {
             return response()->json(['success' => 'Thành công!']);  
         }
