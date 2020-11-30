@@ -779,7 +779,7 @@ class ProductController extends Controller
 
         $check = Product::where('product_id',$product_id)->update(['status'=>$status]);
 
-        if ($pro) {
+        if ($check) {
             return response()->json(['success' => 'Thành công!']);  
         }
         else{
