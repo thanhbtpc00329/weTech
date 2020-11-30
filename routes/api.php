@@ -312,6 +312,7 @@ Route::post('/add-tb-shipper', 'ShipperController@addNotificationShipper');// Ad
 Route::post('/delete-tb-shipper', 'ShipperController@deleteNotificationShipper');// Xóa tb shipper
 Route::post('/tb-shipper', 'ShipperController@notificationShipper');// Lấy tb shipper
 Route::post('block-shipper', 'ShipperController@blockShipper');// Chặn shipper
+Route::post('unblock', 'ShipperController@unblock');// Bỏ chặn shipper
 
 
 
