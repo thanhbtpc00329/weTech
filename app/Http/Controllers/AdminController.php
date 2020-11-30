@@ -411,8 +411,8 @@ class AdminController extends Controller
     public function statistic(){
         $total = DB::table('orders')
                 ->join('shops','orders.shop_id','=','shops.shop_id')
-                ->where('orders.status','=','Đã giao')
                 ->selectRaw('orders.shop_id,shops.shop_name,sum(total) as total')
+                ->where('orders.status','=','Đã giao')
                 ->groupBy('orders.shop_id')
                 ->paginate(5);
         $money = DB::table('orders')
