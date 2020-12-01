@@ -265,10 +265,10 @@ class ShipperController extends Controller
         $mem = User::where('user_id',$user_id)->update(['status' => 1]);
 
         if ($mem) {
-            return response()->json(['success' => 'Chặn shipper thành công!']);  
+            return response()->json(['success' => 'Thành công!']);  
         }
         else{
-            return response()->json(['error' => 'Chặn shipper thất bại']);
+            return response()->json(['error' => 'Thất bại']);
         } 
     }
 

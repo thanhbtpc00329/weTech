@@ -60,9 +60,9 @@ class UserController extends Controller
     public function login(Request $request){
         $name = $request->username;
         $pass = $request->password;
-        $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
+        $user = User::where('status',1)->where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
         if(count($user) <= 0){
-            return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);  
+            return response()->json(['error' => 'Đăng nhập thất bại.']);  
         }else if($user[0]->role == 'Shipper'){
             $ship = DB::table('users')
                 ->join('shippers','users.user_id','=','shippers.user_id')
@@ -85,7 +85,7 @@ class UserController extends Controller
         $avatar = $request->avatar;
         $id = $request->user_id;
 
-        $check = User::where('email',$email)->where('social','Google')->orWhere('social','Facebook')->first();
+        $check = User::where('status',1)->where('email',$email)->where('social','Google')->orWhere('social','Facebook')->first();
         if($check){
         	$user = User::where('user_id',$check->user_id)->first();
         	return response()->json($user);
@@ -110,7 +110,7 @@ class UserController extends Controller
     public function loginMember(Request $request){
         $name = $request->username;
         $pass = $request->password;
-        $user = User::where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
+        $user = User::where('status',1)->where('password',$pass)->where('username',$name)->orWhere('email',$name)->where('password',$pass)->get();
         if(count($user) <= 0){
             return response()->json(['error' => 'Sai tên đăng nhập hoặc mật khẩu']);  
         }else{
@@ -284,7 +284,7 @@ class UserController extends Controller
                 $message->sender('thanhbtpc00329@fpt.edu.vn', 'weTech');
                 $message->to($request->email,$name);
                 $message->subject('Mail quên mật khẩu của '.$name);
-                $message->setBody('Password reset: <b/>'.$password.'<b/>','text/html');
+                $message->setBody('Password reset: <b>'.$password.'<b/>','text/html');
                 $message->priority(1);
             });
             $check->password = $password;
