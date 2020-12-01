@@ -725,7 +725,8 @@ class ShopController extends Controller
                 ->join('comment_detail','comments.id','=','comment_detail.cmt_id')
                 ->where('comment_detail.shop_id','=',$shop_id)
                 ->count();
-        return response()->json(['total'=>$total,'product'=>$pro,'sale'=>$sale,'comment'=>$cmt]);
+        $tong = Order::where('shop_id',$shop_id)->where('status','=','Đã giao') ->whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->sum('total');
+        return response()->json(['total'=>$total,'product'=>$pro,'sale'=>$sale,'comment'=>$cmt,'tong'=>$tong]);
     }
 
 
