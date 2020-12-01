@@ -42,6 +42,7 @@ class ShopController extends Controller
         $shop = DB::table('shops')
                 ->join('users','users.user_id','=','shops.user_id')
                 ->where('shops.status','=',1)
+                
                 ->paginate(10);
         return response()->json($shop);
     }  
@@ -148,7 +149,7 @@ class ShopController extends Controller
         $shop_id = $request->shop_id;
         $user_id = $request->user_id;
         $shop = Shop::where('shop_id',$shop_id)->update(['status' => 2]);
-        $mem = User::where('user_id',$user_id)->update(['status' => 0]);
+        $mem = User::where('user_id',$user_id)->update(['status' => 2]);
         $pro = DB::table('products')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->where('products.shop_id','=',$shop_id)
