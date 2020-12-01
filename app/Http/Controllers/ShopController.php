@@ -250,6 +250,7 @@ class ShopController extends Controller
                 ->selectRaw('orders.shop_id,sum(total) as total')
                 ->groupBy('orders.shop_id')
                 ->where('orders.shop_id','=',$shop_id)
+                ->where('orders.status','=','Đã giao')
                 ->whereMonth('orders.created_at', '=', Carbon::now()->month)
                 ->get();
             $h = now()->timezone('Asia/Ho_Chi_Minh')->format('H:i:s');
