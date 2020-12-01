@@ -131,7 +131,7 @@ class ShopController extends Controller
         $user_id = $request->user_id;
 
         $shop = Shop::where('shop_id',$shop_id)->update(['status' => 1]);
-        $mem = User::where('user_id',$user_id)->update(['role' => 'Member']);
+        $mem = User::where('user_id',$user_id)->update(['role' => 'Member','status'=>1]);
         $pro = DB::table('products')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->where('products.shop_id','=',$shop_id)
