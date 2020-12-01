@@ -50,6 +50,7 @@ class ShopController extends Controller
         $shop = DB::table('shops')
                 ->join('users','users.user_id','=','shops.user_id')
                 ->where('shops.status','=',0)
+                ->where('users.status','=',1)
                 ->paginate(10);
         return response()->json($shop);
     }    
@@ -58,6 +59,7 @@ class ShopController extends Controller
         $shop = DB::table('shops')
                 ->join('users','users.user_id','=','shops.user_id')
                 ->where('shops.status','=',2)
+                ->where('users.status','=',0)
                 ->paginate(10);
         return response()->json($shop);
     } 
