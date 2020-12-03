@@ -94,8 +94,6 @@ class OrderController extends Controller
             $group[$value->shop_id][] = $value;       
         }
         $time = now()->timezone('Asia/Ho_Chi_Minh');
-
-        $cart = Cart::where('user_id',$user_id)->delete();
         
         for ($i=0; $i < count($group); $i++) { 
             $order_detail = $group[$kq[$i]];
@@ -136,6 +134,7 @@ class OrderController extends Controller
             
         }
         if($order){
+            $cart = Cart::where('user_id',$user_id)->delete();
             return response()->json(['success' => 'Thanh toán thành công!']);
         }
         else{
