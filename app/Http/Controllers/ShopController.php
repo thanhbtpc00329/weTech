@@ -634,6 +634,7 @@ class ShopController extends Controller
                 ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
                 ->join('shops','shops.shop_id','=','products.shop_id')
                 ->join('users','users.user_id','=','comments.user_id')
+                ->join('comment_detail','comment_detail.cmt_id','=','comments.id')
                 ->groupby('product_detail.product_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('comments.status','=',1)

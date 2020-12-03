@@ -59,7 +59,7 @@ class CommentController extends Controller
                 ->join('shops','shops.shop_id','=','comment_detail.shop_id')
                 ->where('comment_detail.cmt_id','=',$id)
                 ->where('comment_detail.status','=',1)
-                ->get();
+                ->first();
         return response()->json($cmt);
     }
 
