@@ -60,6 +60,7 @@ class ProductController extends Controller
             ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
             ->orderByRaw('RAND()')
+            ->take(6)
             ->get();
         return response()->json($product);
     }
