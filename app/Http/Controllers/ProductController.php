@@ -156,6 +156,7 @@ class ProductController extends Controller
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.product_name','like','%'.$keywords.'%')
             ->orWhere('products.tag','like','%'.$keywords.'%')
+            ->orWhere('products.brand','like','%'.$keywords.'%')
             ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
             ->get();
