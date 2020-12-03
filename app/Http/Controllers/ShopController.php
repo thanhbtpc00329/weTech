@@ -632,13 +632,11 @@ class ShopController extends Controller
                 ->join('products','products.product_id','=','comments.product_id')
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
-                ->join('shops','shops.shop_id','=','products.shop_id')
                 ->join('users','users.user_id','=','comments.user_id')
-                ->join('comment_detail','comment_detail.cmt_id','=','comments.id')
-                ->groupby('product_detail.product_id')
+                ->groupby('comments.id')
                 ->where('products.shop_id','=',$shop_id)
                 ->where('comments.status','=',1)
-                ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','shops.shop_id','users.avatar')
+                ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','products.shop_id','users.avatar')
                 ->paginate(5);
 
         return response()->json($cmt);
