@@ -86,24 +86,24 @@ class CartController extends Controller
         $cart_id = $request->cart_id;
 
         $cart = Cart_detail::where('cart_detail_id',$id)->first();
-        $prod = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
-        if($prod->quantity >= $cart_quantity){
+        // $prod = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
+        // if($prod->quantity >= $cart_quantity){
             if($cart){
                 if($cart_quantity == 0){
                     $cart->delete();
                 }else{
                     $cart->cart_quantity = $cart_quantity;
                     $cart->save();
-                    $pro = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
-                    $pro->quantity = ($pro->quantity - $cart_quantity);
-                    $pro->save();
+                    // $pro = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
+                    // $pro->quantity = ($pro->quantity - $cart_quantity);
+                    // $pro->save();
                 }
             }else{
                 $cart = Cart::where('cart_id',$cart_id)->delete();
-                $pro = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
-                $pro->quantity = ($pro->quantity + $cart_quantity);
-                $pro->save();
-            }
+            //     $pro = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
+            //     $pro->quantity = ($pro->quantity + $cart_quantity);
+            //     $pro->save();
+            // }
         }
 
         if ($cart) {
