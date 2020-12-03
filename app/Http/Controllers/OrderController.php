@@ -96,52 +96,53 @@ class OrderController extends Controller
         }
         $time = now()->timezone('Asia/Ho_Chi_Minh');
         
-        // for ($i=0; $i < count($group); $i++) { 
-        //     $order_detail = $group[$kq[$i]];
+        for ($i=0; $i < count($group); $i++) { 
+            $order_detail = $group[$kq[$i]];
             
-        //     $soluong = Product_detail::where('prodetail_id',$group[$kq[$i]]->prodetail_id)->first();
-        //     $soluong->quantity = $soluong->quantity - $group[$kq[$i]]->cart_quantity;
-        //     $soluong->save();
+            for ($j=0; $j < count($group[$kq[$i]]); $j++) { 
+                $soluong = Product_detail::where('prodetail_id',$group[$kq[$i]][$j]->prodetail_id)->first();
+                $soluong->quantity = $soluong->quantity - $group[$kq[$i]][$j]->cart_quantity;
+                $soluong->save();
+            }
 
-        //     $order = new Order;
-        //     $order->user_id = $user_id;
-        //     $order->order_address = $order_address;
-        //     if($weight){
-        //         $order->shipping = ($ship_price / count($group)); 
-        //     }else{
-        //         $order->shipping = 0;
-        //     }
+            $order = new Order;
+            $order->user_id = $user_id;
+            $order->order_address = $order_address;
+            if($weight){
+                $order->shipping = ($ship_price / count($group)); 
+            }else{
+                $order->shipping = 0;
+            }
         
-        //     if($user_range){
-        //         $order->user_range = $user_range;
-        //     }
-        //     $order->total = $total;
-        //     $order->shop_id = $kq[$i];
-        //     $order->status = 'Chờ duyệt';
-        //     $order->order_detail = json_encode($order_detail);
-        //     if (isset($note) && ($payment == 'Momo' || $payment == 'VNPay')) {
-        //         $order->note = 'Yêu cầu: ' .$note.' - Đơn hàng đã được thanh toán bằng '.$payment;
-        //     }else{
-        //         $order->note = $note;
-        //     }
+            if($user_range){
+                $order->user_range = $user_range;
+            }
+            $order->total = $total;
+            $order->shop_id = $kq[$i];
+            $order->status = 'Chờ duyệt';
+            $order->order_detail = json_encode($order_detail);
+            if (isset($note) && ($payment == 'Momo' || $payment == 'VNPay')) {
+                $order->note = 'Yêu cầu: ' .$note.' - Đơn hàng đã được thanh toán bằng '.$payment;
+            }else{
+                $order->note = $note;
+            }
 
-        //     if($phone){
-        //         $check = User::where('user_id',$user_id)->update(['phone_number'=>$phone]);
-        //     }
+            if($phone){
+                $check = User::where('user_id',$user_id)->update(['phone_number'=>$phone]);
+            }
 
-        //     $order->created_at = $time;
+            $order->created_at = $time;
 
-        //     $order->save();
+            $order->save();
             
-        // }
-        // if($order){
-        //     $cart = Cart::where('user_id',$user_id)->delete();
-        //     return response()->json(['success' => 'Thanh toán thành công!']);
-        // }
-        // else{
-        //     return response()->json(['error' => 'Thanh toán bị lỗi']);
-        // }
-        return $group[$kq[0]][0];
+        }
+        if($order){
+            $cart = Cart::where('user_id',$user_id)->delete();
+            return response()->json(['success' => 'Thanh toán thành công!']);
+        }
+        else{
+            return response()->json(['error' => 'Thanh toán bị lỗi']);
+        }
     }
 
     public function unactiveOrder(Request $request){
