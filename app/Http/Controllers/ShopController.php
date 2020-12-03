@@ -635,7 +635,7 @@ class ShopController extends Controller
                 ->join('shops','shops.shop_id','=','products.shop_id')
                 ->join('users','users.user_id','=','comments.user_id')
                 ->groupby('product_detail.product_id')
-                ->where('comments.shop_id','=',$shop_id)
+                ->where('products.shop_id','=',$shop_id)
                 ->where('comments.status','=',1)
                 ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','shops.shop_id','users.avatar')
                 ->paginate(5);
