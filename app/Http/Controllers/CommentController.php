@@ -57,6 +57,7 @@ class CommentController extends Controller
 
         $cmt = DB::table('comment_detail')
                 ->join('shops','shops.shop_id','=','comment_detail.shop_id')
+                ->join('users','shops.user_id','=','users.user_id')
                 ->where('comment_detail.cmt_id','=',$id)
                 ->where('comment_detail.status','=',1)
                 ->first();

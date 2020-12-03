@@ -100,6 +100,9 @@ class OrderController extends Controller
         for ($i=0; $i < count($group); $i++) { 
             $order_detail = $group[$kq[$i]];
             
+            $soluong = Product_detail::where('prodetail_id',$group[$kq[$i]]->prodetail_id)->first();
+            $soluong->quantity = $soluong->quantity - $group[$kq[$i]]->cart_quantity;
+            $soluong->save();
 
             $order = new Order;
             $order->user_id = $user_id;
