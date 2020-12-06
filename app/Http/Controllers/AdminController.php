@@ -455,6 +455,7 @@ class AdminController extends Controller
         $total = DB::table('orders')
                 ->join('shops','orders.shop_id','=','shops.shop_id')
                 ->where('orders.status','=','Đã giao')
+                ->orWhere('orders.status','=','Hoàn thành')
                 ->selectRaw('orders.shop_id,shops.shop_name,sum(total) as total')
                 ->groupBy('orders.shop_id')
                 ->paginate(5);
