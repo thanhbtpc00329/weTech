@@ -38,7 +38,7 @@ class ContactController extends Controller
         $mail->content = $content;
         $mail->status = 0;
         $mail->created_at = now()->timezone('Asia/Ho_Chi_Minh');
-        $mail->save();
+        $mail->save(); 
 
         Mail::send('mail', ['email'=>$request], function ($message) use ($request) {
             $message->from('thanhbtpc00329@fpt.edu.vn', 'weTech');

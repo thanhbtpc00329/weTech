@@ -14,6 +14,8 @@ use DB;
 use Carbon\Carbon;
 use App\Statistic;
 use App\Bill;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 
 
 class ShopController extends Controller
@@ -116,6 +118,14 @@ class ShopController extends Controller
             $shop->created_at = now()->timezone('Asia/Ho_Chi_Minh');
 
             $shop->save();
+
+            Mail::send('shop', ['email'=>$request], function ($message) use ($request,$img) {
+            $message->from('thanhbtpc00329@fpt.edu.vn', 'weTech');
+            $message->sender('thanhbtpc00329@fpt.edu.vn', 'weTech');
+            $message->to($img->email,$request->shop_name);
+            $message->subject('Mail xác nhận của weTech');
+            $message->priority(1);
+            });
         }
         
         if (isset($shop)) {
