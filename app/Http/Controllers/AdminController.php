@@ -470,7 +470,7 @@ class AdminController extends Controller
         $salary_ship = DB::table('shippers')
                 ->join('users','users.user_id','=','shippers.user_id')
                 ->where('users.status','=',1)
-                ->where('shippers','=',1)
+                ->where('shippers.status','=',1)
                 ->whereMonth('shippers.created_at', '=', Carbon::now()->subMonth()->month)
                 ->orderBy('salary','DESC')->take(5)->get();
         $shop = Shop::where('status',1)->count();
