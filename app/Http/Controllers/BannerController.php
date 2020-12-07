@@ -17,7 +17,7 @@ class BannerController extends Controller
     }
 
     public function banner(){
-        $banner = Banner::where('status',1)->where('type',1)->orderBy('updated_at','DESC')->get();
+        $banner = Banner::where('status',1)->get();
         return response()->json($banner);
     }
 
