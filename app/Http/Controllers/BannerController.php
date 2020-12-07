@@ -11,14 +11,15 @@ class BannerController extends Controller
 {
     // Banner
     public function showBanner(){
-        $banner = Banner::where('type',2)->paginate(10);
-        $slide = Banner::where('type',1)->paginate(10);
+        $banner = Banner::where('type',2)->orderBy('updated_at','DESC')->paginate(10);
+        $slide = Banner::where('type',1)->orderBy('updated_at','DESC')->paginate(10);
         return response()->json(['banner'=>$banner,'slide'=>$slide]);
     }
 
     public function banner(){
-        $banner = Banner::where('status',1)->get();
-        return response()->json($banner);
+        $banner = Banner::where('status',1)->where('type',2)->orderBy('updated_at','DESC')->get();
+        $slide = Banner::where('status',1)->where('type',1)->orderBy('updated_at','DESC')->get();
+        return response()->json(['banner'=>$banner,'slide'=>$slide]);
     }
 
 	public function addBanner(Request $request){
