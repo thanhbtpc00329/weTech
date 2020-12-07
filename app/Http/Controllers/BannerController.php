@@ -37,7 +37,7 @@ class BannerController extends Controller
         $banner = new Banner;
         $banner->image = Cloudder::show('banners/'. $cut, ['width'=>$width,'height'=>$height]);
         $banner->status = 0;
-        $banner->type = 1;
+        $banner->type = 2;
         $banner->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $banner->save();
         if ($banner) {
@@ -65,7 +65,7 @@ class BannerController extends Controller
         $slide = new Banner;
         $slide->image = Cloudder::show('slideshows/'. $cut, ['width'=>$width,'height'=>$height]);
         $slide->status = 0;
-        $slide->type = 2;
+        $slide->type = 1;
         $slide->created_at = now()->timezone('Asia/Ho_Chi_Minh');
         $slide->save();
         if ($slide) {
