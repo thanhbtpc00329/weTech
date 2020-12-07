@@ -22,7 +22,7 @@ class BannerController extends Controller
     }
 
     public function slideshow(){
-        $banner = Banner::where('status',1)->where('type',2)->orderBy('updated_at','DESC')->get();
+        $banner = Banner::where('status',1)->where('type',2)->orderBy('updated_at','DESC')->take(2)->get();
         $slide = Banner::where('status',1)->where('type',1)->orderBy('updated_at','DESC')->get();
         return response()->json(['banner'=>$banner,'slide'=>$slide]);
     }
