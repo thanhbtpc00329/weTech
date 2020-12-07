@@ -124,6 +124,7 @@ Route::post('/delete-cate', 'CategoryController@deleteCate');// Xóa cate
 Route::post('show-banner', 'BannerController@banner');// Lấy banner lên trang chủ
 Route::post('/banner','BannerController@showBanner');// Show all banner
 Route::post('/add-banner', 'BannerController@addBanner'); // Thêm banner
+Route::post('/add-slide', 'BannerController@addSlide');//Thêm slide
 Route::post('/active-banner', 'BannerController@activeBanner');//Active banner
 Route::post('/unactive-banner', 'BannerController@unactiveBanner');//Unactive banner
 Route::post('/delete-banner', 'BannerController@deleteBanner');// Xóa banner
