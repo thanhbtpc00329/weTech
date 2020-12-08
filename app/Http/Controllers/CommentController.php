@@ -17,7 +17,7 @@ class CommentController extends Controller
         $keywords = $request->product_id;
 
         $cmt = Order::where('user_id',$user_id)->where('order_detail','like','%'.$keywords.'%')->where('status','=','Đã giao')->get();
-        $cmt2 = Comment::where('user_id',$user_id)->get();
+        $cmt2 = Comment::where('user_id',$user_id)->where('product_id',$keywords)->get();
         if ((count($cmt) >= 1) && (count($cmt2) == 0) ) {
             return response()->json(['success' => 'Thành công!']);  
         }
