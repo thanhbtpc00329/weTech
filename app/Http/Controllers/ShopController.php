@@ -241,7 +241,7 @@ class ShopController extends Controller
                 ->join('users','users.user_id','=','orders.user_id')
                 ->where('orders.shop_id','=',$shop_id)
                 ->orderBy('orders.created_at','DESC')
-                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
+                ->select('orders.id','orders.user_id','orders.order_address','orders.shipping','orders.total','orders.shop_id','orders.shipper_deliver','orders.shipper_receive','orders.status','orders.note','orders.order_detail','orders.created_at','users.name','users.avatar','users.phone_number')
                 ->paginate(5);
         return response()->json($order);
     }
