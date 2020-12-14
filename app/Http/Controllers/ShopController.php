@@ -146,7 +146,7 @@ class ShopController extends Controller
                 ->join('product_detail','product_detail.product_id','=','products.product_id')
                 ->where('products.shop_id','=',$shop_id)
                 ->update(['product_detail.status_confirm'=>1]);
-        if ($pro) {
+        if ($shop) {
             return response()->json(['success' => 'Kích hoạt thành viên thành công!']);  
         }
         else{
