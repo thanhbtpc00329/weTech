@@ -114,8 +114,10 @@ class OrderController extends Controller
                 $order->shipping = 0;
             }
         
-            if($user_range){
-                $order->user_range = $user_range;
+            if(isset($user_range) && ($payment == 'Momo' || $payment == 'VNPay')){
+                $order->user_range = 'Đơn hàng đã được thanh toán bằng '.$payment;
+            }else{
+                $order->user_range = 'Chưa thanh toán';
             }
             $order->total = $total;
             $order->shop_id = $kq[$i];
