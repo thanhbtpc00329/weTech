@@ -665,7 +665,7 @@ class ShopController extends Controller
                 ->where('comments.status','=',1)
                 ->where('comments.is_reply','=',0)
                 ->groupBy('comments.id')
-                ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','comment_detail.shop_id','users.avatar')
+                ->select('comments.id','comments.product_id','comments.content','comments.rating','comments.is_reply','products.product_name','product_image.image','users.name','users.phone_number','comments.created_at','products.shop_id','users.avatar')
                 ->paginate(5);
 
         return response()->json($cmt);
