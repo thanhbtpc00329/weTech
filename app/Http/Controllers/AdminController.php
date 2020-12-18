@@ -366,6 +366,7 @@ class AdminController extends Controller
             ->groupBy('product_image.prodetail_id')
             ->orderBy('products.updated_at','desc')
             ->where('product_detail.status_confirm','=',1)
+            ->select('products.product_id','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','products.status','product_detail.status_discount','product_detail.status_confirm','product_detail.discount_price','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','products.product_name','products.brand','products.introduction','products.shop_id','categories.cate_name','categories.category','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.volume','product_detail.resolution','product_detail.memory','products.description','shops.shop_name')
             ->paginate(10);
             
             return response()->json($product);
