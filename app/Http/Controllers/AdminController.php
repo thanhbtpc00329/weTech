@@ -410,12 +410,14 @@ class AdminController extends Controller
         $keywords = $request->keywords;
 
         $product = DB::table('products')
+            ->join('categories','categories.cate_id','=','products.cate_id')
             ->join('product_detail','product_detail.product_id','=','products.product_id')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.product_name','like','%'.$keywords.'%')
             ->where('product_detail.status_confirm','=',0)
             ->groupBy('product_detail.product_id')
+            ->select('products.product_id','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','products.status','product_detail.status_discount','product_detail.status_confirm','product_detail.discount_price','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','products.product_name','products.brand','products.introduction','products.shop_id','categories.cate_name','categories.category','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.volume','product_detail.resolution','product_detail.memory','products.description','shops.shop_name','product_image.image')
             ->paginate(10);
         return response()->json($product);
     }
@@ -426,12 +428,14 @@ class AdminController extends Controller
         $keywords = $request->keywords;
 
         $product = DB::table('products')
+            ->join('categories','categories.cate_id','=','products.cate_id')
             ->join('product_detail','product_detail.product_id','=','products.product_id')
             ->join('product_image','product_image.prodetail_id','=','product_detail.prodetail_id')
             ->join('shops','shops.shop_id','=','products.shop_id')
             ->where('products.product_name','like','%'.$keywords.'%')
             ->where('product_detail.status_confirm','=',1)
             ->groupBy('product_detail.product_id')
+            ->select('products.product_id','product_detail.prodetail_id','product_detail.price','product_detail.color','product_detail.quantity','product_detail.size','products.status','product_detail.status_discount','product_detail.status_confirm','product_detail.discount_price','product_detail.origin','product_detail.accessory','product_detail.dimension','product_detail.weight','products.product_name','products.brand','products.introduction','products.shop_id','categories.cate_name','categories.category','product_detail.material','product_detail.screen_size','product_detail.wattage','product_detail.volume','product_detail.resolution','product_detail.memory','products.description','shops.shop_name','product_image.image')
             ->paginate(10);
         return response()->json($product);
     }
