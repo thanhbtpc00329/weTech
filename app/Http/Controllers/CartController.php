@@ -86,14 +86,18 @@ class CartController extends Controller
         $cart_id = $request->cart_id;
 
         $cart = Cart_detail::where('cart_detail_id',$id)->first();
-        // $prod = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
+        $prod = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
         // if($prod->quantity >= $cart_quantity){
             if($cart){
                 if($cart_quantity == 0){
                     $cart->delete();
                 }else{
-                    $cart->cart_quantity = $cart_quantity;
-                    $cart->save();
+                	if($prod->quantity >= $cart_quantity){
+                    	$cart->cart_quantity = $cart_quantity;
+                    	$cart->save();
+                    }else{
+                    	return response()->json(['error' => 'Lỗi số lượng sản phẩm']);
+                    }
                     // $pro = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
                     // $pro->quantity = ($pro->quantity - $cart_quantity);
                     // $pro->save();
