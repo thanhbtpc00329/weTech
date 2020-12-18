@@ -96,7 +96,7 @@ class CartController extends Controller
                     	$cart->cart_quantity = $cart_quantity;
                     	$cart->save();
                     }else{
-                    	return response()->json(['error' => 'Số lượng sản phẩm chỉ còn'.$prod->quantity.'\nVui lòng chọng lại!']);
+                    	return response()->json(['error' => 'Số lượng chỉ còn'.$prod->quantity.'sản phẩm. Vui lòng chọn lại!']);
                     }
                     // $pro = Product_detail::where('prodetail_id',$cart->prodetail_id)->first();
                     // $pro->quantity = ($pro->quantity - $cart_quantity);
