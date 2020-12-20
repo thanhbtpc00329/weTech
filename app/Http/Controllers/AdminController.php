@@ -469,7 +469,7 @@ class AdminController extends Controller
                 ->join('shops','orders.shop_id','=','shops.shop_id')
                 ->join('statistic','shops.shop_id','=','statistic.shop_id')
                 ->selectRaw('orders.shop_id,shops.shop_name,statistic.sta_total,statistic.month,statistic.year,sum(orders.shipping) as shipping')
-                ->whereMonth('orders.created_at', '=', Carbon::now()->subMonth()->month)
+                ->whereMonth('orders.created_at', '=', Carbon::now()->month)
                 ->groupBy('orders.shop_id')
                 ->get();
         $user = User::where('role','=','User')->where('status','=',1)->count();
